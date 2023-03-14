@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-8 mx-auto text-center">
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <a href="/type/" class="btn btn-outline-dark ">Go to Types</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label>Name</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <input type="hidden" name="id" id="id" class="form-control">
+                    <input type="text" name="name" id="name" class="form-control text-center" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label>Parent Type</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <select type="text" name="typeId" id="typeId" class="form-select text-center"
+                            required>
+                        <option selected>Choose Type</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label>Picture</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <label>HERE should be file uploading</label>
+                    <!--          todo Здесь надо вытащить картинку из БД-->
+                    <!--          <input type="file" class="form-control" name="picture">-->
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto text-center">
+                    <button class="btn btn-success me-3" onclick="updateSubType()">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fs-5">Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteSubType()">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                fetch('http://localhost:8000/type/all')
+                    .then(response => response.json())
+                    .then(data => {
+                        const selectElement = document.getElementById("typeId");
+                        data.forEach(type => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = type.id;
+                            optionElement.text = type.name;
+                            selectElement.appendChild(optionElement);
+                        });
+                    })
+                    .catch(error => console.error(error));
+
+                const path = window.location.pathname;
+                const pathParts = path.split('/');
+                const id = pathParts[3];
+
+                fetch('http://localhost:8000/sub-type/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data != null) {
+                            const {id, name, type} = data;
+                            document.getElementById("id").value = id;
+                            document.getElementById("name").value = name;
+                            if(type != null){
+                                const typeDropDown = document.getElementById("typeId");
+                                for(let i = 0; i < typeDropDown.options.length; i++){
+                                    if(typeDropDown.options[i].value == type.id){
+                                        typeDropDown.selectedIndex = i;
+                                    }
+                                }
+                            }
+                        } else {
+                        }
+                    }).catch(error => {
+                    console.error(error);
+                });
+                function updateSubType() {
+                    const request = new XMLHttpRequest();
+                    request.open("PUT", '/sub-type', true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.response != null) {
+                                showAlert("Successfully updated! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send(
+                        JSON.stringify(
+                            {
+                                "id": document.getElementById("id").value,
+                                "name": document.getElementById("name").value,
+                                "type": {
+                                    "id": document.getElementById("typeId").value
+                                }
+                            }
+                        ))
+                }
+                function deleteSubType(typeId, subTypeId) {
+                    const request = new XMLHttpRequest();
+                    request.open("DELETE", '/sub-type/' + id, true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.status === 200) {
+                                showAlert("Successfully deleted! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send(
+                        JSON.stringify(
+                            {
+                                "typeId": typeId,
+                                "subTypeId": subTypeId
+                            }
+                        )
+                    )
+                }
+
+                function showAlert(message, isError) {
+                    let alertDiv = document.createElement("div");
+                    isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
+                    alertDiv.innerHTML = message;
+                    document.body.appendChild(alertDiv);
+
+                    setTimeout(function () {
+                        alertDiv.remove();
+                    }, 3000);
+                }
+            </script>
+        </div>
+    </div>
+<!--    <div class="row mt-3 text-center d-flex align-items-center">-->
+<!--        <div class="col-8 mx-auto ">-->
+<!--            <h1 class="mx-auto h1 text-center">Type NOT FOUND!</h1>-->
+<!--            <h2 class="mx-auto h2 text-center">It is deleted or hasn't added yet!</h2>-->
+<!--            <a href="/type/" class="btn btn-outline-dark ">Go to Brands</a>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+</html>

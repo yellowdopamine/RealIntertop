@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row mt-3 text-center">
+        <div class="col-8 mx-auto text-center">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Create New
+            </button>
+            <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Type</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <label>Name</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 mx-auto">
+                                    <input type="text" name="name" id="name" class="form-control"
+                                           placeholder="Type Name" autofocus required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                    onclick="createType()">Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-8 mx-auto text-center">
+            <h1 class="h1">TYPES</h1>
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">NAME</th>
+                    <th scope="col">Details</th>
+                </tr>
+                </thead>
+                <tbody id="type-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="height: 16rem"></div>
+    <script>
+        fetch('http://localhost:8000/type/all')
+            .then(response => response.json())
+            .then(data => {
+                const tableBodyElement = document.getElementById("type-table-body");
+                tableBodyElement.innerHTML = '';
+
+                data.forEach(collection => {
+                    const trElement = document.createElement('tr');
+                    const nameTdElement = document.createElement('td');
+                    const detailsTdElement = document.createElement('td');
+
+                    nameTdElement.innerText = collection.name;
+                    detailsTdElement.innerHTML =
+                        `<a href="/type/details/${collection.id}" class="btn-success btn btn-sm">Details</a>`;
+
+                    trElement.appendChild(nameTdElement);
+                    trElement.appendChild(detailsTdElement);
+                    tableBodyElement.appendChild(trElement);
+                });
+            })
+            .catch(error => console.error(error));
+
+        function createType() {
+            const request = new XMLHttpRequest();
+            request.open("POST", '/type', true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.onreadystatechange = () => {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.response != null) {
+                        showAlert("Successfully created! Refresh the page!", false);
+                        document.getElementById("name").value = '';
+                    } else {
+                        showAlert("Error! Type is already created or you don't have access!", true);
+                    }
+                }
+            }
+            request.send(
+                JSON.stringify(
+                    {
+                        "name": document.getElementById("name").value
+                    }
+                ))
+        }
+
+        function showAlert(message, isError) {
+            var alertDiv = document.createElement("div");
+            isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function () {
+                alertDiv.remove();
+            }, 3000);
+        }
+    </script>
+</div>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row" id="ifNotNull" style="display: block;">
+        <div class="col-8 mx-auto text-center">
+            <div class="row mt-3">
+                <div class="col-8 mx-auto d-block">
+                    <a href="/collection/" class="btn btn-outline-dark me-2">Go to Collections</a>
+                    <a id="linkToParentBrand" class="btn btn-outline-dark ">Go to Parent Brand</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label class="text-black-50">Brand</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <select type="text" name="brandId" id="brandId" class="form-control text-center"
+                            required>
+                        <option selected>Choose Brand</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label class="text-black-50">Year</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <select type="text" name="year" id="year" class="form-control text-center" placeholder="Select Year"
+                            required>
+                        <option value="2023" selected="selected">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label class="text-black-50">Season</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <select type="text" name="seasonId" id="seasonId" class="form-control text-center"
+                            placeholder="Select Season">
+                        <option selected>Choose Season</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label class="text-black-50">Manufacturer</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <select type="text" name="manufacturerId" id="manufacturerId" class="form-control text-center"
+                            placeholder="Select Season">
+                        <option selected>Choose Manufacturer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label class="text-black-50">Name</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <input type="text" name="name" id="name" class="form-control text-center"
+                           required>
+                    <input type="hidden" name="id" id="id" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <button class="btn btn-success me-3" onclick="updateCollection()">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fs-5">Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    onclick="deleteCollection()">Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    <div class="row mt-3 text-center d-flex align-items-center" id="ifNull" style="display: none;">-->
+    <!--        <div class="col-8 mx-auto ">-->
+    <!--            <h1 class="mx-auto h1 text-center">COLLECTION NOT FOUND!</h1>-->
+    <!--            <h2 class="mx-auto h2 text-center">It is deleted or hasn't added yet!</h2>-->
+    <!--            <a href="/collection/" class="btn btn-outline-dark ">Go to Collections</a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <script>
+        Promise.all([
+            fetch('http://localhost:8000/season/all')
+                .then(response => response.json())
+                .then(data => {
+                    const selectElement = document.getElementById("seasonId");
+                    data.forEach(season => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = season.id;
+                        optionElement.text = season.name;
+                        selectElement.appendChild(optionElement);
+                    });
+                    selectElement.selectedIndex = 0;
+                })
+                .catch(error => console.error(error)),
+            fetch('http://localhost:8000/brand/all')
+                .then(response => response.json())
+                .then(data => {
+                    const selectElement = document.getElementById("brandId");
+                    data.forEach(brand => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = brand.id;
+                        optionElement.text = brand.name;
+                        selectElement.appendChild(optionElement);
+                    });
+                    selectElement.selectedIndex = 0;
+                }).catch(error => console.error(error)),
+            fetch('http://localhost:8000/manufacturer/all')
+                .then(response => response.json())
+                .then(data => {
+                    const selectElement = document.getElementById("manufacturerId");
+                    data.forEach(manufacturer => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = manufacturer.id;
+                        optionElement.text = manufacturer.name;
+                        selectElement.appendChild(optionElement);
+                    });
+                }).catch(error => console.error(error))
+        ]).then(() => {
+            const path = window.location.pathname;
+            const pathParts = path.split('/');
+            const id = pathParts[3];
+            fetch('http://localhost:8000/collection/' + id)
+                .then(response => response.json())
+                .then(collection => {
+                    if (collection != null) {
+                        // document.getElementById("ifNull").style.display = "none";
+                        // document.getElementById("ifNotNull").style.display = "block";
+
+                        const {id, name, brand, season, year, manufacturer} = collection;
+                        document.getElementById("id").value = id;
+                        document.getElementById("name").value = name;
+
+                        if (brand != null) {
+                            const brandDropdown = document.getElementById("brandId");
+                            for (let i = 0; i < brandDropdown.options.length; i++) {
+                                if (brandDropdown.options[i].value == brand.id) {
+                                    brandDropdown.selectedIndex = i;
+                                    document.getElementById("linkToParentBrand").href = '/brand/details/' + brand.id;
+                                    break;
+                                }
+                            }
+                        }
+                        if (year != null) {
+                            const yearDropdown = document.getElementById("year");
+                            for (let i = 0; i < yearDropdown.options.length; i++) {
+                                if (yearDropdown.options[i].value == year.id) {
+                                    yearDropdown.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                        if (season != null) {
+                            const seasonDropdown = document.getElementById("seasonId");
+                            for (let i = 0; i < seasonDropdown.options.length; i++) {
+                                if (seasonDropdown.options[i].value == season.id) {
+                                    seasonDropdown.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                        if (manufacturer != null) {
+                            const manufacturerDropdown = document.getElementById("manufacturerId");
+                            for (let i = 0; i < manufacturerDropdown.options.length; i++) {
+                                if (manufacturerDropdown.options[i].value == manufacturer.id) {
+                                    manufacturerDropdown.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        // document.getElementById("ifNull").style.display = "block";
+                        // document.getElementById("ifNotNull").style.display = "none";
+                    }
+                }).catch(error => {
+                console.error(error);
+            });
+        })
+
+        function updateCollection() {
+            const request = new XMLHttpRequest();
+            request.open("PUT", '/collection', true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.onreadystatechange = () => {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+                        showAlert("Successfully updated! Refresh the page!", false);
+                    } else {
+                        showAlert("Error! You may not have access!", true);
+                    }
+                }
+            }
+            request.send(
+                JSON.stringify(
+                    {
+                        "id": document.getElementById("id").value,
+                        "name": document.getElementById("name").value,
+                        "brand": {
+                            "id": parseInt(document.getElementById("brandId").value)
+                        },
+                        "season": {
+                            "id": parseInt(document.getElementById("seasonId").value)
+                        },
+                        "year": document.getElementById("year").value,
+                        "manufacturer": {
+                            "id": parseInt(document.getElementById("manufacturerId").value)
+                        }
+                    }
+                ))
+        }
+
+        function deleteCollection() {
+            const request = new XMLHttpRequest();
+            const id = document.getElementById("id").value;
+            request.open("DELETE", '/collection/' + id, true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.onreadystatechange = () => {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+                        showAlert("Successfully deleted! Refresh the page!", false);
+                    } else {
+                        showAlert("Error! You may not have access!", true);
+                    }
+                }
+            }
+            request.send()
+        }
+
+        function showAlert(message, isError) {
+            let alertDiv = document.createElement("div");
+            isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function () {
+                alertDiv.remove();
+            }, 3000);
+        }
+    </script>
+</div>
+</html>

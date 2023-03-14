@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${param.success != null}">
+                <strong>Successfully registered</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error != null}">
+                <strong>Something Wrong!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!--            <form class="form mx-auto" th:action="@{'/account/register'}" method="post">-->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Full Name:</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="text" id="fullName" name="fullName" required class="form-control"
+                           placeholder="Full Name">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Email:</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="email" id="email" name="email" required class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Phone Number:</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="number" id="phoneNumber" name="phoneNumber" required class="form-control"
+                           placeholder="Phone Number">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Password:</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="password" id="password" name="password" required class="form-control"
+                           placeholder="Password">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Retype password:</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="password" id="re_password" name="re_password" required class="form-control"
+                           placeholder="Password">
+                    <!--                    FIXME Сделать проверку на одинаковый пароль фронтенд-->
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button class="btn btn-success" onclick="register()">Register</button>
+                </div>
+            </div>
+            <!--            </form>-->
+        </div>
+    </div>
+
+
+    <script>
+
+        function register() {
+            const request = new XMLHttpRequest();
+            request.open("POST", '/account/register', true);
+            request.setRequestHeader("Content-Type", "application/json");
+
+            request.onreadystatechange = () => {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+                        showAlert("Successfully registered!", false);
+                    } else {
+                        showAlert("Error! Username is already registered!", true);
+                    }
+                }
+            }
+            request.send(
+                JSON.stringify(
+                    {
+                        "fullName": document.getElementById("fullName").value,
+                        "email": document.getElementById("email").value,
+                        "phoneNumber": document.getElementById("phoneNumber").value,
+                        "password": document.getElementById("password").value,
+                    }
+                )
+            )
+        }
+
+        function showAlert(message, isError) {
+            var alertDiv = document.createElement("div");
+            isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" :  alertDiv.className = "alert alert-success col-6 mx-auto";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function() {
+                alertDiv.remove();
+            }, 3000);
+        }
+    </script>
+</div>
+</html>
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row justify-content-center align-items-center text-center">
+        <div class="col-6 mx-auto mt-3">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error != null}">
+                <strong>Incorrect user or password!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form class="form mx-auto " th:action="@{'/auth'}" method="post">
+
+                <div class="form-floating mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control text-center fs-4"
+                           id="floatingInput">
+                </div>
+                <div class="form-floating text-center">
+                    <label>Password</label>
+                    <input placeholder="Password" type="password" name="password" class="form-control text-center fs-4"
+                           id="floatingPassword">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 ">
+                        <button class="btn btn-success mx-auto">Sign In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
+

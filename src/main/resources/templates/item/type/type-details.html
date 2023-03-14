@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-8 mx-auto text-center">
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <a href="/type/" class="btn btn-outline-dark ">Go to Types</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label>Name</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <input type="hidden" name="id" id="id" class="form-control">
+                    <input type="text" name="name" id="name" class="form-control text-center" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <label>Picture</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-8 mx-auto">
+                    <label>HERE should be file uploading</label>
+                    <!--          todo Здесь надо вытащить картинку из БД-->
+                    <!--          <input type="file" class="form-control" name="picture">-->
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
+                    <button class="btn btn-success" onclick="updateType()">Update</button>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3 mx-auto text-center">
+                <br>
+                <h1 class="h1">SUBTYPES</h1>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Create SubType
+                </button>
+                <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New SubType</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
+                                        <label>Name</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <input type="text" name="subTypeName" id="subTypeName" class="form-control"
+                                               placeholder="SubType name" autofocus required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                        onclick="createSubType()">Create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12 mx-auto text-center">
+                    <table class="table mt-3">
+                        <thead>
+                        <tr>
+                            <th scope="col">NAME</th>
+                            <th scope="col">REMOVE</th>
+                        </tr>
+                        </thead>
+                        <tbody id="subType-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 mx-auto">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete Whole Type
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fs-5">Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteType()">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const path = window.location.pathname;
+                const pathParts = path.split('/');
+                const id = pathParts[3];
+                fetch('http://localhost:8000/type/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data != null) {
+                            const {id, name} = data;
+                            document.getElementById("id").value = id;
+                            document.getElementById("name").value = name;
+                        } else {
+                        }
+                    }).catch(error => {
+                    console.error(error);
+                });
+                fetch('http://localhost:8000/sub-type/get-by-type-id/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBodyElement = document.getElementById("subType-table-body");
+                        tableBodyElement.innerHTML = '';
+
+                        data.forEach(data => {
+                            const trElement = document.createElement('tr');
+                            const nameTdElement = document.createElement('td');
+                            const detailsTdElement = document.createElement('td');
+
+                            nameTdElement.innerText = data.name;
+                            detailsTdElement.innerHTML =
+                                `<a href="/sub-type/details/${data.id}" class="btn-success btn btn-sm">DETAILS</a>`;
+                            trElement.appendChild(nameTdElement);
+                            trElement.appendChild(detailsTdElement);
+                            tableBodyElement.appendChild(trElement);
+                        });
+                    })
+                    .catch(error => console.error(error));
+
+                function updateType() {
+                    const request = new XMLHttpRequest();
+                    request.open("PUT", '/type', true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.response != null) {
+                                showAlert("Successfully updated! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send(
+                        JSON.stringify(
+                            {
+                                "id": document.getElementById("id").value,
+                                "name": document.getElementById("name").value
+                            }
+                        ))
+                }
+
+                function createSubType() {
+                    const request = new XMLHttpRequest();
+                    request.open("POST", '/sub-type', true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.status != null) {
+                                document.getElementById("subTypeName").value = '';
+                                showAlert("Successfully created! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send(
+                        JSON.stringify(
+                            {
+                                "name": document.getElementById("subTypeName").value,
+                                "type": {
+                                    "id": document.getElementById("id").value
+                                }
+                            }
+                        ))
+                }
+
+                function deleteType() {
+                    const request = new XMLHttpRequest();
+                    const id = document.getElementById("id").value;
+                    request.open("DELETE", '/type/' + id, true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.status === 200) {
+                                showAlert("Successfully deleted! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send()
+                }
+
+                function deleteSubType(typeId, subTypeId) {
+                    const request = new XMLHttpRequest();
+                    request.open("DELETE", '/type/sub-type', true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.onreadystatechange = () => {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.status === 200) {
+                                showAlert("Successfully deleted! Refresh the page!", false);
+                            } else {
+                                showAlert("Error! You may not have access!", true);
+                            }
+                        }
+                    }
+                    request.send(
+                        JSON.stringify(
+                            {
+                                "typeId": typeId,
+                                "subTypeId": subTypeId
+                            }
+                        )
+                    )
+                }
+
+                function showAlert(message, isError) {
+                    let alertDiv = document.createElement("div");
+                    isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
+                    alertDiv.innerHTML = message;
+                    document.body.appendChild(alertDiv);
+
+                    setTimeout(function () {
+                        alertDiv.remove();
+                    }, 3000);
+                }
+            </script>
+        </div>
+    </div>
+<!--    <div class="row mt-3 text-center d-flex align-items-center">-->
+<!--        <div class="col-8 mx-auto ">-->
+<!--            <h1 class="mx-auto h1 text-center">Type NOT FOUND!</h1>-->
+<!--            <h2 class="mx-auto h2 text-center">It is deleted or hasn't added yet!</h2>-->
+<!--            <a href="/type/" class="btn btn-outline-dark ">Go to Brands</a>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+</html>
