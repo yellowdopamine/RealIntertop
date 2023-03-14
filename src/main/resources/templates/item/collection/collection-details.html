@@ -8,109 +8,117 @@
 
 <div layout:fragment="content">
     <div class="row" id="ifNotNull" style="display: block;">
-        <div class="col-8 mx-auto text-center">
-            <div class="row mt-3">
-                <div class="col-8 mx-auto d-block">
-                    <a href="/collection/" class="btn btn-outline-dark me-2">Go to Collections</a>
-                    <a id="linkToParentBrand" class="btn btn-outline-dark ">Go to Parent Brand</a>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <label class="text-black-50">Brand</label>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-8 mx-auto">
-                    <select type="text" name="brandId" id="brandId" class="form-control text-center"
-                            required>
-                        <option selected>Choose Brand</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <label class="text-black-50">Year</label>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-8 mx-auto">
-                    <select type="text" name="year" id="year" class="form-control text-center" placeholder="Select Year"
-                            required>
-                        <option value="2023" selected="selected">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <label class="text-black-50">Season</label>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-8 mx-auto">
-                    <select type="text" name="seasonId" id="seasonId" class="form-control text-center"
-                            placeholder="Select Season">
-                        <option selected>Choose Season</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <label class="text-black-50">Manufacturer</label>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-8 mx-auto">
-                    <select type="text" name="manufacturerId" id="manufacturerId" class="form-control text-center"
-                            placeholder="Select Season">
-                        <option selected>Choose Manufacturer</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <label class="text-black-50">Name</label>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-8 mx-auto">
-                    <input type="text" name="name" id="name" class="form-control text-center"
-                           required>
-                    <input type="hidden" name="id" id="id" class="form-control">
-                </div>
-            </div>
+        <div class="col-12 mx-auto text-center">
+            <div class="row">
+                <div class="col-8 text-center mx-auto">
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto d-block">
+                            <a href="/collection/" class="btn btn-outline-dark me-2">Go to Collections</a>
+                            <a id="linkToParentBrand" class="btn btn-outline-dark ">Go to Parent Brand</a>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <label class="text-black-50">Brand</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <select type="text" name="brandId" id="brandId" class="form-control text-center"
+                                    required>
+                                <option selected>Choose Brand</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <label class="text-black-50">Year</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <select type="text" name="year" id="year" class="form-control text-center"
+                                    placeholder="Select Year"
+                                    required>
+                                <option value="2023" selected="selected">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <label class="text-black-50">Season</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <select type="text" name="seasonId" id="seasonId" class="form-control text-center"
+                                    placeholder="Select Season">
+                                <option selected>Choose Season</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <label class="text-black-50">Manufacturer</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <select type="text" name="manufacturerId" id="manufacturerId"
+                                    class="form-control text-center"
+                                    placeholder="Select Season">
+                                <option selected>Choose Manufacturer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <label class="text-black-50">Name</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <input type="text" name="name" id="name" class="form-control text-center"
+                                   required>
+                            <input type="hidden" name="id" id="id" class="form-control">
+                        </div>
+                    </div>
 
-            <div class="row mt-3">
-                <div class="col-8 mx-auto">
-                    <button class="btn btn-success me-3" onclick="updateCollection()">Update</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="fs-5">Are you sure you want to delete?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                    onclick="deleteCollection()">Delete
+                    <div class="row mt-3">
+                        <div class="col-8 mx-auto">
+                            <button class="btn btn-success me-3" onclick="updateCollection()">Update</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Delete
                             </button>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="fs-5">Are you sure you want to delete?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                            onclick="deleteCollection()">Delete
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <hr>
 
             <div class="row col-12 text-center">
@@ -123,7 +131,7 @@
                     Create New
                 </button>
 
-                <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -134,7 +142,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row mt-3 ">
-                                    <div class="col-6 mx-auto">
+                                    <div class="col-12 mx-auto">
                                         <h2 class="header">ITEM CREATE PAGE</h2>
                                     </div>
                                 </div>
@@ -146,7 +154,8 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12 mx-auto">
-                                        <input type="text" required class="form-control" name="modelName" id="modelName">
+                                        <input type="text" required class="form-control" name="modelName"
+                                               id="modelName">
                                     </div>
                                 </div>
 
@@ -172,7 +181,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12 mx-auto">
-                                        <select required class="form-select"  id="subTypeId">
+                                        <select required class="form-select" id="subTypeId">
                                             <option value="">Choose SubType</option>
                                         </select>
                                     </div>
@@ -186,13 +195,16 @@
                                     <div class="col-12 mx-auto">
                                         <label class="me-2"><input type="radio" name="genderId" value="1" required> Man</label>
                                         <label class="me-2"><input type="radio" name="genderId" value="2"> Woman</label>
-                                        <label class="me-2"><input type="radio" name="genderId" value="3"> Unisex</label>
+                                        <label class="me-2"><input type="radio" name="genderId" value="3">
+                                            Unisex</label>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12 mx-auto">
-                                        <button class="btn " style="background-color: #EEFCF5" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapseMaterials" aria-expanded="false" aria-controls="collapseMaterials">
+                                        <button class="btn " style="background-color: #EEFCF5" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseMaterials" aria-expanded="false"
+                                                aria-controls="collapseMaterials">
                                             Materials ▽
                                         </button>
                                     </div>
@@ -205,8 +217,10 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12 mx-auto">
-                                        <button class="btn " style="background-color: #EEFCF5" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapseColors" aria-expanded="false" aria-controls="collapseColors">
+                                        <button class="btn " style="background-color: #EEFCF5" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseColors" aria-expanded="false"
+                                                aria-controls="collapseColors">
                                             Colors ▽
                                         </button>
                                     </div>
@@ -220,16 +234,9 @@
                                 <div class="row mt-3">
                                     <div class="col-12 mx-auto">
                                         <div class="form-check form-switch">
-                                            <label class="form-check-label" for="isChild">For Child</label>
                                             <input class="form-check-input" type="checkbox" role="switch" id="isChild">
+                                            <label class="form-check-label" for="isChild">For Child</label>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-12 mx-auto">
-                                        <button type="button" class="btn btn-success"
-                                                onclick="createItem()">Create
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +254,6 @@
 
             <div class="row mt-3">
                 <div class="col-12 mx-auto text-center">
-                    <h1 class="h1 ">INTERTOP ITEMS </h1>
                     <table class="table table-striped mt-3" id="collection-table">
                         <thead>
                         <tr>
@@ -279,6 +285,9 @@
     <!--    </div>-->
 
     <script>
+        const path = window.location.pathname;
+        const pathParts = path.split('/');
+        const collectionId = pathParts[3];
 
         Promise.all([
             fetch('http://localhost:8000/season/all')
@@ -318,10 +327,7 @@
                     });
                 }).catch(error => console.error(error))
         ]).then(() => {
-            const path = window.location.pathname;
-            const pathParts = path.split('/');
-            const id = pathParts[3];
-            fetch('http://localhost:8000/collection/' + id)
+            fetch('http://localhost:8000/collection/' + collectionId)
                 .then(response => response.json())
                 .then(collection => {
                     if (collection != null) {
@@ -398,12 +404,14 @@
                 modelName: document.getElementById("modelName").value,
                 price: parseInt(document.getElementById("price").value),
                 collection: {
-                    id: document.getElementById("collectionId").value
+                    id: parseInt(collectionId)
                 },
                 subType: {
                     id: document.getElementById("subTypeId").value
                 },
-                genderId: parseInt(document.querySelector('input[name="genderId"]:checked').value),
+                gender: {
+                    id: parseInt(document.querySelector('input[name="genderId"]:checked').value)
+                },
                 materials: [],
                 colors: [],
                 isChild: document.getElementById("isChild").value
@@ -420,6 +428,7 @@
             request.send(JSON.stringify(itemData))
             // document.getElementById("modelName").value = '';
         }
+
         fetch('http://localhost:8000/sub-type/all')
             .then(response => response.json())
             .then(data => {
@@ -516,33 +525,6 @@
 
                     colElement.appendChild(labelElement);
                     rowElement.appendChild(colElement);
-                });
-            })
-            .catch(error => console.error(error));
-        fetch('http://localhost:8000/collection/get-by-brand/' + id)
-            .then(response => response.json())
-            .then(data => {
-                const tableBodyElement = document.getElementById("collection-table-body");
-                tableBodyElement.innerHTML = '';
-
-                data.forEach(collection => {
-                    const trElement = document.createElement('tr');
-                    const nameTdElement = document.createElement('td');
-                    const yearTdElement = document.createElement('td');
-                    const seasonTdElement = document.createElement('td');
-                    const detailsTdElement = document.createElement('td');
-
-                    nameTdElement.innerText = collection.name;
-                    yearTdElement.innerText = collection.year;
-                    seasonTdElement.innerText = collection.season ? collection.season.name : undefined;
-                    detailsTdElement.innerHTML =
-                        `<a href="/collection/details/${collection.id}" class="btn-success btn btn-sm">Details</a>`;
-
-                    trElement.appendChild(nameTdElement);
-                    trElement.appendChild(yearTdElement);
-                    trElement.appendChild(seasonTdElement);
-                    trElement.appendChild(detailsTdElement);
-                    tableBodyElement.appendChild(trElement);
                 });
             })
             .catch(error => console.error(error));

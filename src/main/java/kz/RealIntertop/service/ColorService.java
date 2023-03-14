@@ -1,11 +1,8 @@
 package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.ColorDto;
-import kz.RealIntertop.dto.MaterialDto;
 import kz.RealIntertop.mapper.ColorMapper;
-import kz.RealIntertop.mapper.MaterialMapper;
 import kz.RealIntertop.repository.ColorRepository;
-import kz.RealIntertop.repository.MaterialRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

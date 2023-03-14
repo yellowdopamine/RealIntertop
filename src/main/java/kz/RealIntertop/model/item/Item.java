@@ -20,7 +20,6 @@ public class Item extends BaseEntity {
     private double price;
     @ManyToOne
     private Collection collection;
-    private short genderId; // 1 - Man, 2 - Woman, 3 - Unisex
     private boolean isChild;
     @ManyToOne
     private SubType subType;
