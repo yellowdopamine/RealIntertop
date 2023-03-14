@@ -28,6 +28,8 @@ public class Item extends BaseEntity {
     private Set<Material> materials;
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Color> colors;
+    @ManyToOne
+    private Gender gender;
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    private List<Review> reviews;
 //    @ManyToMany(fetch = FetchType.LAZY)

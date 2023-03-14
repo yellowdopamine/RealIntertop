@@ -146,7 +146,7 @@
                                 <th scope="col">FOR CHILD</th>
                             </tr>
                             </thead>
-                            <tbody id="collection-table-body">
+                            <tbody id="items-table-body">
                             </tbody>
                         </table>
                     </div>
@@ -311,42 +311,42 @@
                     })
                     .catch(error => console.error(error))
             ]).then(() => {
-                fetch('http://localhost:8000/item/all' )
+                fetch('http://localhost:8000/item/all' + id)
                     .then(response => response.json())
-                    .then(item => {
-                        if (item != null) {
-                            // document.getElementById("ifNull").style.display = "none";
-                            // document.getElementById("ifNotNull").style.display = "block";
+                    .then(data => {
+                        const tableBodyElement = document.getElementById("items-table-body");
+                        tableBodyElement.innerHTML = '';
 
-                            const {id, modelName, collection, subType, genderId, materials, colors, isChild} = item;
-                            document.getElementById("id").value = id;
-                            document.getElementById("modelName").value = name;
+                        data.forEach(item => {
+                            const trElement = document.createElement('tr');
+                            const nameTdElement = document.createElement('td');
+                            const priceTdElement = document.createElement('td');
+                            const brandTdElement = document.createElement('td');
+                            const collectionTdElement = document.createElement('td');
+                            // const genderTdElement = document.createElement('td');
+                            const forChildTdElement = document.createElement('td');
+                            const detailsTdElement = document.createElement('td');
 
-                            if (collection != null) {
-                                const collectionDropDown = document.getElementById("collectionId");
-                                for (let i = 0; i < collectionDropDown.options.length; i++) {
-                                    if (collectionDropDown.options[i].value == collection.id) {
-                                        collectionDropDown.selectedIndex = i;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (subType != null) {
-                                const subTypeDropdown = document.getElementById("year");
-                                for (let i = 0; i < subTypeDropdown.options.length; i++) {
-                                    if (subTypeDropdown.options[i].value == subType.id) {
-                                        subTypeDropdown.selectedIndex = i;
-                                        break;
-                                    }
-                                }
-                            }
-                        } else {
-                            // document.getElementById("ifNull").style.display = "block";
-                            // document.getElementById("ifNotNull").style.display = "none";
-                        }
-                    }).catch(error => {
-                    console.error(error);
-                });
+                            nameTdElement.innerText = item.name;
+                            priceTdElement.innerText = item.price;
+                            brandTdElement.innerText = item.collection.brand.name;
+                            collectionTdElement.innerText = item.collection.name;
+                            // genderTdElement.innerText = item.gender.name;
+                            forChildTdElement.innerText = forChildTdElement ? 'YES' : 'NO'
+                            detailsTdElement.innerHTML =
+                                `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
+
+                            trElement.appendChild(nameTdElement);
+                            trElement.appendChild(priceTdElement);
+                            trElement.appendChild(brandTdElement);
+                            trElement.appendChild(collectionTdElement);
+                            // trElement.appendChild(genderTdElement);
+                            trElement.appendChild(forChildTdElement);
+                            trElement.appendChild(detailsTdElement);
+                            tableBodyElement.appendChild(trElement);
+                        });
+                    })
+                    .catch(error => console.error(error));
             })
 
             function showAlert(message, isError) {

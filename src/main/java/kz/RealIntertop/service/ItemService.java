@@ -28,7 +28,7 @@ public class ItemService {
     private final SubTypeRepository subTypeRepository;
     private final MaterialRepository materialRepository;
     private final ColorRepository colorRepository;
-
+    private final GenderRepository genderRepository;
     public ItemDto createItem(ItemDto itemDto) {
         if (!userService.isModer()) {
             return null;
@@ -45,7 +45,7 @@ public class ItemService {
                 .price(itemDto.getPrice())
                 .collection(collectionRepository.findCollectionById(itemDto.getCollection().getId()))
                 .subType(subTypeRepository.findSubTypeById(itemDto.getSubType().getId()))
-                .genderId(itemDto.getGenderId())
+                .gender(genderRepository.findGenderById(itemDto.getGender().getId()))
                 .materials(Set.copyOf(materials))
                 .colors(Set.copyOf(colors))
                 .build();

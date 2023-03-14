@@ -70,9 +70,95 @@
                     </div>
                 </div>
             </div>
+
+            <hr>
+            <div class="row col-12 text-center">
+                <h1 id="collections-header" class="header"></h1>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-success mx-auto" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                    Create New
+                </button>
+
+                <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Collection</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
+                                        <label>Name</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <input type="text" name="name" id="collectionName" class="form-control"
+                                               placeholder="Collection Name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
+                                        <label>Year</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <select type="text" name="year" id="year" class="form-select"
+                                                required>
+                                            <option value="2023" selected="selected">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
+                                        <label>Season</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <select type="text" name="seasonId" id="seasonId" class="form-select"
+                                                required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
+                                        <label>Manufacturer Country</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <select type="text" name="seasonId" id="manufacturerId" class="form-select"
+                                                required>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                        onclick="createCollection()">Create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-12 mx-auto text-center">
-                    <h1 id="collections-header" class="header"></h1>
+
                     <table class="table mt-3">
                         <thead>
                         <tr>
@@ -97,6 +183,7 @@
     <!--        </div>-->
     <!--    </div>-->
     <script>
+
         const path = window.location.pathname;
         const pathParts = path.split('/');
         const id = pathParts[3];
@@ -111,6 +198,63 @@
                 }
             })
             .catch(error => console.error(error));
+
+        fetch('http://localhost:8000/season/all')
+            .then(response => response.json())
+            .then(data => {
+                const selectElement = document.getElementById("seasonId");
+                data.forEach(season => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = season.id;
+                    optionElement.text = season.name;
+                    selectElement.appendChild(optionElement);
+                });
+            })
+            .catch(error => console.error(error));
+        fetch('http://localhost:8000/manufacturer/all')
+            .then(response => response.json())
+            .then(data => {
+                const selectElement = document.getElementById("manufacturerId");
+                data.forEach(manufacturer => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = manufacturer.id;
+                    optionElement.text = manufacturer.name;
+                    selectElement.appendChild(optionElement);
+                });
+            }).catch(error => console.error(error));
+
+        function createCollection() {
+            const request = new XMLHttpRequest();
+            request.open("POST", '/collection', true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.onreadystatechange = () => {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.response != null) {
+                        showAlert("Successfully created! Refresh the page!", false);
+                    } else {
+                        showAlert("Error! Collection is already created or you don't have access!", true);
+                    }
+                }
+            }
+            request.send(
+                JSON.stringify(
+                    {
+                        "name": document.getElementById("collectionName").value,
+                        "brand": {
+                            "id": parseInt(document.getElementById("id").value)
+                        },
+                        "season": {
+                            "id": parseInt(document.getElementById("seasonId").value)
+                        },
+                        "year": document.getElementById("year").value,
+                        "manufacturer" : {
+                            "id": parseInt(document.getElementById("manufacturerId").value)
+                        }
+                    }
+                ))
+            document.getElementById("name").value = '';
+        }
+
         fetch('http://localhost:8000/collection/get-by-brand/' + id)
             .then(response => response.json())
             .then(data => {
