@@ -403,9 +403,9 @@
                         priceTdElement.innerText = item.price;
                         typeTdElement.innerText = item.subType.type.name;
                         subTypeTdElement.innerText = item.subType.name;
-                        // genderTdElement.innerText = item.gender.name ? item.gender.name : undefined;
+                        genderTdElement.innerText = item.gender.name ? item.gender.name : undefined;
                         isChildTdElement.innerText = item.isChild ? 'YES' : 'NO';
-                        discountTdElement.innerText = item.discount ? item.discount : undefined;
+                        discountTdElement.innerText = item.discount ? item.discount : 0;
                         detailsTdElement.innerHTML =
                             `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
 
@@ -452,7 +452,7 @@
                 },
                 materials: [],
                 colors: [],
-                "isChild": document.getElementById("isChild").checked
+                child : document.getElementById("isChild").checked
             }
             selectedMaterialIds.forEach(id => {
                 const materialObj = {id: id};

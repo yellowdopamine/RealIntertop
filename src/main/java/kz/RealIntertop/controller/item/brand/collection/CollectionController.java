@@ -29,7 +29,7 @@ public class CollectionController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_MODER')")
     @GetMapping(value = "/details/{id}")
-    public String collectionDetails(@PathVariable(name = "id") Long id) {
+    public String collectionDetails(@PathVariable Long id) {
         return "item/collection/collection-details";
     }
 }

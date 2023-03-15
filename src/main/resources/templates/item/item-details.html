@@ -8,147 +8,122 @@
 
 <div layout:fragment="content">
     <div class="row">
-        <div class="row">
-            <div class="col-8 mx-auto">
-                <div>
+        <div class="col-8 mx-auto">
+            <div>
+                <div class="row mt-3 ">
+                    <div class="col-6 text-center mx-auto">
+                        <h1 class="header text-center mx-auto">ITEM EDIT PAGE</h1>
+                    </div>
+                </div>
 
-                    <div class="row mt-3 ">
-                        <div class="col-6 mx-auto">
-                            <h1 class="header">ITEM CREATE PAGE</h1>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <label>Name</label>
                     </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 mx-auto">
+                        <input type="text" required class="form-control" name="modelName" id="modelName">
+                    </div>
+                </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Name</label>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <label>Price</label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 mx-auto">
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="price"
+                                   aria-label="Amount (to the nearest dollar)">
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <input type="text" required class="form-control" name="modelName" id="modelName">
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Price</label>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <label>Collection</label>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="price"
-                                       aria-label="Amount (to the nearest dollar)">
-                            </div>
-                        </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 mx-auto">
+                        <select type="text" required class="form-select" name="collection" id="collectionId">
+                            <option value="">Choose Collection</option>
+                        </select>
                     </div>
+                </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Collection</label>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <label>SubType</label>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <select type="text" required class="form-select" name="collection" id="collectionId">
-                                <option value="">Choose Collection</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 mx-auto">
+                        <select required class="form-select" id="subTypeId">
+                            <option value="">Choose SubType</option>
+                        </select>
                     </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>SubType</label>
-                        </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <label>Gender</label>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <select required class="form-select" id="subTypeId">
-                                <option value="">Choose SubType</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 mx-auto">
+                        <label class="me-2"><input type="radio" name="genderId" value="1" required> Man</label>
+                        <label class="me-2"><input type="radio" name="genderId" value="2"> Woman</label>
+                        <label class="me-2"><input type="radio" name="genderId" value="3"> Unisex</label>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Gender</label>
-                        </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <button class="btn " style="background-color: #EEFCF5" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseMaterials" aria-expanded="false"
+                                aria-controls="collapseMaterials">
+                            Materials ▽
+                        </button>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <label class="me-2"><input type="radio" name="genderId" value="1" required> Man</label>
-                            <label class="me-2"><input type="radio" name="genderId" value="2"> Woman</label>
-                            <label class="me-2"><input type="radio" name="genderId" value="3"> Unisex</label>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <button class="btn " style="background-color: #EEFCF5" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseMaterials" aria-expanded="false"
-                                    aria-controls="collapseMaterials">
-                                Materials ▽
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="collapse" id="collapseMaterials">
-                            <div class="col-12 mx-auto" id="materialId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <button class="btn " style="background-color: #EEFCF5" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseColors" aria-expanded="false"
-                                    aria-controls="collapseColors">
-                                Colors ▽
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="collapse" id="collapseColors">
-                            <div class="col-12 mx-auto" id="colorId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <div class="form-check form-switch">
-                                <label class="form-check-label" for="isChild">For Child</label>
-                                <input class="form-check-input" type="checkbox" role="switch" id="isChild">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-12 mx-auto">
-                            <button type="button" class="btn btn-success"
-                                    onclick="createItem()">Create
-                            </button>
+                </div>
+                <div class="row mt-2">
+                    <div class="collapse" id="collapseMaterials">
+                        <div class="col-12 mx-auto" id="materialId">
                         </div>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-12 mx-auto text-center">
-                        <h1 class="h1 ">INTERTOP ITEMS </h1>
-                        <table class="table table-striped mt-3" id="collection-table">
-                            <thead>
-                            <tr>
-                                <th scope="col">NAME</th>
-                                <th scope="col">PRICE</th>
-                                <th scope="col">BRAND</th>
-                                <th scope="col">COLLECTION</th>
-                                <th scope="col">SUB-TYPE</th>
-                                <th scope="col">GENDER</th>
-                                <th scope="col">MATERIALS</th>
-                                <th scope="col">COLORS</th>
-                                <th scope="col">FOR CHILD</th>
-                            </tr>
-                            </thead>
-                            <tbody id="collection-table-body">
-                            </tbody>
-                        </table>
+                    <div class="col-12 mx-auto">
+                        <button class="btn " style="background-color: #EEFCF5" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseColors" aria-expanded="false"
+                                aria-controls="collapseColors">
+                            Colors ▽
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="collapse" id="collapseColors">
+                        <div class="col-12 mx-auto" id="colorId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 mx-auto">
+                        <div class="form-check form-switch">
+                            <label class="form-check-label" for="isChild">For Child</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="isChild">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-12 mx-auto">
+                        <button type="button" class="btn btn-success"
+                                onclick="createItem()">Create
+                        </button>
                     </div>
                 </div>
             </div>
@@ -158,16 +133,16 @@
             let selectedMaterialIds = [];
             let selectedColorIds = [];
 
-            function createItem() {
+            function updateItem() {
                 const request = new XMLHttpRequest();
-                request.open("POST", '/item', true);
+                request.open("PUT", '/item', true);
                 request.setRequestHeader("Content-Type", "application/json");
                 request.onreadystatechange = () => {
                     if (request.readyState === XMLHttpRequest.DONE) {
                         if (request.response != null) {
-                            showAlert("Successfully created!", false);
+                            showAlert("Successfully updated!", false);
                         } else {
-                            showAlert("Error! Item with such name is already created or you don't have access!", true);
+                            showAlert("Error! You might not have access!", true);
                         }
                     }
                 }

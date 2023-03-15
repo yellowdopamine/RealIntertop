@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,5 +21,10 @@ public class ItemController {
     @GetMapping("/create")
     public String createItem(Model model){
         return "/item/item-create";
+    }
+    @PreAuthorize("hasAnyRole('ROLE_MODER')")
+    @GetMapping("/details/{id}")
+    public String itemDetails(@PathVariable Long id){
+        return "/item/item-details";
     }
 }
