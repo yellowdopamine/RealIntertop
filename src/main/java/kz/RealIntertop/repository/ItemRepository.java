@@ -1,6 +1,5 @@
 package kz.RealIntertop.repository;
 
-import kz.RealIntertop.model.item.Brand;
 import kz.RealIntertop.model.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +11,5 @@ import java.util.List;
 @Transactional
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Item findItemByModelNameLike(String name);
+    List<Item> findAllByCollectionId(Long id);
 }

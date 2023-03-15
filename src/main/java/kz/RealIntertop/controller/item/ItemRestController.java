@@ -40,4 +40,8 @@ public class ItemRestController {
     public ItemDto getById(@PathVariable Long id) {
         return itemService.getItemByIdDto(id);
     }
+    @GetMapping("/get-by-collection-id/{id}")
+    public List<ItemDto> getByCollectionId(@PathVariable Long id) {
+        return itemService.getAllByCollectionIdDto(id);
+    }
 }

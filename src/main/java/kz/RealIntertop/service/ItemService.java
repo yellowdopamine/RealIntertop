@@ -48,6 +48,7 @@ public class ItemService {
                 .gender(genderRepository.findGenderById(itemDto.getGender().getId()))
                 .materials(Set.copyOf(materials))
                 .colors(Set.copyOf(colors))
+                .isChild(itemDto.isChild())
                 .build();
 
         if (itemDto.getFileList() != null) {
@@ -82,8 +83,7 @@ public class ItemService {
     public List<ItemDto> getAllDto() {
         return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
-
-    public List<Item> getAll() {
-        return itemRepository.findAll();
+    public List<ItemDto> getAllByCollectionIdDto(Long id) {
+        return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
 }

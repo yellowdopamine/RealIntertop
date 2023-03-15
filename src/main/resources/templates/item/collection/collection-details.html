@@ -193,10 +193,11 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12 mx-auto">
-                                        <label class="me-2"><input type="radio" name="genderId" value="1" required> Man</label>
-                                        <label class="me-2"><input type="radio" name="genderId" value="2"> Woman</label>
-                                        <label class="me-2"><input type="radio" name="genderId" value="3">
-                                            Unisex</label>
+                                        <select name="genderSelect" id="genderSelect" required class="form-select">
+                                            <option value="1" selected>MAN</option>
+                                            <option value="2">WOMAN</option>
+                                            <option value="3">UNISEX</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -234,7 +235,7 @@
                                 <div class="row mt-3">
                                     <div class="col-12 mx-auto">
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="isChild">
+                                            <input class="form-check-input" type="checkbox" role="checkbox" id="isChild">
                                             <label class="form-check-label" for="isChild">For Child</label>
                                         </div>
                                     </div>
@@ -259,13 +260,12 @@
                         <tr>
                             <th scope="col">NAME</th>
                             <th scope="col">PRICE</th>
-                            <th scope="col">BRAND</th>
-                            <th scope="col">COLLECTION</th>
+                            <th scope="col">TYPE</th>
                             <th scope="col">SUB-TYPE</th>
                             <th scope="col">GENDER</th>
-                            <th scope="col">MATERIALS</th>
-                            <th scope="col">COLORS</th>
                             <th scope="col">FOR CHILD</th>
+                            <th scope="col">DISCOUNT</th>
+                            <th scope="col">DETAILS</th>
                         </tr>
                         </thead>
                         <tbody id="items-table-body">
@@ -383,6 +383,44 @@
                 console.error(error);
             });
         })
+        fetch('http://localhost:8000/item/all/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBodyElement = document.getElementById("items-table-body");
+                tableBodyElement.innerHTML = '';
+                    data.forEach(item => {
+                        const trElement = document.createElement('tr');
+                        const nameTdElement = document.createElement('td');
+                        const priceTdElement = document.createElement('td');
+                        const typeTdElement = document.createElement('td');
+                        const subTypeTdElement = document.createElement('td');
+                        const genderTdElement = document.createElement('td');
+                        const isChildTdElement = document.createElement('td');
+                        const discountTdElement = document.createElement('td');
+                        const detailsTdElement = document.createElement('td');
+
+                        nameTdElement.innerText = item.modelName;
+                        priceTdElement.innerText = item.price;
+                        typeTdElement.innerText = item.subType.type.name;
+                        subTypeTdElement.innerText = item.subType.name;
+                        // genderTdElement.innerText = item.gender.name ? item.gender.name : undefined;
+                        isChildTdElement.innerText = item.isChild ? 'YES' : 'NO';
+                        discountTdElement.innerText = item.discount ? item.discount : undefined;
+                        detailsTdElement.innerHTML =
+                            `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
+
+                        trElement.appendChild(nameTdElement);
+                        trElement.appendChild(priceTdElement);
+                        trElement.appendChild(typeTdElement);
+                        trElement.appendChild(subTypeTdElement);
+                        trElement.appendChild(genderTdElement);
+                        trElement.appendChild(isChildTdElement);
+                        trElement.appendChild(discountTdElement);
+                        trElement.appendChild(detailsTdElement);
+                        tableBodyElement.appendChild(trElement);
+                });
+            })
+            .catch(error => console.error(error));
 
         let selectedMaterialIds = [];
         let selectedColorIds = [];
@@ -396,7 +434,7 @@
                     if (request.response != null) {
                         showAlert("Successfully created!", false);
                     } else {
-                        showAlert("Error! Item with such name is already created or you don't have access!", true);
+                        showAlert("Error!", true);
                     }
                 }
             }
@@ -410,11 +448,11 @@
                     id: document.getElementById("subTypeId").value
                 },
                 gender: {
-                    id: parseInt(document.querySelector('input[name="genderId"]:checked').value)
+                    id: parseInt(document.getElementById("genderSelect").value)
                 },
                 materials: [],
                 colors: [],
-                isChild: document.getElementById("isChild").value
+                "isChild": document.getElementById("isChild").checked
             }
             selectedMaterialIds.forEach(id => {
                 const materialObj = {id: id};

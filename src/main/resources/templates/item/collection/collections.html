@@ -132,33 +132,32 @@
         fetch('http://localhost:8000/collection/all')
             .then(response => response.json())
             .then(data => {
-                const tableBodyElement = document.getElementById("collection-table-body");
-                tableBodyElement.innerHTML = '';
-
                 data.forEach(collection => {
-                    const trElement = document.createElement('tr');
-                    const nameTdElement = document.createElement('td');
-                    const brandTdElement = document.createElement('td');
-                    const yearTdElement = document.createElement('td');
-                    const seasonTdElement = document.createElement('td');
-                    const manufacturerTdElement = document.createElement('td');
-                    const detailsTdElement = document.createElement('td');
+                    const tableBodyElement = document.getElementById("collection-table-body");
+                    tableBodyElement.innerHTML = '';
+                const trElement = document.createElement('tr');
+                const nameTdElement = document.createElement('td');
+                const brandTdElement = document.createElement('td');
+                const yearTdElement = document.createElement('td');
+                const seasonTdElement = document.createElement('td');
+                const manufacturerTdElement = document.createElement('td');
+                const detailsTdElement = document.createElement('td');
 
-                    nameTdElement.innerText = collection.name;
-                    brandTdElement.innerText = collection.brand ? collection.brand.name : undefined;
-                    yearTdElement.innerText = collection.year;
-                    seasonTdElement.innerText = collection.season ? collection.season.name : undefined;
-                    manufacturerTdElement.innerText = collection.manufacturer ? collection.manufacturer.name : undefined;
-                    detailsTdElement.innerHTML =
-                        `<a href="/collection/details/${collection.id}" class="btn-success btn btn-sm">Details</a>`;
+                nameTdElement.innerText = collection.name;
+                brandTdElement.innerText = collection.brand ? collection.brand.name : undefined;
+                yearTdElement.innerText = collection.year;
+                seasonTdElement.innerText = collection.season ? collection.season.name : undefined;
+                manufacturerTdElement.innerText = collection.manufacturer ? collection.manufacturer.name : undefined;
+                detailsTdElement.innerHTML =
+                    `<a href="/collection/details/${collection.id}" class="btn-success btn btn-sm">Details</a>`;
 
-                    trElement.appendChild(nameTdElement);
-                    trElement.appendChild(brandTdElement);
-                    trElement.appendChild(yearTdElement);
-                    trElement.appendChild(seasonTdElement);
-                    trElement.appendChild(manufacturerTdElement);
-                    trElement.appendChild(detailsTdElement);
-                    tableBodyElement.appendChild(trElement);
+                trElement.appendChild(nameTdElement);
+                trElement.appendChild(brandTdElement);
+                trElement.appendChild(yearTdElement);
+                trElement.appendChild(seasonTdElement);
+                trElement.appendChild(manufacturerTdElement);
+                trElement.appendChild(detailsTdElement);
+                tableBodyElement.appendChild(trElement);
                 });
             })
             .catch(error => console.error(error));
