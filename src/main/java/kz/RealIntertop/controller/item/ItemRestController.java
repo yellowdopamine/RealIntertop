@@ -1,6 +1,8 @@
 package kz.RealIntertop.controller.item;
 
 import kz.RealIntertop.dto.ItemDto;
+import kz.RealIntertop.model.item.Item;
+import kz.RealIntertop.repository.ItemRepository;
 import kz.RealIntertop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/item")
 public class ItemRestController {
+    private final ItemRepository itemRepository;
     private final ItemService itemService;
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
     @PostMapping()
@@ -43,5 +46,6 @@ public class ItemRestController {
     @GetMapping("/get-by-collection-id/{id}")
     public List<ItemDto> getByCollectionId(@PathVariable Long id) {
         return itemService.getAllByCollectionIdDto(id);
+//        return itemRepository.findAllByCollectionId(id);
     }
 }

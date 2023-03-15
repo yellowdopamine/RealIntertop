@@ -343,10 +343,10 @@
                             for (let i = 0; i < brandDropdown.options.length; i++) {
                                 if (brandDropdown.options[i].value == brand.id) {
                                     brandDropdown.selectedIndex = i;
-                                    document.getElementById("linkToParentBrand").href = '/brand/details/' + brand.id;
                                     break;
                                 }
                             }
+                            document.getElementById("linkToParentBrand").href = '/brand/details/' + brand.id;
                         }
                         if (year != null) {
                             const yearDropdown = document.getElementById("year");
@@ -383,7 +383,7 @@
                 console.error(error);
             });
         })
-        fetch('http://localhost:8000/item/all/')
+        fetch('http://localhost:8000/item/get-by-collection-id/' + collectionId)
             .then(response => response.json())
             .then(data => {
                 const tableBodyElement = document.getElementById("items-table-body");
@@ -403,8 +403,8 @@
                         priceTdElement.innerText = item.price;
                         typeTdElement.innerText = item.subType.type.name;
                         subTypeTdElement.innerText = item.subType.name;
-                        genderTdElement.innerText = item.gender.name ? item.gender.name : undefined;
-                        isChildTdElement.innerText = item.isChild ? 'YES' : 'NO';
+                        genderTdElement.innerText = item.gender.name;
+                        isChildTdElement.innerText = item.child ? 'YES' : 'NO';
                         discountTdElement.innerText = item.discount ? item.discount : 0;
                         detailsTdElement.innerHTML =
                             `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;

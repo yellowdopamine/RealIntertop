@@ -29,28 +29,13 @@ public class ItemService {
     private final MaterialRepository materialRepository;
     private final ColorRepository colorRepository;
     private final GenderRepository genderRepository;
+
     public ItemDto createItem(ItemDto itemDto) {
         if (!userService.isModer()) {
             return null;
         }
-        List<Material> materials = itemDto.getMaterials().stream()
-                .map(materialDto -> materialRepository.findById(materialDto.getId())
-                        .orElseThrow()).toList();
-        List<Color> colors = itemDto.getColors().stream()
-                .map(colorDto -> colorRepository.findById(colorDto.getId())
-                        .orElseThrow()).toList();
-        Item item = Item
-                .builder()
-                .modelName(itemDto.getModelName())
-                .price(itemDto.getPrice())
-                .collection(collectionRepository.findCollectionById(itemDto.getCollection().getId()))
-                .subType(subTypeRepository.findSubTypeById(itemDto.getSubType().getId()))
-                .gender(genderRepository.findGenderById(itemDto.getGender().getId()))
-                .materials(Set.copyOf(materials))
-                .colors(Set.copyOf(colors))
-                .isChild(itemDto.isChild())
-                .build();
-
+        Item item = new Item();
+        assignElements(itemDto, item);
         if (itemDto.getFileList() != null) {
             List<Picture> pictures = new ArrayList<>();
             for (MultipartFile file : itemDto.getFileList()) {
@@ -70,7 +55,8 @@ public class ItemService {
         if (!itemRepository.existsById(itemDto.getId())) {
             return null;
         }
-        Item item = itemMapper.toEntity(itemDto);
+        Item item = new Item();
+        assignElements(itemDto, item);
         return itemMapper.toDto(itemRepository.save(item));
     }
 
@@ -83,7 +69,26 @@ public class ItemService {
     public List<ItemDto> getAllDto() {
         return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
+
     public List<ItemDto> getAllByCollectionIdDto(Long id) {
         return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).collect(Collectors.toList());
+    }
+
+    private void assignElements (ItemDto itemDto, Item item){
+        List<Material> materials = itemDto.getMaterials().stream()
+                .map(materialDto -> materialRepository.findById(materialDto.getId())
+                        .orElseThrow()).toList();
+        List<Color> colors = itemDto.getColors().stream()
+                .map(colorDto -> colorRepository.findById(colorDto.getId())
+                        .orElseThrow()).toList();
+        item.setId(itemDto.getId());
+        item.setModelName(itemDto.getModelName());
+        item.setPrice(itemDto.getPrice());
+        item.setCollection(collectionRepository.findCollectionById(itemDto.getCollection().getId()));
+        item.setSubType(subTypeRepository.findSubTypeById(itemDto.getSubType().getId()));
+        item.setGender(genderRepository.findGenderById(itemDto.getGender().getId()));
+        item.setMaterials(Set.copyOf(materials));
+        item.setColors(Set.copyOf(colors));
+        item.setChild(itemDto.isChild());
     }
 }

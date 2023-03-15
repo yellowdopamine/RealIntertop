@@ -17,7 +17,7 @@ public class ItemDto {
     private int discount;
     private double price;
     private CollectionDto collection;
-    private GenderDto gender; // 1 - Man, 2 - Woman, 3 - Unisex
+    private GenderDto gender;
     private boolean isChild;
     private SubTypeDto subType;
     private Set<MaterialDto> materials;
