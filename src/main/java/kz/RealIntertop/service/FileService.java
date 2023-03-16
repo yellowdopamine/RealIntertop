@@ -50,7 +50,7 @@ public class FileService {
         return fileName + extension;
     }
 
-    public byte[] getFile(String fileName) throws  IOException{
+    public byte[] getFile(String fileName) throws IOException{
         InputStream in;
         ClassPathResource resource;
         String file = fileViewUrl + fileName;
@@ -63,7 +63,5 @@ public class FileService {
         in = resource.getInputStream();
         return IOUtils.toByteArray(in);
     }
-
-
 }
 

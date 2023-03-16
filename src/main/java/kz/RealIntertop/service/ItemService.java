@@ -36,15 +36,18 @@ public class ItemService {
         }
         Item item = new Item();
         assignElements(itemDto, item);
-        if (itemDto.getFileList() != null) {
-            List<Picture> pictures = new ArrayList<>();
-            for (MultipartFile file : itemDto.getFileList()) {
-                String fileName = fileService.uploadFile(file);
-                pictures.add(pictureRepository.save(Picture.builder().name(fileName).build()));
-            }
-            item.setPictures(pictures);
-        }
         return itemMapper.toDto(itemRepository.save(item));
+    }
+
+    public void addImages(List<MultipartFile> fileList, Long itemId) {
+        List<Picture> pictures = new ArrayList<>();
+        for (MultipartFile file : fileList) {
+            String fileName = fileService.uploadFile(file);
+            pictures.add(pictureRepository.save(Picture.builder().name(fileName).build()));
+        }
+        Item item = itemRepository.findById(itemId).orElseThrow();
+        item.setPictures(pictures);
+        itemRepository.save(item);
     }
 
     public ItemDto getItemByIdDto(Long id) {
@@ -74,7 +77,7 @@ public class ItemService {
         return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
 
-    private void assignElements (ItemDto itemDto, Item item){
+    private void assignElements(ItemDto itemDto, Item item) {
         List<Material> materials = itemDto.getMaterials().stream()
                 .map(materialDto -> materialRepository.findById(materialDto.getId())
                         .orElseThrow()).toList();
