@@ -132,52 +132,60 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mt-3 mb-3">
-                <div class="col-12 mx-auto">
+            <div class="row mt-3">
+                <div class="col-8 mx-auto">
                     <button type="button" class="btn btn-success me-2"
                             onclick="updateItem()">Update
                     </button>
-
-                    <button type="button" class="btn btn-danger "
-                            onclick="deleteItem()">Delete
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Delete
                     </button>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fs-5">Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    onclick="deleteItem()">Delete
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="http://localhost:8000/file/view/d0755a9aee31c2a58c2deae432d70ed5a0e5ef3f_155.jpg"
-                                     alt="First slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="http://localhost:8000/file/view/ab38c32f408bd032094aaa8a612a02a573e9d1b1_167.jpg"
-                                     alt="Second slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="http://localhost:8000/file/view/cccea4f51f99f46a44ec601b7cd2e65a57f561b1_546.jpg"
-                                     alt="Third slide">
-                            </div>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner mx-auto" style="width: 500px">
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                           data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                           data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="prev"
+                                style="background-color: rgba(238,252,245,0.14); ">
+                            <span class="carousel-control-prev-icon text-dark" aria-hidden="true"
+                                  style="background-color: rgba(187,253,220,0.69)"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="next"
+                                style="background-color: rgba(238,252,245,0.14); ">
+                            <span class="carousel-control-next-icon" aria-hidden="true"
+                                  style="background-color: rgba(187,253,220,0.69)"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
 
@@ -332,7 +340,6 @@
                         if (item != null) {
                             // document.getElementById("ifNull").style.display = "none";
                             // document.getElementById("ifNotNull").style.display = "block";
-
                             const {
                                 id,
                                 modelName,
@@ -343,7 +350,8 @@
                                 materials,
                                 colors,
                                 isChild,
-                                discount
+                                discount,
+                                pictures
                             } = item;
                             document.getElementById("id").value = id;
                             document.getElementById("modelName").value = modelName;
@@ -391,6 +399,22 @@
                                 const colorId = parseInt(checkbox.value);
                                 checkbox.checked = selectedColorIds.includes(colorId);
                             });
+
+                            const carouselInner = document.querySelector('#carouselExample .carousel-inner')
+                            if (pictures != null) {
+                                pictures.forEach((picture, index) => {
+                                    const div = document.createElement('div');
+                                    div.classList.add('carousel-item');
+                                    if (index === 0) {
+                                        div.classList.add('active');
+                                    }
+                                    const img = document.createElement('img');
+                                    img.classList.add('d-block', 'w-500');
+                                    img.src = "http://localhost:8000/file/view/" + picture.name;
+                                    div.appendChild(img);
+                                    carouselInner.appendChild(div);
+                                });
+                            }
 
                             document.getElementById("isChild").checked = item.child;
                         } else {
@@ -444,20 +468,22 @@
 
             }
 
-            function addImages(){
+            function addImages() {
                 const input = document.getElementById("images");
                 const files = input.files;
                 const formData = new FormData();
 
-                for(let i = 0; i < files.length; i++){
+                for (let i = 0; i < files.length; i++) {
                     formData.append('itemImages', files[i]);
                 }
-                fetch('http://localhost:8000/item/add-images/' + itemId, {
+                fetch('<div class="carousel-item">\n' +
+                    '                                <img class="d-block w-100" alt="...">\n' +
+                    '                            </div>item/add-images/' + itemId, {
                     method: 'POST',
                     body: formData,
                 })
                     .then(response => {
-                        if(response != null){
+                        if (response != null) {
                             showAlert("Successfully added! Refresh page.", false)
                         } else {
                             showAlert("Error", true)
@@ -466,6 +492,15 @@
                     .catch(error => {
                         console.error(error)
                     })
+            }
+
+            function deleteItem() {
+                fetch('http://localhost:8000/item/' + itemId, {
+                    method: 'DELETE'
+                })
+                    .catch(error => {
+                        console.error(error)
+                    });
             }
 
             function showAlert(message, isError) {
