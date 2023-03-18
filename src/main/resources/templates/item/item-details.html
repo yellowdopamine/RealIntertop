@@ -42,6 +42,28 @@
             </div>
             <div class="row mt-3">
                 <div class="col-12 mx-auto">
+                    <label>Article</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 mx-auto">
+                    <input type="text" required class="form-control text-uppercase" name="article" id="article">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12 mx-auto">
+                    <label>Content</label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 mx-auto">
+                    <textarea type="text" required class="form-control" style="height: 200px" name="content"
+                           id="content"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 mx-auto">
                     <label>Discount</label>
                 </div>
             </div>
@@ -169,19 +191,17 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner mx-auto" style="width: 500px">
+                    <div id="carouselExample" class="carousel slide" style="width: 500px">
+                        <div class="carousel-inner mx-auto" >
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="prev"
-                                style="background-color: rgba(238,252,245,0.14); ">
-                            <span class="carousel-control-prev-icon text-dark" aria-hidden="true"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"
                                   style="background-color: rgba(187,253,220,0.69)"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="next"
-                                style="background-color: rgba(238,252,245,0.14); ">
+                                data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"
                                   style="background-color: rgba(187,253,220,0.69)"></span>
                             <span class="visually-hidden">Next</span>
@@ -343,6 +363,8 @@
                             const {
                                 id,
                                 modelName,
+                                article,
+                                content,
                                 price,
                                 collection,
                                 subType,
@@ -358,6 +380,8 @@
                             document.getElementById("price").value = price;
                             document.getElementById("isChild").checked = isChild;
                             document.getElementById("discount").value = discount;
+                            document.getElementById("article").value = article;
+                            document.getElementById("content").value = content;
 
                             if (collection != null) {
                                 const collectionDropDown = document.getElementById("collectionId");
@@ -415,7 +439,6 @@
                                     carouselInner.appendChild(div);
                                 });
                             }
-
                             document.getElementById("isChild").checked = item.child;
                         } else {
                         }
@@ -440,6 +463,8 @@
                 const itemData = {
                     id: parseInt(document.getElementById("id").value),
                     modelName: document.getElementById("modelName").value,
+                    article: document.getElementById("article").value,
+                    content: document.getElementById("content").value,
                     price: parseInt(document.getElementById("price").value),
                     discount: parseInt(document.getElementById("discount").value),
                     collection: {
@@ -476,9 +501,7 @@
                 for (let i = 0; i < files.length; i++) {
                     formData.append('itemImages', files[i]);
                 }
-                fetch('<div class="carousel-item">\n' +
-                    '                                <img class="d-block w-100" alt="...">\n' +
-                    '                            </div>item/add-images/' + itemId, {
+                fetch('http://localhost:8000/item/add-images' + itemId, {
                     method: 'POST',
                     body: formData,
                 })

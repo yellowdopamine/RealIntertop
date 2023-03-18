@@ -27,4 +27,8 @@ public class ItemController {
     public String itemDetails(@PathVariable Long id){
         return "/item/item-details";
     }
+    @GetMapping("/view/{id}")
+    public String itemView(@PathVariable Long id){
+        return "/item/item-view";
+    }
 }

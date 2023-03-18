@@ -19,9 +19,10 @@ public class ItemDto {
     private CollectionDto collection;
     private GenderDto gender;
     private boolean isChild;
+    private String article;
+    private String content;
     private SubTypeDto subType;
     private Set<MaterialDto> materials;
     private Set<ColorDto> colors;
     private Set<PictureDto> pictures;
-    private List<MultipartFile> fileList;
 }

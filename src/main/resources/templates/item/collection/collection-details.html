@@ -161,6 +161,18 @@
 
                                 <div class="row mt-3">
                                     <div class="col-12 mx-auto">
+                                        <label>Article</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 mx-auto">
+                                        <input type="text" required class="form-control" name="article"
+                                               id="article">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-12 mx-auto">
                                         <label>Price</label>
                                     </div>
                                 </div>
@@ -266,6 +278,7 @@
                             <th scope="col">FOR CHILD</th>
                             <th scope="col">DISCOUNT</th>
                             <th scope="col">DETAILS</th>
+                            <th scope="col">VIEW</th>
                         </tr>
                         </thead>
                         <tbody id="items-table-body">
@@ -398,6 +411,7 @@
                         const isChildTdElement = document.createElement('td');
                         const discountTdElement = document.createElement('td');
                         const detailsTdElement = document.createElement('td');
+                        const itemViewTdElement = document.createElement('td');
 
                         nameTdElement.innerText = item.modelName;
                         priceTdElement.innerText = item.price;
@@ -408,6 +422,8 @@
                         discountTdElement.innerText = item.discount ? item.discount : 0;
                         detailsTdElement.innerHTML =
                             `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
+                        itemViewTdElement.innerHTML =
+                            `<a href="/item/view/${item.id}" class="btn-success btn btn-sm">View</a>`;
 
                         trElement.appendChild(nameTdElement);
                         trElement.appendChild(priceTdElement);
@@ -417,6 +433,7 @@
                         trElement.appendChild(isChildTdElement);
                         trElement.appendChild(discountTdElement);
                         trElement.appendChild(detailsTdElement);
+                        trElement.appendChild(itemViewTdElement);
                         tableBodyElement.appendChild(trElement);
                 });
             })
@@ -439,6 +456,7 @@
                 }
             }
             const itemData = {
+                article: document.getElementById("article").value,
                 modelName: document.getElementById("modelName").value,
                 price: parseInt(document.getElementById("price").value),
                 collection: {

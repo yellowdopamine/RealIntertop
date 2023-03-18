@@ -55,10 +55,7 @@ public class ItemService {
     }
 
     public ItemDto updateItem(ItemDto itemDto) {
-        if (!itemRepository.existsById(itemDto.getId())) {
-            return null;
-        }
-        Item item = new Item();
+        Item item = itemRepository.findById(itemDto.getId()).orElseThrow();
         assignElements(itemDto, item);
         return itemMapper.toDto(itemRepository.save(item));
     }
@@ -93,5 +90,7 @@ public class ItemService {
         item.setMaterials(Set.copyOf(materials));
         item.setColors(Set.copyOf(colors));
         item.setChild(itemDto.isChild());
+        item.setArticle(itemDto.getArticle());
+        item.setContent(itemDto.getContent());
     }
 }

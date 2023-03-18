@@ -21,6 +21,9 @@ public class Item extends BaseEntity {
     @ManyToOne
     private Collection collection;
     private boolean isChild;
+    private String article;
+    @Column(columnDefinition = "TEXT")
+    private String content;
     @ManyToOne
     private SubType subType;
     @ManyToMany(fetch = FetchType.LAZY)
