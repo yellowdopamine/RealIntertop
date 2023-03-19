@@ -1,9 +1,7 @@
 package kz.RealIntertop.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter

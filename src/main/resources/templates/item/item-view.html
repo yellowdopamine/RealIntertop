@@ -3,8 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout.html"
->
+      layout:decorate="layout.html">
 <div layout:fragment="content">
     <div class="row mt-3">
         <div class="col-12 mx-auto">
@@ -102,23 +101,43 @@
                             <p class="h4">Details</p>
                         </div>
                     </div>
-                    <div class="row mt-2 ">
-                        <div class="col-md-5 ms-0">
-                            <p class="text-black-50 ms-0 d-inline-block">Brand:</p>
-                            <a class="me-0 d-inline-block float-end text-decoration-none" href="#" id="brand"
-                               style="color: rgba(0,133,69,0.8)"></a>
+                    <div class="row mt-2 text-black-50">
+                        <div class="col-md-5">
+                                <p class="d-inline-block">Brand:</p>
+                                <a class="d-inline-block float-end text-decoration-none" href="#" id="brand"
+                                   style="color: rgba(0,133,69,0.8)"></a>
+                                <hr>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="d-inline-block">Collection:</p>
+                            <p class="d-inline-block float-end" id="collection"></p>
                             <hr>
                         </div>
                         <div class="col-md-5 ms-0">
-                            <p class="text-black-50 ms-0 d-inline-block">Brand:</p>
-                            <p class="me-0 d-inline-block float-end" id=""></p>
+                            <p class="d-inline-block">Gender:</p>
+                            <p class="d-inline-block float-end" id="gender"></p>
+                            <hr>
+                        </div>
+                        <div class="col-md-5 ms-0">
+                            <p class="d-inline-block">Materials:</p>
+                            <p class="d-inline-block float-end" id="materials"></p>
                             <hr>
                         </div>
                     </div>
-                    <div class="row mt-2 ">
+                    <div class="row mt-2 text-black-50">
                         <div class="col-md-5 ms-0">
-                            <p class="text-black-50 ms-0 d-inline-block">Brand:</p>
-                            <p class="me-0 d-inline-block float-end" id=""></p>
+                            <p class="d-inline-block">Model Name:</p>
+                            <p class="d-inline-block float-end" id="modelNameDetails"></p>
+                            <hr>
+                        </div>
+                        <div class="col-md-5 ms-0">
+                            <p class="d-inline-block">Sub Type:</p>
+                            <p class="d-inline-block float-end" id="subType"></p>
+                            <hr>
+                        </div>
+                        <div class="col-md-5 ms-0">
+                            <p class="d-inline-block">Colors:</p>
+                            <p class="d-inline-block float-end" id="colors"></p>
                             <hr>
                         </div>
                     </div>
@@ -134,8 +153,6 @@
                 .then(response => response.json())
                 .then(item => {
                     if (item != null) {
-                        // document.getElementById("ifNull").style.display = "none";
-                        // document.getElementById("ifNotNull").style.display = "block";
                         const {
                             id,
                             modelName,
@@ -152,27 +169,23 @@
                             article
                         } = item;
                         document.getElementById("modelName").innerText = modelName;
+                        document.getElementById("modelNameDetails").innerText = modelName;
                         document.getElementById("price").innerText = price + ' $';
                         // document.getElementById("isChild").checked = isChild;
                         document.getElementById("subTypeId").innerText = subType.type.name + ' → ' + subType.name;
+                        document.getElementById("subType").innerText = subType.type.name;
                         document.getElementById("article").innerText = article;
                         document.getElementById("content").innerText = content;
                         document.getElementById("brand").innerText = collection.brand.name;
+                        document.getElementById("gender").innerText = gender.name;
+                        document.getElementById("collection").innerText = collection.name;
 
-                        // selectedMaterialIds = materials.map(material => material.id);
-                        // const materialCheckboxes = document.querySelectorAll('input[name="materials[]"]');
-                        // materialCheckboxes.forEach(checkbox => {
-                        //     const materialId = parseInt(checkbox.value);
-                        //     checkbox.checked = selectedMaterialIds.includes(materialId);
-                        // });
-                        //
-                        // selectedColorIds = colors.map(color => color.id);
-                        // const colorCheckboxes = document.querySelectorAll('input[name="colors[]"]');
-                        // colorCheckboxes.forEach(checkbox => {
-                        //     const colorId = parseInt(checkbox.value);
-                        //     checkbox.checked = selectedColorIds.includes(colorId);
-                        // });
-
+                        materials.forEach(material => {
+                            document.getElementById("materials").innerText += material.name + ' ';
+                        });
+                        colors.forEach(color => {
+                            document.getElementById("colors").innerText += color.name + ' ';
+                        })
                         const carouselInner = document.querySelector('#carouselExample .carousel-inner')
                         if (pictures != null) {
                             pictures.forEach((picture, index) => {

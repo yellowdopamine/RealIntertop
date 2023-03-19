@@ -1,8 +1,6 @@
 package kz.RealIntertop.controller.item;
 
 import kz.RealIntertop.dto.ItemDto;
-import kz.RealIntertop.model.item.Item;
-import kz.RealIntertop.repository.ItemRepository;
 import kz.RealIntertop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,11 +21,25 @@ public class ItemRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
-    @PostMapping("/add-images/{id}")
+    @PostMapping("/pictures/{id}")
     public void addImages(
-            @RequestParam (name = "itemImages") List<MultipartFile> fileList,
+            @RequestParam (name = "itemPictures") List<MultipartFile> fileList,
             @PathVariable Long id){
-        itemService.addImages(fileList, id);
+        itemService.addPictures(fileList, id);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_MODER')")
+    @PutMapping("/pictures/set-avatar/{pictureName}/{id}")
+    public void setAvatar(
+            @PathVariable String pictureName,
+            @PathVariable Long id){
+        itemService.setAvatar(pictureName, id);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_MODER')")
+    @DeleteMapping("/pictures/{pictureName}/{id}")
+    public void deletePicture(
+            @PathVariable String pictureName,
+            @PathVariable Long id){
+        itemService.deletePicture(pictureName, id);
     }
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
     @PutMapping()

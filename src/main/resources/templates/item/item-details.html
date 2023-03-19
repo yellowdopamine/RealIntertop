@@ -212,12 +212,12 @@
                 <div class="col-8">
                     <div class="row mt-3">
                         <div class="col-12 mx-auto">
-                            <label>Add Images</label>
+                            <label>Add Pictures</label>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-12 mx-auto">
-                            <input type="file" multiple class="form-control" name="images" id="images">
+                            <input type="file" multiple class="form-control" name="pictures" id="pictures">
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-12 mx-auto">
                         <button type="button" class="btn btn-success me-2"
-                                onclick="addImages()">Add Images
+                                onclick="addPictures()">Add Pictures
                         </button>
                     </div>
                 </div>
@@ -436,6 +436,26 @@
                                     img.classList.add('d-block', 'w-500');
                                     img.src = "http://localhost:8000/file/view/" + picture.name;
                                     div.appendChild(img);
+
+                                    const divButtons = document.createElement('div');
+                                    divButtons.classList.add('row', 'mt-2', 'd-flex');
+
+                                    // const btnSetAvatar = document.createElement('button');
+                                    // btnSetAvatar.classList.add('btn', 'btn-outline-primary', 'mt-2');
+                                    // btnSetAvatar.textContent = 'Set as avatar';
+                                    // btnSetAvatar.addEventListener('click', () => {
+                                    //     setAsAvatar(picture.name);
+                                    // });
+                                    // divButtons.appendChild(btnSetAvatar);
+
+                                    const btnDeletePicture = document.createElement('button');
+                                    btnDeletePicture.classList.add('btn', 'btn-outline-danger', 'ms-2', 'mt-2');
+                                    btnDeletePicture.textContent = 'Delete Picture';
+                                    btnDeletePicture.addEventListener('click', () => {
+                                        deletePicture(picture.name);
+                                    });
+                                    divButtons.appendChild(btnDeletePicture);
+                                    div.appendChild(divButtons);
                                     carouselInner.appendChild(div);
                                 });
                             }
@@ -493,15 +513,15 @@
 
             }
 
-            function addImages() {
-                const input = document.getElementById("images");
+            function addPictures() {
+                const input = document.getElementById("pictures");
                 const files = input.files;
                 const formData = new FormData();
 
                 for (let i = 0; i < files.length; i++) {
-                    formData.append('itemImages', files[i]);
+                    formData.append('itemPictures', files[i]);
                 }
-                fetch('http://localhost:8000/item/add-images' + itemId, {
+                fetch('http://localhost:8000/item/pictures' + itemId, {
                     method: 'POST',
                     body: formData,
                 })
@@ -516,6 +536,22 @@
                         console.error(error)
                     })
             }
+            // function setAsAvatar(pictureName){
+            //     fetch('http://localhost:8000/item/pictures/set-avatar/' + pictureName + '/' + itemId, {
+            //         method: 'PUT'
+            //     })
+            //         .catch(error => {
+            //             console.error(error)
+            //         })
+            // }
+            function deletePicture(pictureName){
+                fetch('http://localhost:8000/item/pictures/' + pictureName + '/' + itemId, {
+                    method: 'DELETE'
+                })
+                    .catch(error => {
+                        console.error(error)
+                    })
+            }
 
             function deleteItem() {
                 fetch('http://localhost:8000/item/' + itemId, {
@@ -524,6 +560,7 @@
                     .catch(error => {
                         console.error(error)
                     });
+                window.history.back();
             }
 
             function showAlert(message, isError) {

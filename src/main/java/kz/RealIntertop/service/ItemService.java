@@ -39,13 +39,27 @@ public class ItemService {
         return itemMapper.toDto(itemRepository.save(item));
     }
 
-    public void addImages(List<MultipartFile> fileList, Long itemId) {
+    public void addPictures(List<MultipartFile> fileList, Long itemId) {
         List<Picture> pictures = new ArrayList<>();
         for (MultipartFile file : fileList) {
             String fileName = fileService.uploadFile(file);
             pictures.add(pictureRepository.save(Picture.builder().name(fileName).build()));
         }
         Item item = itemRepository.findById(itemId).orElseThrow();
+        item.setPictures(pictures);
+        itemRepository.save(item);
+    }
+    public void setAvatar(String pictureName, Long id){
+        Item item = itemRepository.findById(id).orElseThrow();
+        List<Picture> pictures = item.getPictures();
+        pictures.set(0, pictureRepository.findPictureByName(pictureName));
+        item.setPictures(pictures);
+        itemRepository.save(item);
+    }
+    public void deletePicture(String pictureName, Long id){
+        Item item = itemRepository.findById(id).orElseThrow();
+        List<Picture> pictures = item.getPictures();
+        pictures.remove(pictureRepository.findPictureByName(pictureName));
         item.setPictures(pictures);
         itemRepository.save(item);
     }
