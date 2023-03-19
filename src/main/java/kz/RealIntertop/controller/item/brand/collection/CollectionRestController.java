@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/collection")
+@RequestMapping(value = "/api/collection")
 public class CollectionRestController {
     private final CollectionService collectionService;
 

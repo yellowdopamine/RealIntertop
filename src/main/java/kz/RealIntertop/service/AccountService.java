@@ -2,9 +2,12 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.UserDto;
 import kz.RealIntertop.mapper.UserMapper;
+import kz.RealIntertop.model.item.Item;
 import kz.RealIntertop.model.user.Authority;
 import kz.RealIntertop.model.user.User;
 import kz.RealIntertop.repository.AuthorityRepository;
+import kz.RealIntertop.repository.CartRepository;
+import kz.RealIntertop.repository.ItemRepository;
 import kz.RealIntertop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -82,6 +86,4 @@ public class AccountService {
         }
         return false;
     }
-
-
 }

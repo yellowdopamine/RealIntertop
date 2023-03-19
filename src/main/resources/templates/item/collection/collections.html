@@ -129,7 +129,7 @@
     <div style="height: 16rem"></div>
 
     <script>
-        fetch('http://localhost:8000/collection/all')
+        fetch('http://localhost:8000/api/collection/all')
             .then(response => response.json())
             .then(data => {
                 data.forEach(collection => {
@@ -161,7 +161,7 @@
                 });
             })
             .catch(error => console.error(error));
-        fetch('http://localhost:8000/season/all')
+        fetch('http://localhost:8000/api/season/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("seasonId");
@@ -173,7 +173,7 @@
                 });
             })
             .catch(error => console.error(error));
-        fetch('http://localhost:8000/brand/all')
+        fetch('http://localhost:8000/api/brand/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("brandId");
@@ -184,7 +184,7 @@
                     selectElement.appendChild(optionElement);
                 });
             }).catch(error => console.error(error));
-        fetch('http://localhost:8000/manufacturer/all')
+        fetch('http://localhost:8000/api/manufacturer/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("manufacturerId");
@@ -198,7 +198,7 @@
 
         function createCollection() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/collection', true);
+            request.open("POST", '/api/collection', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {

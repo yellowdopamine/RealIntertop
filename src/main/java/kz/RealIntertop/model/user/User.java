@@ -1,6 +1,7 @@
 package kz.RealIntertop.model.user;
 
 import kz.RealIntertop.model.BaseEntity;
+import kz.RealIntertop.model.item.Cart;
 import kz.RealIntertop.model.user.address.Address;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +26,8 @@ public class User extends BaseEntity implements UserDetails{
     private Address address;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Authority> authorities;
-
+    @OneToOne
+    private Cart cart;
 
     @Override
     public String getUsername() {

@@ -197,7 +197,7 @@
             }
 
             Promise.all([
-                fetch('http://localhost:8000/collection/all')
+                fetch('http://localhost:8000/api/collection/all')
                     .then(response => response.json())
                     .then(data => {
                         const selectElement = document.getElementById("collectionId");
@@ -209,7 +209,7 @@
                         });
                     }).catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/sub-type/all')
+                fetch('http://localhost:8000/api/sub-type/all')
                     .then(response => response.json())
                     .then(data => {
                         const selectElement = document.getElementById("subTypeId");
@@ -221,7 +221,7 @@
                         });
                     }).catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/material/all')
+                fetch('http://localhost:8000/api/material/all')
                     .then(response => response.json())
                     .then(data => {
                         const divElement = document.getElementById("materialId");
@@ -266,7 +266,7 @@
                     })
                     .catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/color/all')
+                fetch('http://localhost:8000/api/color/all')
                     .then(response => response.json())
                     .then(data => {
                         const divElement = document.getElementById("colorId");
@@ -311,7 +311,7 @@
                     })
                     .catch(error => console.error(error))
             ]).then(() => {
-                fetch('http://localhost:8000/item/all' + id)
+                fetch('http://localhost:8000/api/item/all' + id)
                     .then(response => response.json())
                     .then(data => {
                         const tableBodyElement = document.getElementById("items-table-body");

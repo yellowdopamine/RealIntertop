@@ -32,10 +32,6 @@ public class Item extends BaseEntity {
     private Set<Color> colors;
     @ManyToOne
     private Gender gender;
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private List<Review> reviews;
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private List<Size> sizes;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Picture> pictures;
 

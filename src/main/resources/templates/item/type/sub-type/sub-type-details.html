@@ -79,7 +79,7 @@
             </div>
 
             <script>
-                fetch('http://localhost:8000/type/all')
+                fetch('http://localhost:8000/api/type/all')
                     .then(response => response.json())
                     .then(data => {
                         const selectElement = document.getElementById("typeId");
@@ -96,7 +96,7 @@
                 const pathParts = path.split('/');
                 const id = pathParts[3];
 
-                fetch('http://localhost:8000/sub-type/' + id)
+                fetch('http://localhost:8000/api/sub-type/' + id)
                     .then(response => response.json())
                     .then(data => {
                         if (data != null) {
@@ -119,7 +119,7 @@
                 });
                 function updateSubType() {
                     const request = new XMLHttpRequest();
-                    request.open("PUT", '/sub-type', true);
+                    request.open("PUT", '/api/sub-type', true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {
@@ -143,7 +143,7 @@
                 }
                 function deleteSubType(typeId, subTypeId) {
                     const request = new XMLHttpRequest();
-                    request.open("DELETE", '/sub-type/' + id, true);
+                    request.open("DELETE", '/api/sub-type/' + id, true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {

@@ -82,7 +82,7 @@
     <div style="height: 16rem"></div>
 
     <script>
-        fetch('http://localhost:8000/brand/all')
+        fetch('http://localhost:8000/api/brand/all')
             .then(response => response.json())
             .then(data => {
                 const tableBodyElement = document.getElementById("collection-table-body");
@@ -109,7 +109,7 @@
 
         function createBrand() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/brand', true);
+            request.open("POST", '/api/brand', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {

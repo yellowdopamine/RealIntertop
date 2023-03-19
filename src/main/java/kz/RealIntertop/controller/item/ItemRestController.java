@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/item")
+@RequestMapping(value = "/api/item")
 public class ItemRestController {
     private final ItemService itemService;
     @PreAuthorize("hasAnyRole('ROLE_MODER')")

@@ -88,7 +88,7 @@
 
         function register() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/account/register', true);
+            request.open("POST", '/api/account/register', true);
             request.setRequestHeader("Content-Type", "application/json");
 
             request.onreadystatechange = () => {

@@ -12,4 +12,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Item findItemByModelNameLike(String name);
     List<Item> findAllByCollectionId(Long id);
+    Item findItemById(Long id);
 }

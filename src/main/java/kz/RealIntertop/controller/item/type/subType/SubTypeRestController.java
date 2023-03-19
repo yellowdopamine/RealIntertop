@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/sub-type")
+@RequestMapping(value = "/api/sub-type")
 public class SubTypeRestController {
     private final SubTypeService subTypeService;
 

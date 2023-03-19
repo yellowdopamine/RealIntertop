@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/season")
+@RequestMapping(value = "/api/season")
 public class SeasonRestController {
     private final SeasonService seasonService;
     @GetMapping(value = "/all")

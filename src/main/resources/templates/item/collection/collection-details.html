@@ -303,7 +303,7 @@
         const collectionId = pathParts[3];
 
         Promise.all([
-            fetch('http://localhost:8000/season/all')
+            fetch('http://localhost:8000/api/season/all')
                 .then(response => response.json())
                 .then(data => {
                     const selectElement = document.getElementById("seasonId");
@@ -316,7 +316,7 @@
                     selectElement.selectedIndex = 0;
                 })
                 .catch(error => console.error(error)),
-            fetch('http://localhost:8000/brand/all')
+            fetch('http://localhost:8000/api/brand/all')
                 .then(response => response.json())
                 .then(data => {
                     const selectElement = document.getElementById("brandId");
@@ -328,7 +328,7 @@
                     });
                     selectElement.selectedIndex = 0;
                 }).catch(error => console.error(error)),
-            fetch('http://localhost:8000/manufacturer/all')
+            fetch('http://localhost:8000/api/manufacturer/all')
                 .then(response => response.json())
                 .then(data => {
                     const selectElement = document.getElementById("manufacturerId");
@@ -340,7 +340,7 @@
                     });
                 }).catch(error => console.error(error))
         ]).then(() => {
-            fetch('http://localhost:8000/collection/' + collectionId)
+            fetch('http://localhost:8000/api/collection/' + collectionId)
                 .then(response => response.json())
                 .then(collection => {
                     if (collection != null) {
@@ -396,7 +396,7 @@
                 console.error(error);
             });
         })
-        fetch('http://localhost:8000/item/get-by-collection-id/' + collectionId)
+        fetch('http://localhost:8000/api/item/get-by-collection-id/' + collectionId)
             .then(response => response.json())
             .then(data => {
                 const tableBodyElement = document.getElementById("items-table-body");
@@ -444,7 +444,7 @@
 
         function createItem() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/item', true);
+            request.open("POST", '/api/item', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {
@@ -485,7 +485,7 @@
             // document.getElementById("modelName").value = '';
         }
 
-        fetch('http://localhost:8000/sub-type/all')
+        fetch('http://localhost:8000/api/sub-type/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("subTypeId");
@@ -496,7 +496,7 @@
                     selectElement.appendChild(optionElement);
                 });
             }).catch(error => console.error(error));
-        fetch('http://localhost:8000/material/all')
+        fetch('http://localhost:8000/api/material/all')
             .then(response => response.json())
             .then(data => {
                 const divElement = document.getElementById("materialId");
@@ -540,7 +540,7 @@
             })
             .catch(error => console.error(error));
 
-        fetch('http://localhost:8000/color/all')
+        fetch('http://localhost:8000/api/color/all')
             .then(response => response.json())
             .then(data => {
                 const divElement = document.getElementById("colorId");
@@ -587,7 +587,7 @@
 
         function updateCollection() {
             const request = new XMLHttpRequest();
-            request.open("PUT", '/collection', true);
+            request.open("PUT", '/api/collection', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {
@@ -620,7 +620,7 @@
         function deleteCollection() {
             const request = new XMLHttpRequest();
             const id = document.getElementById("id").value;
-            request.open("DELETE", '/collection/' + id, true);
+            request.open("DELETE", '/api/collection/' + id, true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {

@@ -128,7 +128,7 @@
                 const path = window.location.pathname;
                 const pathParts = path.split('/');
                 const id = pathParts[3];
-                fetch('http://localhost:8000/type/' + id)
+                fetch('http://localhost:8000/api/type/' + id)
                     .then(response => response.json())
                     .then(data => {
                         if (data != null) {
@@ -140,7 +140,7 @@
                     }).catch(error => {
                     console.error(error);
                 });
-                fetch('http://localhost:8000/sub-type/get-by-type-id/' + id)
+                fetch('http://localhost:8000/api/sub-type/get-by-type-id/' + id)
                     .then(response => response.json())
                     .then(data => {
                         const tableBodyElement = document.getElementById("subType-table-body");
@@ -163,7 +163,7 @@
 
                 function updateType() {
                     const request = new XMLHttpRequest();
-                    request.open("PUT", '/type', true);
+                    request.open("PUT", '/api/type', true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {
@@ -185,7 +185,7 @@
 
                 function createSubType() {
                     const request = new XMLHttpRequest();
-                    request.open("POST", '/sub-type', true);
+                    request.open("POST", '/api/sub-type', true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {
@@ -211,7 +211,7 @@
                 function deleteType() {
                     const request = new XMLHttpRequest();
                     const id = document.getElementById("id").value;
-                    request.open("DELETE", '/type/' + id, true);
+                    request.open("DELETE", '/api/type/' + id, true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {
@@ -227,7 +227,7 @@
 
                 function deleteSubType(typeId, subTypeId) {
                     const request = new XMLHttpRequest();
-                    request.open("DELETE", '/type/sub-type', true);
+                    request.open("DELETE", '/api/type/sub-type', true);
                     request.setRequestHeader("Content-Type", "application/json");
                     request.onreadystatechange = () => {
                         if (request.readyState === XMLHttpRequest.DONE) {

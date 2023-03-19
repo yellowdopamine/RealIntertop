@@ -19,5 +19,5 @@ public class UserDto {
     private boolean nonLocked;
     private Address address;
     private List<Authority> authorities;
-
+    private CartDto cart;
 }

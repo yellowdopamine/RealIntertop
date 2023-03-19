@@ -240,7 +240,7 @@
             const itemId = pathParts[3];
 
             Promise.all([
-                fetch('http://localhost:8000/collection/all')
+                fetch('http://localhost:8000/api/collection/all')
                     .then(response => response.json())
                     .then(data => {
                         const selectElement = document.getElementById("collectionId");
@@ -252,7 +252,7 @@
                         });
                     }).catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/sub-type/all')
+                fetch('http://localhost:8000/api/sub-type/all')
                     .then(response => response.json())
                     .then(data => {
                         const selectElement = document.getElementById("subTypeId");
@@ -264,7 +264,7 @@
                         });
                     }).catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/material/all')
+                fetch('http://localhost:8000/api/material/all')
                     .then(response => response.json())
                     .then(data => {
                         const divElement = document.getElementById("materialId");
@@ -309,7 +309,7 @@
                     })
                     .catch(error => console.error(error)),
 
-                fetch('http://localhost:8000/color/all')
+                fetch('http://localhost:8000/api/color/all')
                     .then(response => response.json())
                     .then(data => {
                         const divElement = document.getElementById("colorId");
@@ -354,7 +354,7 @@
                     })
                     .catch(error => console.error(error))
             ]).then(() => {
-                fetch('http://localhost:8000/item/' + itemId)
+                fetch('http://localhost:8000/api/item/' + itemId)
                     .then(response => response.json())
                     .then(item => {
                         if (item != null) {
@@ -469,7 +469,7 @@
 
             function updateItem() {
                 const request = new XMLHttpRequest();
-                request.open("PUT", '/item', true);
+                request.open("PUT", '/api/item', true);
                 request.setRequestHeader("Content-Type", "application/json");
                 request.onreadystatechange = () => {
                     if (request.readyState === XMLHttpRequest.DONE) {
@@ -521,7 +521,7 @@
                 for (let i = 0; i < files.length; i++) {
                     formData.append('itemPictures', files[i]);
                 }
-                fetch('http://localhost:8000/item/pictures' + itemId, {
+                fetch('http://localhost:8000/api/item/pictures' + itemId, {
                     method: 'POST',
                     body: formData,
                 })
@@ -545,7 +545,7 @@
             //         })
             // }
             function deletePicture(pictureName){
-                fetch('http://localhost:8000/item/pictures/' + pictureName + '/' + itemId, {
+                fetch('http://localhost:8000/api/item/pictures/' + pictureName + '/' + itemId, {
                     method: 'DELETE'
                 })
                     .catch(error => {
@@ -554,7 +554,7 @@
             }
 
             function deleteItem() {
-                fetch('http://localhost:8000/item/' + itemId, {
+                fetch('http://localhost:8000/api/item/' + itemId, {
                     method: 'DELETE'
                 })
                     .catch(error => {

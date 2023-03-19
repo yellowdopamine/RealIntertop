@@ -131,7 +131,7 @@
 
         function createItem() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/item', true);
+            request.open("POST", '/api/item', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {
@@ -169,7 +169,7 @@
             // document.getElementById("modelName").value = '';
         }
 
-        fetch('http://localhost:8000/collection/all')
+        fetch('http://localhost:8000/api/collection/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("collectionId");
@@ -180,7 +180,7 @@
                     selectElement.appendChild(optionElement);
                 });
             }).catch(error => console.error(error));
-        fetch('http://localhost:8000/sub-type/all')
+        fetch('http://localhost:8000/api/sub-type/all')
             .then(response => response.json())
             .then(data => {
                 const selectElement = document.getElementById("subTypeId");
@@ -191,7 +191,7 @@
                     selectElement.appendChild(optionElement);
                 });
             }).catch(error => console.error(error));
-        fetch('http://localhost:8000/material/all')
+        fetch('http://localhost:8000/api/material/all')
             .then(response => response.json())
             .then(data => {
                 const divElement = document.getElementById("materialId");
@@ -237,7 +237,7 @@
             })
             .catch(error => console.error(error));
 
-        fetch('http://localhost:8000/color/all')
+        fetch('http://localhost:8000/api/color/all')
             .then(response => response.json())
             .then(data => {
                 const divElement = document.getElementById("colorId");

@@ -64,7 +64,7 @@
     </div>
     <div style="height: 16rem"></div>
     <script>
-        fetch('http://localhost:8000/sub-type/all')
+        fetch('http://localhost:8000/api/sub-type/all')
             .then(response => response.json())
             .then(data => {
                 const tableBodyElement = document.getElementById("sub-type-table-body");
@@ -90,7 +90,7 @@
             .catch(error => console.error(error));
         function createType() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/type', true);
+            request.open("POST", '/api/type', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {
