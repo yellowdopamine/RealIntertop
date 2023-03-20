@@ -7,6 +7,41 @@
 >
 
 <div layout:fragment="content">
-<!--todo Добавить просмотр Item с карточек для главного поиска. И оттуда скопировать и вставить сюда-->
+    <!--todo Добавить просмотр Item с карточек для главного поиска. И оттуда скопировать и вставить сюда-->
+
+    <div class="container">
+        <div class="col-10">
+            <div class="row" id="item-cards">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch data from API endpoint
+        fetch('/api/cart/')
+            .then(response => response.json())
+            .then(data => {
+                // Create a card for each item in the data object
+                const itemCards = data.items.map(item => `
+        <div class="col-md-4">
+          <div class="card">
+            <img src="${'http://localhost:8000/file/view/' + item.pictures[0]}" alt="Item profile photo" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text">${item.brand}</p>
+              <p class="card-text">${item.subType.name}</p>
+              <p class="card-text"><strong>${item.price}</strong></p>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `);
+
+                // Add the item cards to the HTML document
+                document.getElementById('item-cards').innerHTML = itemCards.join('');
+            })
+            .catch(error => console.error(error));
+    </script>
 </div>
 </html>

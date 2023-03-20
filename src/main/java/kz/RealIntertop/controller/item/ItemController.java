@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping(value = "/item")
 public class ItemController {
-    @PreAuthorize("hasAnyRole('ROLE_MODER')")
-    @GetMapping("")
+    @GetMapping()
     public String itemPage(){
         return "/item/items";
     }

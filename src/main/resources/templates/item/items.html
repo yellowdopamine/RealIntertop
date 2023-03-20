@@ -8,347 +8,38 @@
 
 <div layout:fragment="content">
     <div class="row">
-        <div class="row">
-            <div class="col-8 mx-auto">
-                <div>
+        <div class="col-12 mx-auto">
+            <div class="row">
+                <div class="col-2">
 
-                    <div class="row mt-3 ">
-                        <div class="col-6 mx-auto">
-                            <h1 class="header">ITEM CREATE PAGE</h1>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Name</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <input type="text" required class="form-control" name="modelName" id="modelName">
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Price</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="price"
-                                       aria-label="Amount (to the nearest dollar)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Collection</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <select type="text" required class="form-select" name="collection" id="collectionId">
-                                <option value="">Choose Collection</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>SubType</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <select required class="form-select" id="subTypeId">
-                                <option value="">Choose SubType</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Gender</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <label class="me-2"><input type="radio" name="genderId" value="1" required> Man</label>
-                            <label class="me-2"><input type="radio" name="genderId" value="2"> Woman</label>
-                            <label class="me-2"><input type="radio" name="genderId" value="3"> Unisex</label>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <button class="btn " style="background-color: #EEFCF5" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseMaterials" aria-expanded="false"
-                                    aria-controls="collapseMaterials">
-                                Materials ▽
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="collapse" id="collapseMaterials">
-                            <div class="col-12 mx-auto" id="materialId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <button class="btn " style="background-color: #EEFCF5" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseColors" aria-expanded="false"
-                                    aria-controls="collapseColors">
-                                Colors ▽
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="collapse" id="collapseColors">
-                            <div class="col-12 mx-auto" id="colorId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <div class="form-check form-switch">
-                                <label class="form-check-label" for="isChild">For Child</label>
-                                <input class="form-check-input" type="checkbox" role="switch" id="isChild">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-12 mx-auto">
-                            <button type="button" class="btn btn-success"
-                                    onclick="createItem()">Create
-                            </button>
-                        </div>
-                    </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-12 mx-auto text-center">
-                        <h1 class="h1 ">INTERTOP ITEMS </h1>
-                        <table class="table table-striped mt-3" id="collection-table">
-                            <thead>
-                            <tr>
-                                <th scope="col">NAME</th>
-                                <th scope="col">PRICE</th>
-                                <th scope="col">BRAND</th>
-                                <th scope="col">COLLECTION</th>
-                                <th scope="col">SUB-TYPE</th>
-                                <th scope="col">GENDER</th>
-                                <th scope="col">MATERIALS</th>
-                                <th scope="col">COLORS</th>
-                                <th scope="col">FOR CHILD</th>
-                            </tr>
-                            </thead>
-                            <tbody id="items-table-body">
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="col-10" id="item-cards">
+
                 </div>
             </div>
         </div>
 
+
         <script>
-            let selectedMaterialIds = [];
-            let selectedColorIds = [];
-
-            function createItem() {
-                const request = new XMLHttpRequest();
-                request.open("POST", '/item', true);
-                request.setRequestHeader("Content-Type", "application/json");
-                request.onreadystatechange = () => {
-                    if (request.readyState === XMLHttpRequest.DONE) {
-                        if (request.response != null) {
-                            showAlert("Successfully created!", false);
-                        } else {
-                            showAlert("Error! Item with such name is already created or you don't have access!", true);
-                        }
-                    }
-                }
-                const itemData = {
-                    modelName: document.getElementById("modelName").value,
-                    price: parseInt(document.getElementById("price").value),
-                    collection: {
-                        id: document.getElementById("collectionId").value
-                    },
-                    subType: {
-                        id: document.getElementById("subTypeId").value
-                    },
-                    genderId: parseInt(document.querySelector('input[name="genderId"]:checked').value),
-                    materials: [],
-                    colors: [],
-                }
-                selectedMaterialIds.forEach(id => {
-                    const materialObj = {id: id};
-                    itemData.materials.push(materialObj);
-                });
-                selectedColorIds.forEach(id => {
-                    const colorObj = {id: id};
-                    itemData.colors.push(colorObj);
+            fetch('http://localhost:8000/api/item/all')
+                .then(response => response.json())
+                .then(data => {
+                    const itemCards = data.map(item => `
+        <div class="col-md-4">
+          <div class="card">
+            <img th:if="${item.pictures[0]!=null}" src="${'http://localhost:8000/file/view/' + item.pictures[0].name}" alt="Item profile photo" class="card-img-top">
+            <div class="card-body">
+              <p class="card-text">${item.collection.brand.name}</p>
+              <p class="card-text">${item.subType.name}</p>
+              <p class="card-text"><strong>${item.price + '$'}</strong></p>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `);
+                    document.getElementById('item-cards').innerHTML = itemCards.join('');
                 })
-
-                request.send(JSON.stringify(itemData))
-            }
-
-            Promise.all([
-                fetch('http://localhost:8000/api/collection/all')
-                    .then(response => response.json())
-                    .then(data => {
-                        const selectElement = document.getElementById("collectionId");
-                        data.forEach(collection => {
-                            const optionElement = document.createElement('option');
-                            optionElement.value = collection.id;
-                            optionElement.text = collection.brand.name + ' - ' + collection.name;
-                            selectElement.appendChild(optionElement);
-                        });
-                    }).catch(error => console.error(error)),
-
-                fetch('http://localhost:8000/api/sub-type/all')
-                    .then(response => response.json())
-                    .then(data => {
-                        const selectElement = document.getElementById("subTypeId");
-                        data.forEach(subType => {
-                            const optionElement = document.createElement('option');
-                            optionElement.value = subType.id;
-                            optionElement.text = subType.type.name + ' - ' + subType.name;
-                            selectElement.appendChild(optionElement);
-                        });
-                    }).catch(error => console.error(error)),
-
-                fetch('http://localhost:8000/api/material/all')
-                    .then(response => response.json())
-                    .then(data => {
-                        const divElement = document.getElementById("materialId");
-                        const rowElement = document.createElement("div");
-                        rowElement.classList.add("row", "mt-2");
-                        divElement.appendChild(rowElement);
-
-                        data.forEach(material => {
-                            const colElement = document.createElement("div");
-                            colElement.classList.add("col-md-2", "mb-3");
-
-                            const labelElement = document.createElement("label");
-                            labelElement.classList.add("d-block", "me-2");
-
-                            const inputElement = document.createElement("input");
-                            inputElement.type = "checkbox";
-                            inputElement.name = "materials[]";
-                            inputElement.value = material.id;
-
-                            inputElement.addEventListener('change', (event) => {
-                                const materialId = parseInt(event.target.value);
-                                if (event.target.checked) {
-                                    selectedMaterialIds.push(materialId);
-                                } else {
-                                    const index = selectedMaterialIds.indexOf(materialId);
-                                    if (index > -1) {
-                                        selectedMaterialIds.splice(index, 1);
-                                    }
-                                }
-                            });
-
-                            const textElement = document.createElement("span");
-                            textElement.textContent = material.name;
-                            textElement.classList.add("ms-2");
-
-                            labelElement.appendChild(inputElement);
-                            labelElement.appendChild(textElement);
-
-                            colElement.appendChild(labelElement);
-                            rowElement.appendChild(colElement);
-                        });
-                    })
-                    .catch(error => console.error(error)),
-
-                fetch('http://localhost:8000/api/color/all')
-                    .then(response => response.json())
-                    .then(data => {
-                        const divElement = document.getElementById("colorId");
-                        const rowElement = document.createElement("div");
-                        rowElement.classList.add("row", "mt-2");
-                        divElement.appendChild(rowElement);
-
-                        data.forEach(color => {
-                            const colElement = document.createElement("div");
-                            colElement.classList.add("col-md-2", "mb-2");
-
-                            const labelElement = document.createElement("label");
-                            labelElement.classList.add("d-block", "me-2");
-
-                            const inputElement = document.createElement("input");
-                            inputElement.type = "checkbox";
-                            inputElement.name = "materials[]";
-                            inputElement.value = color.id;
-
-                            inputElement.addEventListener('change', (event) => {
-                                const materialId = parseInt(event.target.value);
-                                if (event.target.checked) {
-                                    selectedColorIds.push(materialId);
-                                } else {
-                                    const index = selectedColorIds.indexOf(materialId);
-                                    if (index > -1) {
-                                        selectedColorIds.splice(index, 1);
-                                    }
-                                }
-                            });
-
-                            const textElement = document.createElement("span");
-                            textElement.textContent = color.name;
-                            textElement.classList.add("ms-2");
-
-                            labelElement.appendChild(inputElement);
-                            labelElement.appendChild(textElement);
-
-                            colElement.appendChild(labelElement);
-                            rowElement.appendChild(colElement);
-                        });
-                    })
-                    .catch(error => console.error(error))
-            ]).then(() => {
-                fetch('http://localhost:8000/api/item/all' + id)
-                    .then(response => response.json())
-                    .then(data => {
-                        const tableBodyElement = document.getElementById("items-table-body");
-                        tableBodyElement.innerHTML = '';
-
-                        data.forEach(item => {
-                            const trElement = document.createElement('tr');
-                            const nameTdElement = document.createElement('td');
-                            const priceTdElement = document.createElement('td');
-                            const brandTdElement = document.createElement('td');
-                            const collectionTdElement = document.createElement('td');
-                            // const genderTdElement = document.createElement('td');
-                            const forChildTdElement = document.createElement('td');
-                            const detailsTdElement = document.createElement('td');
-
-                            nameTdElement.innerText = item.name;
-                            priceTdElement.innerText = item.price;
-                            brandTdElement.innerText = item.collection.brand.name;
-                            collectionTdElement.innerText = item.collection.name;
-                            // genderTdElement.innerText = item.gender.name;
-                            forChildTdElement.innerText = forChildTdElement ? 'YES' : 'NO'
-                            detailsTdElement.innerHTML =
-                                `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
-
-                            trElement.appendChild(nameTdElement);
-                            trElement.appendChild(priceTdElement);
-                            trElement.appendChild(brandTdElement);
-                            trElement.appendChild(collectionTdElement);
-                            // trElement.appendChild(genderTdElement);
-                            trElement.appendChild(forChildTdElement);
-                            trElement.appendChild(detailsTdElement);
-                            tableBodyElement.appendChild(trElement);
-                        });
-                    })
-                    .catch(error => console.error(error));
-            })
-
+                .catch(error => console.error(error));
             function showAlert(message, isError) {
                 var alertDiv = document.createElement("div");
                 isError ?
