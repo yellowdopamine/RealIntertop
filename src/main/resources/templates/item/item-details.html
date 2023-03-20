@@ -434,6 +434,7 @@
                                     }
                                     const img = document.createElement('img');
                                     img.classList.add('d-block', 'w-500');
+                                    img.id = picture.name;
                                     img.src = "http://localhost:8000/file/view/" + picture.name;
                                     div.appendChild(img);
 
@@ -451,6 +452,7 @@
                                     const btnDeletePicture = document.createElement('button');
                                     btnDeletePicture.classList.add('btn', 'btn-outline-danger', 'ms-2', 'mt-2');
                                     btnDeletePicture.textContent = 'Delete Picture';
+                                    btnDeletePicture.id = 'btn' + picture.name;
                                     btnDeletePicture.addEventListener('click', () => {
                                         deletePicture(picture.name);
                                     });
@@ -469,12 +471,12 @@
 
             function updateItem() {
                 const request = new XMLHttpRequest();
-                request.open("PUT", '/api/item', true);
+                request.open("PUT", 'http://localhost:8000/api/item', true);
                 request.setRequestHeader("Content-Type", "application/json");
                 request.onreadystatechange = () => {
                     if (request.readyState === XMLHttpRequest.DONE) {
                         if (request.response != null) {
-                            showAlert("Successfully created!", false);
+                            showAlert("Successfully updated!", false);
                         } else {
                             showAlert("Error!", true);
                         }
@@ -508,7 +510,6 @@
                     const colorObj = {id: id};
                     itemData.colors.push(colorObj);
                 })
-
                 request.send(JSON.stringify(itemData))
 
             }
@@ -545,6 +546,10 @@
             //         })
             // }
             function deletePicture(pictureName){
+                const divImg = document.getElementById(pictureName);
+                divImg.remove();
+                const btnDeleteImg = document.getElementById('btn' + pictureName);
+                btnDeleteImg.remove();
                 fetch('http://localhost:8000/api/item/pictures/' + pictureName + '/' + itemId, {
                     method: 'DELETE'
                 })

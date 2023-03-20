@@ -11,9 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,12 +39,12 @@ public class ItemService {
     }
 
     public void addPictures(List<MultipartFile> fileList, Long itemId) {
-        List<Picture> pictures = new ArrayList<>();
+        Item item = itemRepository.findById(itemId).orElseThrow();
+        List<Picture> pictures = item.getPictures();
         for (MultipartFile file : fileList) {
             String fileName = fileService.uploadFile(file);
             pictures.add(pictureRepository.save(Picture.builder().name(fileName).build()));
         }
-        Item item = itemRepository.findById(itemId).orElseThrow();
         item.setPictures(pictures);
         itemRepository.save(item);
     }
@@ -101,8 +100,8 @@ public class ItemService {
         item.setCollection(collectionRepository.findCollectionById(itemDto.getCollection().getId()));
         item.setSubType(subTypeRepository.findSubTypeById(itemDto.getSubType().getId()));
         item.setGender(genderRepository.findGenderById(itemDto.getGender().getId()));
-        item.setMaterials(Set.copyOf(materials));
-        item.setColors(Set.copyOf(colors));
+        item.setMaterials(new HashSet<>(materials));
+        item.setColors(new HashSet<>(colors));
         item.setChild(itemDto.isChild());
         item.setArticle(itemDto.getArticle());
         item.setContent(itemDto.getContent());

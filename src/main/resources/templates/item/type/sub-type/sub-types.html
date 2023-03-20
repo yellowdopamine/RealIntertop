@@ -90,7 +90,7 @@
             .catch(error => console.error(error));
         function createType() {
             const request = new XMLHttpRequest();
-            request.open("POST", '/api/type', true);
+            request.open("POST", 'http://localhost:8000/api/type', true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = () => {
                 if (request.readyState === XMLHttpRequest.DONE) {
