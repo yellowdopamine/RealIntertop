@@ -82,6 +82,9 @@ public class ItemService {
     public List<ItemDto> getAllDto() {
         return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
+    public List<ItemDto> search() {
+        return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
+    }
 
     public List<ItemDto> getAllByCollectionIdDto(Long id) {
         return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).collect(Collectors.toList());

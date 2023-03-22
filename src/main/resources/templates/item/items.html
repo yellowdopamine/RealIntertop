@@ -12,47 +12,122 @@
             <div class="row">
                 <form action="">
                     <div class="col-12 mx-auto d-flex justify-content-between">
-                        <div class="dropdown mx-auto">
+
+                        <div class="dropdown-center mx-auto">
                             <button class="btn btn-outline-success dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                SORT
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Sort
                             </button>
-                            <ul class="dropdown-menu">
-                                <div class="form-check mx-1">
-                                    <input class="form-check-input" type="checkbox" name="brand">
-                                    <label class="form-check-label">Price asc</label>
-                                </div>
-                                <div class="form-check mx-1">
-                                    <input class="form-check-input" type="checkbox" name="brand">
-                                    <label class="form-check-label">Price desc</label>
-                                </div>
-                                <div class="form-check mx-1">
-                                    <input class="form-check-input" type="checkbox" name="brand">
-                                    <label class="form-check-label">Popularity</label>
-                                </div>
-                                <div class="form-check mx-1">
-                                    <input class="form-check-input" type="checkbox" name="brand">
-                                    <label class="form-check-label">Discount</label>
+                            <ul class="dropdown-menu mx-auto">
+                                <div class="btn-group-vertical mx-3" role="group"
+                                     aria-label="Vertical radio toggle button group">
+                                    <input type="radio" class="btn-check" name="sort-radio" id="sortPriceAsc"
+                                           autocomplete="off" checked>
+                                    <label class="btn btn-outline-success" for="sortPriceAsc">Price Asc</label>
+
+                                    <input type="radio" class="btn-check" name="sort-radio" id="sortPriceDesc"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-success" for="sortPriceDesc">Price Desc</label>
+
+                                    <input type="radio" class="btn-check" name="sort-radio" id="sortPopular"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-success" for="sortPopular">Popular</label>
+
+                                    <input type="radio" class="btn-check" name="sort-radio" id="sortDiscount"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-success" for="sortDiscount">Discount</label>
                                 </div>
                             </ul>
                         </div>
-                        <div class="dropdown mx-auto">
+                        <div class="dropdown-center mx-auto">
                             <button class="btn btn-outline-success dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                BRAND
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Price
                             </button>
-                            <ul class="dropdown-menu">
-                                <div class="form-check mx-1">
-                                    <input class="form-check-input" type="checkbox" name="brand">
-                                    <label class="form-check-label">Timberland</label>
+                            <ul class="dropdown-menu" style="width: 400px">
+                                <div class="form-check row d-inline-flex mx-auto">
+                                    <div class="col mx-auto">
+                                        <input type="number" id="priceFrom" name="priceFrom" class="form-control"
+                                               placeholder="Price from" min="0">
+                                    </div>
+                                    <div class="col mx-auto">
+                                        <input type="number" id="priceTo" name="priceTo" class="form-control"
+                                               placeholder="Price to"
+                                               min="0">
+                                    </div>
                                 </div>
                             </ul>
                         </div>
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Brand
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-auto" id="brands">
+
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Type
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-auto" id="types">
+
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Color
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-auto" id="colors">
+
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Gender
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-2">
+                                    <div class="form-check mx-auto">
+                                        <input class="form-check-input" type="radio" name="genderId" id="genderMan"
+                                               value="1">
+                                        <label for="genderMan" class="form-check-label">MAN</label>
+                                    </div>
+                                    <div class="form-check mx-auto">
+                                        <input class="form-check-input" type="radio" name="genderId" id="genderWoman"
+                                               value="2">
+                                        <label for="genderWoman" class="form-check-label">WOMAN</label>
+                                    </div>
+                                    <div class="form-check mx-auto">
+                                        <input class="form-check-input" type="radio" name="genderId" id="genderUnisex"
+                                               value="3">
+                                        <label for="genderUnisex" class="form-check-label">UNISEX</label>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+
                         <div class="mx-auto">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-success">Search</button>
                         </div>
+
                     </div>
                 </form>
             </div>
@@ -70,29 +145,129 @@
     </div>
 
     <script>
-        document.querySelector('form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            var data = new FormData(document.querySelector('form'));
-            fetch('/search.php', {
-                method: 'POST',
-                body: data
-            })
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        search();
+        getBrands();
+        getTypes();
+        getColors();
+
+        function getBrands() {
+            const brandIds = urlSearchParams.getAll('brand');
+            const selectedBrandIds = brandIds.map(id => parseInt(id));
+            fetch('http://localhost:8000/api/brand/all')
                 .then(response => response.json())
-                .then(result => {
-                    var cards = '';
-                    result.forEach(function (item) {
-                        cards += '<div class="card"><div class="card-body"><h5 class="card-title">' + item.title + '</h5><p class="card-text">' + item.description + '</p></div></div>';
-                    });
-                    document.querySelector('.results').innerHTML = cards;
+                .then(data => {
+                    const brandInputs = data.map(brand => `
+        <div class="form-check mx-auto">
+          <input
+          name="brand"
+          class="form-check-input"
+          type="checkbox"
+          id="${brand.name}"
+          value="${brand.id}"
+            ${selectedBrandIds.includes(brand.id)
+                        ?
+                        'checked' : ''}
+            >
+          <label for="${brand.name}" class="form-check-label">${brand.name}</label>
+        </div>
+      `);
+                    document.getElementById("brands").innerHTML = brandInputs.join('');
                 })
                 .catch(error => console.error(error));
-        });
+        }
+
+        function getTypes() {
+            const typeIds = urlSearchParams.getAll('type');
+            const selectedTypeIds = typeIds.map(id => parseInt(id));
+            fetch('http://localhost:8000/api/type/all')
+                .then(response => response.json())
+                .then(data => {
+                    const typeInputs = data.map(type => `
+                <div class="form-check mx-auto">
+                    <input
+                    name="type"
+                    class="form-check-input"
+                    type="checkbox"
+                    id="${type.name}"
+                    value="${type.id}"
+                    ${selectedTypeIds.includes(type.id)
+                        ?
+                        'checked' : ''}
+                    >
+                    <label for="${type.name}" class="form-check-label">${type.name}</label>
+                </div>
+                `);
+                    document.getElementById("types").innerHTML = typeInputs.join('');
+                }).catch(error => console.error(error));
+        }
+
+        function getColors() {
+            const colorIds = urlSearchParams.getAll('color');
+            const selectedColorIds = colorIds.map(id => parseInt(id));
+            fetch('http://localhost:8000/api/color/all')
+                .then(response => response.json())
+                .then(data => {
+                    const colorInputs = data.map(color => `
+                <div class="form-check mx-auto">
+                    <input
+                    name="color"
+                    class="form-check-input"
+                    type="checkbox"
+                    id="${color.name}"
+                    value="${color.id}"
+                    ${selectedColorIds.includes(color.id)
+                        ?
+                        'checked' : ''}
+                    >
+                    <label for="${color.name}" class="form-check-label">${color.name}</label>
+                </div>
+                `);
+                    document.getElementById("colors").innerHTML = colorInputs.join('');
+                }).catch(error => console.error(error));
+        }
 
 
-        fetch('http://localhost:8000/api/item/all')
-            .then(response => response.json())
-            .then(data => {
-                const itemCards = data.map(item => `
+        function search() {
+
+            const brands = document.getElementsByName('brand');
+            const selectedBrandIds = [];
+            for (let i = 0; i < brands.length; i++) {
+                if (brands[i].checked) {
+                    selectedBrandIds.push(brands[i].value);
+                }
+            }
+
+            const types = document.getElementsByName('type');
+            const selectedTypeIds = [];
+            for (let i = 0; i < types.length; i++) {
+                if (types[i].checked) {
+                    selectedTypeIds.push(types[i].value);
+                }
+            }
+
+            const colors = document.getElementsByName('color');
+            const selectedColorIds = [];
+            for (let i = 0; i < colors.length; i++) {
+                if (colors[i].checked) {
+                    selectedColorIds.push(colors[i].value);
+                }
+            }
+
+            const priceFrom = document.getElementById('priceFrom').value;
+            const priceTo = document.getElementById('priceTo').value;
+
+            const url = new URL('http://localhost:8000/api/item/search/');
+            url.searchParams.append('priceFrom', priceFrom);
+            url.searchParams.append('priceTo', priceTo);
+            url.searchParams.append('brand', selectedBrandIds.join(','));
+            url.searchParams.append('color', selectedColorIds.join(','));
+            url.searchParams.append('type', selectedTypeIds.join(','));
+
+            fetch('http://localhost:8000/api/item/search/')
+                .then(response => response.json())
+                .then(data => {
+                    const itemCards = data.map(item => `
         <div class="col-md-4">
           <div class="card">
             <img
@@ -109,9 +284,10 @@
           </div>
         </div>
       `);
-                document.getElementById('item-cards').innerHTML = itemCards.join('');
-            })
-            .catch(error => console.error(error));
+                    document.getElementById('item-cards').innerHTML = itemCards.join('');
+                })
+                .catch(error => console.error(error));
+        }
 
         function showAlert(message, isError) {
             var alertDiv = document.createElement("div");

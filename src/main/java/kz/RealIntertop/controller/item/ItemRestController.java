@@ -57,6 +57,12 @@ public class ItemRestController {
     public List<ItemDto> getAll() {
         return itemService.getAllDto();
     }
+    @GetMapping("/search")
+    public List<ItemDto> search(
+//            @RequestParam (name = "priceFrom") Double priceFrom
+    ) {
+        return itemService.getAllDto();
+    }
 
     @GetMapping("/{id}")
     public ItemDto getById(@PathVariable Long id) {
