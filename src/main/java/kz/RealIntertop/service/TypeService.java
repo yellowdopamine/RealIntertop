@@ -46,16 +46,9 @@ public class TypeService {
         return typeMapper.toDto(typeRepository.save(type));
     }
 
-    public String deleteById(Long id) {
-        String response = "WRONG_ID";
-        Type type = typeRepository.findTypeById(id);
-        if (type != null) {
-            response = "ACCESS_DENIED";
+    public void deleteById(Long id) {
             if (userService.isModer()) {
                 typeRepository.deleteById(id);
-                response = "DELETED";
             }
-        }
-        return response;
     }
 }

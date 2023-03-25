@@ -17,7 +17,7 @@ public class MaterialService {
     public List<MaterialDto> getAllDto(){
         return materialRepository.getAllByOrderByName().stream().map(materialMapper::toDto).collect(Collectors.toList());
     }
-    public MaterialDto getByIdDto(Long id){
+    public MaterialDto getById(Long id){
         return materialMapper.toDto(materialRepository.findById(id).orElse(null));
     }
 }

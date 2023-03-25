@@ -22,10 +22,7 @@ public class ManufacturerService {
     public List<Manufacturer> getAll(){
         return manufacturerRepository.findAll();
     }
-    public ManufacturerDto getByIdDto(Long id){
+    public ManufacturerDto getById(Long id){
         return manufacturerMapper.toDto(manufacturerRepository.findManufacturerById(id));
-    }
-    public Manufacturer getById(Long id){
-        return manufacturerRepository.findManufacturerById(id);
     }
 }

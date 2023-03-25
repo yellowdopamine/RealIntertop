@@ -10,6 +10,5 @@ import java.util.List;
 @Transactional
 @Repository
 public interface MaterialRepository extends JpaRepository<Material, Long>  {
-    Material findMaterialByName(String name);
     List<Material> getAllByOrderByName();
 }

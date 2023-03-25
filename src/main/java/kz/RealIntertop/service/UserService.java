@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,16 +33,10 @@ public class UserService implements UserDetailsService {
     public User getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!(authentication instanceof AnonymousAuthenticationToken)){
-            User user = (User) authentication.getPrincipal();
-            return user;
+            return (User) authentication.getPrincipal();
         } return null;
     }
     public boolean isModer(){
-//            return getCurrentUser()
-//                    .getAuthorities()
-//                    .contains(
-//                            authorityRepository.findAuthorityByAuthorityLike("ROLE_MODER")
-//                    );
         User currentUser = getCurrentUser();
         if (currentUser == null) {
             return false;

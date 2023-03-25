@@ -14,14 +14,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <form class="form mx-auto " th:action="@{'/auth'}" method="post">
-
                 <div class="form-floating mb-3">
-                    <label>Email</label>
+                    <label for="floatingInput">Email</label>
                     <input type="email" name="email" class="form-control text-center fs-4"
                            id="floatingInput">
                 </div>
                 <div class="form-floating text-center">
-                    <label>Password</label>
+                    <label for="floatingPassword">Password</label>
                     <input placeholder="Password" type="password" name="password" class="form-control text-center fs-4"
                            id="floatingPassword">
                 </div>

@@ -1,4 +1,4 @@
-package kz.RealIntertop.controller;
+package kz.RealIntertop.controller.file;
 
 import kz.RealIntertop.service.FileService;
 import lombok.RequiredArgsConstructor;

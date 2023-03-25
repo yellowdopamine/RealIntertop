@@ -1,4 +1,4 @@
-package kz.RealIntertop.controller;
+package kz.RealIntertop.controller.index;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
