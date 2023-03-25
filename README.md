@@ -27,3 +27,25 @@ This is some e-commerce project in Java Spring
 ![image](https://user-images.githubusercontent.com/79946487/227700336-1c0fc3d7-a346-4e43-9352-f96bc902b23f.png)
 ## User
 ![image](https://user-images.githubusercontent.com/79946487/227700342-c087a716-2ef1-4130-a24e-8382b898fa74.png)
+# Service
+## Item Service
+![image](https://user-images.githubusercontent.com/79946487/227700785-73b1e165-d7dd-4df8-aa02-444c9102a881.png)
+![image](https://user-images.githubusercontent.com/79946487/227700793-2f4ce048-98d5-4637-9c7b-774c095cd10e.png)
+![image](https://user-images.githubusercontent.com/79946487/227700799-3c22ccbe-9cae-47e7-be90-0d8cd91bbae3.png)
+## Account Service
+![image](https://user-images.githubusercontent.com/79946487/227700829-1c5d08d7-ae30-4ad7-a70c-2962f284458b.png)
+![image](https://user-images.githubusercontent.com/79946487/227700838-09760b13-fdd6-45f6-8707-ab2361a46fd8.png)
+# UI
+## Moder page
+![image](https://user-images.githubusercontent.com/79946487/227700745-2604ee63-f27b-466b-818a-eccaa54520eb.png)
+## Edit brands
+![image](https://user-images.githubusercontent.com/79946487/227700878-7022c74d-eaa3-4254-b21b-371a6452a003.png)
+## Brand Details
+![image](https://user-images.githubusercontent.com/79946487/227700910-dda588b8-a825-4412-ad64-9e3e927baf99.png)
+## Collection details
+![image](https://user-images.githubusercontent.com/79946487/227700919-d29cd949-b59b-43d3-b854-b3d4aa581c75.png)
+## Item edit page 
+![image](https://user-images.githubusercontent.com/79946487/227700935-44e867d1-412d-4cab-862b-2e65e437e687.png)
+![image](https://user-images.githubusercontent.com/79946487/227700955-a468dee4-4b00-4264-ae29-570f2d222484.png)
+![image](https://user-images.githubusercontent.com/79946487/227700959-ebba4fdb-7582-474d-b0ea-28cb1094eca5.png)
+
