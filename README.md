@@ -48,4 +48,7 @@ This is some e-commerce project in Java Spring
 ![image](https://user-images.githubusercontent.com/79946487/227700935-44e867d1-412d-4cab-862b-2e65e437e687.png)
 ![image](https://user-images.githubusercontent.com/79946487/227700955-a468dee4-4b00-4264-ae29-570f2d222484.png)
 ![image](https://user-images.githubusercontent.com/79946487/227700959-ebba4fdb-7582-474d-b0ea-28cb1094eca5.png)
+## Item view page
+![image](https://user-images.githubusercontent.com/79946487/227701005-b13b973a-7b94-47f3-84e5-fcc3bcca87e7.png)
+![image](https://user-images.githubusercontent.com/79946487/227701013-b607f1e5-6f06-4b31-978f-ae642b95273c.png)
 
