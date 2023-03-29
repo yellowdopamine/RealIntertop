@@ -5,14 +5,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout.html"
 >
-
 <div layout:fragment="content">
     <div class="row mt-3">
         <div class="col-12 mx-auto">
             <div class="row">
                 <form action="">
                     <div class="col-12 mx-auto d-flex justify-content-between">
-
                         <div class="dropdown-center mx-auto">
                             <button class="btn btn-outline-success dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
@@ -88,6 +86,18 @@
                             <button class="btn btn-outline-success dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
+                                Season
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-auto" id="seasons">
+
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
                                 Color
                             </button>
                             <ul class="dropdown-menu">
@@ -150,6 +160,7 @@
         getBrands();
         getTypes();
         getColors();
+        getSeasons();
 
         function getBrands() {
             const brandIds = urlSearchParams.getAll('brand');
@@ -202,6 +213,31 @@
                 }).catch(error => console.error(error));
         }
 
+        function getSeasons() {
+            const seasonIds = urlSearchParams.getAll('type');
+            const selectedSeasonIds = seasonIds.map(id => parseInt(id));
+            fetch('http://localhost:8000/api/season/all')
+                .then(response => response.json())
+                .then(data => {
+                    const typeInputs = data.map(season => `
+                <div class="form-check mx-auto">
+                    <input
+                    name="type"
+                    class="form-check-input"
+                    type="checkbox"
+                    id="${season.name}"
+                    value="${season.id}"
+                    ${selectedSeasonIds.includes(season.id)
+                        ?
+                        'checked' : ''}
+                    >
+                    <label for="${season.name}" class="form-check-label">${season.name}</label>
+                </div>
+                `);
+                    document.getElementById("seasons").innerHTML = typeInputs.join('');
+                }).catch(error => console.error(error));
+        }
+
         function getColors() {
             const colorIds = urlSearchParams.getAll('color');
             const selectedColorIds = colorIds.map(id => parseInt(id));
@@ -227,7 +263,6 @@
                 }).catch(error => console.error(error));
         }
 
-
         function search() {
 
             const brands = document.getElementsByName('brand');
@@ -243,6 +278,14 @@
             for (let i = 0; i < types.length; i++) {
                 if (types[i].checked) {
                     selectedTypeIds.push(types[i].value);
+                }
+            }
+
+            const materials = document.getElementsByName('material');
+            const selectedMaterialIds = [];
+            for (let i = 0; i < materials.length; i++) {
+                if (materials[i].checked) {
+                    selectedMaterialIds.push(materials[i].value);
                 }
             }
 
@@ -263,6 +306,7 @@
             url.searchParams.append('brand', selectedBrandIds.join(','));
             url.searchParams.append('color', selectedColorIds.join(','));
             url.searchParams.append('type', selectedTypeIds.join(','));
+            url.searchParams.append('season', selectedMaterialIds.join(','));
 
             fetch('http://localhost:8000/api/item/search/')
                 .then(response => response.json())
@@ -297,12 +341,10 @@
                 alertDiv.className = "alert alert-success col-6 mx-auto";
             alertDiv.innerHTML = message;
             document.body.appendChild(alertDiv);
-
             setTimeout(function () {
                 alertDiv.remove();
             }, 3000);
         }
     </script>
-</div>
 </div>
 </html>
