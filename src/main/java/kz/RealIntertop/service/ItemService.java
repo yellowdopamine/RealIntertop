@@ -2,17 +2,14 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.ItemDto;
 import kz.RealIntertop.mapper.ItemMapper;
-import kz.RealIntertop.model.item.Color;
-import kz.RealIntertop.model.item.Item;
-import kz.RealIntertop.model.item.Material;
-import kz.RealIntertop.model.item.Picture;
+import kz.RealIntertop.model.item.*;
 import kz.RealIntertop.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,17 +45,12 @@ public class ItemService {
         item.setPictures(pictures);
         itemRepository.save(item);
     }
-    public void setAvatar(String pictureName, Long id){
-        Item item = itemRepository.findById(id).orElseThrow();
-        List<Picture> pictures = item.getPictures();
-        pictures.set(0, pictureRepository.findPictureByName(pictureName));
-        item.setPictures(pictures);
-        itemRepository.save(item);
-    }
-    public void deletePicture(String pictureName, Long id){
+
+    public void deletePicture(String pictureName, Long id) throws IOException {
         Item item = itemRepository.findById(id).orElseThrow();
         List<Picture> pictures = item.getPictures();
         pictures.remove(pictureRepository.findPictureByName(pictureName));
+        fileService.deleteFile(pictureName);
         item.setPictures(pictures);
         itemRepository.save(item);
     }
@@ -82,8 +74,51 @@ public class ItemService {
     public List<ItemDto> getAllDto() {
         return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
-    public List<ItemDto> search() {
-        return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
+
+    public List<ItemDto> search(
+            String modelName,
+//            String article,
+//            int minDiscount,
+//            int maxDiscount,
+            boolean isChild,
+            double minPrice,
+            double maxPrice,
+            List<Long> brandIds,
+            List<Long> materialIds,
+            List<Long> typeIds,
+            List<Long> colorIds,
+            Long genderId
+    ) {
+//        List<? extends Serializable> searchParameters = Arrays.asList(
+//                modelName,
+//                article,
+//                minDiscount,
+//                maxDiscount,
+//                isChild,
+//                minPrice,
+//                maxPrice
+//        );
+
+        modelName = "%" + modelName + "%";
+//        article = "%" + article + "%";
+
+        List<Material> materials = materialRepository.findByIdIn(materialIds);
+        List<Color> colors = colorRepository.findByIdIn(colorIds);
+        Gender gender = genderRepository.findGenderById(genderId);
+
+        return itemRepository.findByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
+                modelName,
+//                minDiscount,
+//                maxDiscount,
+                minPrice,
+                maxPrice,
+                brandIds,
+                typeIds,
+                isChild,
+                materials,
+                colors,
+                gender
+        ).stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
 
     public List<ItemDto> getAllByCollectionIdDto(Long id) {

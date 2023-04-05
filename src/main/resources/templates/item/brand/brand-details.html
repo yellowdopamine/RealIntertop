@@ -8,38 +8,23 @@
 
 <div layout:fragment="content">
     <div class="row">
-        <div class="col-12 mx-auto">
-            <div class="row text-center">
-                <div class="col-8 text-center mx-auto">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-8 mx-auto p-4">
                     <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <a href="/brand/" class="btn btn-outline-dark ">Go to Brands</a>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Name</label>
+                        <div class="col-12">
+                            <label>Brand name</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-6 mx-auto">
+                        <div class="col-12">
                             <input type="hidden" name="id" id="id" class="form-control">
-                            <input type="text" name="name" id="name" class="form-control text-center" required>
+                            <input type="text" name="name" id="name" class="form-control" required>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-12 mx-auto">
-                            <label>Picture</label>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 mx-auto">
-                            <label>HERE should be file uploading</label>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 mx-auto d-block">
-                            <button class="btn btn-success me-3" onclick="updateBrand()">Update</button>
+                        <div class="col-12 d-block">
+                            <button class="btn btn-primary me-2" onclick="updateBrand()">Update</button>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                 Delete
@@ -68,18 +53,61 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-12" id="divImg">
+                            <img id="brandImg" width="200px">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Picture</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="file" class="form-control" name="picture" id="picture">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary me-2" onclick="addPicture()">Add Picture</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deletePictureModal">Delete Picture</button>
+                            <div class="modal fade" id="deletePictureModal" tabindex="-1" aria-labelledby="deletePictureModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deletePictureModalLabel">Confirm delete</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="fs-5">Are you sure you want to delete?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                                    onclick="deletePicture()">Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <hr>
-            <div class="row col-12 text-center">
-                <h1 id="collections-header" class="header"></h1>
-            </div>
+            <div class="col-12 mt-3">
+                <div class="row col-12 text-center">
+                    <h1 id="collections-header" class="header"></h1>
+                </div>
 
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <button type="button" class="btn btn-success mx-auto" data-bs-toggle="modal"
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
-                    Create New
+                    Create New Collection
                 </button>
 
                 <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -99,9 +127,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12 mx-auto">
-                                        <input type="text" name="name" id="collectionName" class="form-control"
-                                               placeholder="Collection Name"
-                                               required>
+                                        <input type="text" name="name" id="collectionName" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -147,7 +173,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                 </button>
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                         onclick="createCollection()">Create
                                 </button>
                             </div>
@@ -156,10 +182,9 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-12 mx-auto text-center">
-
-                    <table class="table mt-3">
+            <div class="row mt-2">
+                <div class="col-12 mx-auto">
+                    <table class="table table-light mt-2">
                         <thead>
                         <tr>
                             <th scope="col">NAME</th>
@@ -183,18 +208,29 @@
     <!--        </div>-->
     <!--    </div>-->
     <script>
+        function showAlert(message, isError) {
+            var alertDiv = document.createElement("div");
+            alertDiv.className = isError ? "alert alert-danger col-6 mx-auto position-absolute top-0 start-50 translate-middle-x" : "alert alert-success col-6 mx-auto position-absolute top-0 start-50 translate-middle-x";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function() {
+                alertDiv.remove();
+            }, 3000);
+        }
 
         const path = window.location.pathname;
         const pathParts = path.split('/');
-        const id = pathParts[3];
-        fetch('http://localhost:8000/api/brand/' + id)
+        const brandId = pathParts[3];
+        fetch('http://localhost:8000/api/brand/' + brandId)
             .then(response => response.json())
             .then(brand => {
                 if (brand != null) {
-                    const {id, name} = brand;
+                    const {id, name, picture} = brand;
                     document.getElementById("id").value = id;
                     document.getElementById("name").value = name;
                     document.getElementById("collections-header").innerText = '"' + brand.name + '" collections';
+                    document.getElementById("brandImg").src = "http://localhost:8000/file/view/" + picture.name;
                 }
             })
             .catch(error => console.error(error));
@@ -255,7 +291,7 @@
             document.getElementById("name").value = '';
         }
 
-        fetch('http://localhost:8000/api/collection/get-by-brand/' + id)
+        fetch('http://localhost:8000/api/collection/get-by-brand/' + brandId)
             .then(response => response.json())
             .then(data => {
                 const tableBodyElement = document.getElementById("collection-table-body");
@@ -272,7 +308,7 @@
                     yearTdElement.innerText = collection.year;
                     seasonTdElement.innerText = collection.season ? collection.season.name : undefined;
                     detailsTdElement.innerHTML =
-                        `<a href="/collection/details/${collection.id}" class="btn-success btn btn-sm">Details</a>`;
+                        `<a href="/collection/details/${collection.id}" class="btn btn-outline-dark btn-sm">Details</a>`;
 
                     trElement.appendChild(nameTdElement);
                     trElement.appendChild(yearTdElement);
@@ -313,15 +349,36 @@
             request.send()
         }
 
-        function showAlert(message, isError) {
-            var alertDiv = document.createElement("div");
-            isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
-            alertDiv.innerHTML = message;
-            document.body.appendChild(alertDiv);
-
-            setTimeout(function () {
-                alertDiv.remove();
-            }, 3000);
+        function addPicture(){
+            const input = document.getElementById("picture");
+            const files = input.files;
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('picture', files[i]);
+            }
+            fetch('http://localhost:8000/api/brand/picture/' + brandId,{
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    if(response != null){
+                        showAlert("Successfully added!", false)
+                    } else {
+                        showAlert("Error", true)
+                    }
+                })
+                .catch(error =>{
+                    console.error(error)
+                })
+        }
+        function deletePicture(){
+            document.getElementById("brandImg").remove();
+            fetch('http://localhost:8000/api/brand/picture/' + brandId, {
+                method: 'DELETE'
+            })
+                .catch(error => {
+                    console.error(error)
+                })
         }
     </script>
 </div>

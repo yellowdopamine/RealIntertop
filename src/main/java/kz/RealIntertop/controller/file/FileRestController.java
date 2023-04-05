@@ -1,5 +1,4 @@
 package kz.RealIntertop.controller.file;
-
 import kz.RealIntertop.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/file")
@@ -24,5 +22,4 @@ public class FileRestController {
     public @ResponseBody byte[] view(@PathVariable(name = "fileName") String fileName) throws IOException {
         return fileService.getFile(fileName);
     }
-
 }

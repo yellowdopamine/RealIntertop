@@ -38,7 +38,8 @@ public class FileService {
             default -> "";
         };
 
-        String fileName = DigestUtils.sha1Hex(fileKey + System.currentTimeMillis()) + "_" + new Random().nextInt(1000);
+        String fileName = DigestUtils.sha1Hex(
+                fileKey + System.currentTimeMillis()) + "_" + new Random().nextInt(1000);
         try{
             byte[] bytes = file.getBytes();
             Path path = Paths.get(fileUploadUrl + fileName + extension);
@@ -58,10 +59,17 @@ public class FileService {
             resource = new ClassPathResource(file);
         } catch (Exception e ){
             e.printStackTrace();
-            resource = new ClassPathResource(file + "fileNotFound.jpg");
+            resource = new ClassPathResource(fileViewUrl + "fileNotFound.jpg");
         }
         in = resource.getInputStream();
         return IOUtils.toByteArray(in);
     }
+    public void deleteFile(String fileName){
+        Path path = Paths.get(fileViewUrl + fileName);
+        try{
+        Files.delete(path);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
-

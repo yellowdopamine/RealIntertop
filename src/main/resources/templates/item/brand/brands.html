@@ -8,54 +8,49 @@
 
 <div layout:fragment="content">
     <div class="row mt-3">
-        <div class="col-12 mx-auto">
-            <div class="row">
-                <div class="col-12 d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-success mx-auto" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">
-                        Create New
-                    </button>
-                    <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                         tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Brand</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row mt-3">
-                                        <div class="col-12 mx-auto">
-                                            <label>Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-12 mx-auto">
-                                            <input type="text" name="name" id="name" class="form-control"
-                                                   placeholder="Brand Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-12 mx-auto">
-                                            <label>Logo</label>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-12 mx-auto">
-                                            <label>HERE should be file uploading</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                                            onclick="createBrand()">Create
-                                    </button>
+        <div class="col-8 mx-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                Create New
+            </button>
+            <div class="modal fade col-8" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Brand</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Name</label>
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="text" name="name" id="name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Logo</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 mx-auto">
+                                    <label>HERE should be file uploading</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                    onclick="createBrand()">Create
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -63,13 +58,12 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-8 mx-auto text-center">
+        <div class="col-8 mx-auto ">
             <h1 class="h1">BRANDS</h1>
-            <table class="table table-striped mt-3" id="brand-table">
+            <table class="table table-light mt-3 text-center" id="brand-table">
                 <thead>
                 <tr>
-                    <th scope="col" class="me-2">NAME</th>
-                    <th scope="col">LOGO</th>
+                    <th scope="col" class="me-4">NAME</th>
                     <th scope="col">Details</th>
                 </tr>
                 </thead>
@@ -82,6 +76,16 @@
     <div style="height: 16rem"></div>
 
     <script>
+        function showAlert(message, isError) {
+            var alertDiv = document.createElement("div");
+            alertDiv.className = isError ? "alert alert-danger col-6 mx-auto position-absolute top-0 start-50 translate-middle-x" : "alert alert-success col-6 mx-auto position-absolute top-0 start-50 translate-middle-x";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function() {
+                alertDiv.remove();
+            }, 3000);
+        }
         fetch('http://localhost:8000/api/brand/all')
             .then(response => response.json())
             .then(data => {
@@ -91,16 +95,14 @@
                 data.forEach(brand => {
                     const trElement = document.createElement('tr');
                     const nameTdElement = document.createElement('td');
-                    const logoTdElement = document.createElement('td');
                     const detailsTdElement = document.createElement('td');
 
                     nameTdElement.innerText = brand.name;
-                    // logoTdElement.innerText = brand.picture;
+
                     detailsTdElement.innerHTML =
-                        `<a href="/brand/details/${brand.id}" class="btn-success btn btn-sm">Details</a>`;
+                        `<a href="/brand/details/${brand.id}" class="btn-outline-dark btn btn-sm">Details</a>`;
 
                     trElement.appendChild(nameTdElement);
-                    trElement.appendChild(logoTdElement);
                     trElement.appendChild(detailsTdElement);
                     tableBodyElement.appendChild(trElement);
                 });
@@ -127,20 +129,6 @@
                         "name": document.getElementById("name").value
                     }
                 ))
-        }
-
-        function showAlert(message, isError) {
-            var alertDiv = document.createElement("div");
-            isError ?
-                alertDiv.className = "alert alert-danger col-6 mx-auto"
-                :
-                alertDiv.className = "alert alert-success col-6 mx-auto";
-            alertDiv.innerHTML = message;
-            document.body.appendChild(alertDiv);
-
-            setTimeout(function () {
-                alertDiv.remove();
-            }, 3000);
         }
     </script>
 </div>

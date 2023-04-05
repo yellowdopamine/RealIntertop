@@ -1,5 +1,4 @@
 package kz.RealIntertop.controller.item;
-
 import kz.RealIntertop.dto.ItemDto;
 import kz.RealIntertop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,17 +28,10 @@ public class ItemRestController {
         itemService.addPictures(fileList, id);
     }
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
-    @PutMapping("/pictures/set-avatar/{pictureName}/{id}")
-    public void setAvatar(
-            @PathVariable String pictureName,
-            @PathVariable Long id){
-        itemService.setAvatar(pictureName, id);
-    }
-    @PreAuthorize("hasAnyRole('ROLE_MODER')")
     @DeleteMapping("/pictures/{pictureName}/{id}")
     public void deletePicture(
             @PathVariable String pictureName,
-            @PathVariable Long id){
+            @PathVariable Long id) throws IOException {
         itemService.deletePicture(pictureName, id);
     }
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
@@ -57,11 +50,35 @@ public class ItemRestController {
     public List<ItemDto> getAll() {
         return itemService.getAllDto();
     }
-    @GetMapping("/search")
+    @GetMapping("/search/")
     public List<ItemDto> search(
-//            @RequestParam (name = "priceFrom") Double priceFrom
+            @RequestParam(name = "modelName", required = false, defaultValue = "") String modelName,
+//            @RequestParam(name = "article") String article,
+            @RequestParam(name = "child", required = false, defaultValue = "false") boolean isChild,
+            @RequestParam(name = "maxPrice", required = false, defaultValue = Double.MAX_VALUE + "0") double maxPrice,
+            @RequestParam(name = "minPrice", required = false, defaultValue = "0") double minPrice,
+//            @RequestParam(name = "minDiscount") int minDiscount,
+//            @RequestParam(name = "maxDiscount") int maxDiscount,
+            @RequestParam(name = "brandId", required = false) List<Long> brandIds,
+            @RequestParam(name = "materialId", required = false) List<Long> materialIds,
+            @RequestParam(name = "typeId", required = false) List<Long> typeIds,
+            @RequestParam(name = "colorId", required = false) List<Long> colorIds,
+            @RequestParam(name = "genderId", required = false) long genderId
     ) {
-        return itemService.getAllDto();
+        return itemService.search(
+                modelName,
+//                article,
+//                minDiscount,
+//                maxDiscount,
+                isChild,
+                minPrice,
+                maxPrice,
+                brandIds,
+                materialIds,
+                typeIds,
+                colorIds,
+                genderId
+        );
     }
 
     @GetMapping("/{id}")

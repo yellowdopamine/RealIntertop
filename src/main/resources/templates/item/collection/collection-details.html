@@ -8,36 +8,36 @@
 
 <div layout:fragment="content">
     <div class="row" id="ifNotNull" style="display: block;">
-        <div class="col-12 mx-auto text-center">
+        <div class="col-12 mx-auto">
             <div class="row">
-                <div class="col-8 text-center mx-auto">
+                <div class="col-6 mx-auto">
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto d-block">
+                        <div class="col-12 d-block">
                             <a href="/collection/" class="btn btn-outline-dark me-2">Go to Collections</a>
                             <a id="linkToParentBrand" class="btn btn-outline-dark ">Go to Parent Brand</a>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <label class="text-black-50">Brand</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8 mx-auto">
-                            <select type="text" name="brandId" id="brandId" class="form-control text-center"
+                        <div class="col-12">
+                            <select type="text" name="brandId" id="brandId" class="form-select"
                                     required>
                                 <option selected>Choose Brand</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <label class="text-black-50">Year</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8 mx-auto">
-                            <select type="text" name="year" id="year" class="form-control text-center"
+                        <div class="col-12">
+                            <select type="text" name="year" id="year" class="form-select"
                                     placeholder="Select Year"
                                     required>
                                 <option value="2023" selected="selected">2023</option>
@@ -47,48 +47,48 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <label class="text-black-50">Season</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8 mx-auto">
-                            <select type="text" name="seasonId" id="seasonId" class="form-control text-center"
+                        <div class="col-12">
+                            <select type="text" name="seasonId" id="seasonId" class="form-select"
                                     placeholder="Select Season">
                                 <option selected>Choose Season</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <label class="text-black-50">Manufacturer</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <select type="text" name="manufacturerId" id="manufacturerId"
-                                    class="form-control text-center"
+                                    class="form-select"
                                     placeholder="Select Season">
                                 <option selected>Choose Manufacturer</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
+                        <div class="col-12">
                             <label class="text-black-50">Name</label>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8 mx-auto">
-                            <input type="text" name="name" id="name" class="form-control text-center"
+                        <div class="col-12">
+                            <input type="text" name="name" id="name" class="form-control"
                                    required>
                             <input type="hidden" name="id" id="id" class="form-control">
                         </div>
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-8 mx-auto">
-                            <button class="btn btn-success me-3" onclick="updateCollection()">Update</button>
+                        <div class="col-12">
+                            <button class="btn btn-primary me-2" onclick="updateCollection()">Update</button>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                 Delete
@@ -119,16 +119,11 @@
                     </div>
                 </div>
             </div>
-            <hr>
 
-            <div class="row col-12 text-center">
-                <h1 id="items-header" class="header text-center">ITEMS</h1>
-            </div>
-
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <button type="button" class="btn btn-success mx-auto" data-bs-toggle="modal"
+            <div class="col-12">
+                <button type="button" class="btn-sm btn-outline-primary btn me-0" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
-                    Create New
+                    Create New Item
                 </button>
 
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -256,7 +251,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                 </button>
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                         onclick="createItem()">Create
                                 </button>
                             </div>
@@ -298,6 +293,17 @@
     <!--    </div>-->
 
     <script>
+        function showAlert(message, isError) {
+            var alertDiv = document.createElement("div");
+            alertDiv.className = isError ? "alert alert-danger col-6 mx-auto position-absolute top-0 start-50 translate-middle-x" : "alert alert-success col-6 mx-auto position-absolute top-0 start-50 translate-middle-x";
+            alertDiv.innerHTML = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(function() {
+                alertDiv.remove();
+            }, 3000);
+        }
+
         const path = window.location.pathname;
         const pathParts = path.split('/');
         const collectionId = pathParts[3];
@@ -421,9 +427,9 @@
                         isChildTdElement.innerText = item.child ? 'YES' : 'NO';
                         discountTdElement.innerText = item.discount ? item.discount : 0;
                         detailsTdElement.innerHTML =
-                            `<a href="/item/details/${item.id}" class="btn-success btn btn-sm">Details</a>`;
+                            `<a href="/item/details/${item.id}" class="btn-outline-dark btn btn-sm">Details</a>`;
                         itemViewTdElement.innerHTML =
-                            `<a href="/item/view/${item.id}" class="btn-success btn btn-sm">View</a>`;
+                            `<a href="/item/view/${item.id}" class="btn-outline-dark btn btn-sm">View</a>`;
 
                         trElement.appendChild(nameTdElement);
                         trElement.appendChild(priceTdElement);
@@ -632,17 +638,6 @@
                 }
             }
             request.send()
-        }
-
-        function showAlert(message, isError) {
-            let alertDiv = document.createElement("div");
-            isError ? alertDiv.className = "alert alert-danger col-6 mx-auto" : alertDiv.className = "alert alert-success col-6 mx-auto";
-            alertDiv.innerHTML = message;
-            document.body.appendChild(alertDiv);
-
-            setTimeout(function () {
-                alertDiv.remove();
-            }, 3000);
         }
     </script>
 </div>

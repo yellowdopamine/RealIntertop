@@ -113,16 +113,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12" layout:fragment="content">
+            <div class="col-12" layout:fragment="content" style="min-height: 100vh">
 
             </div>
         </div>
 
-        <div class="container">
             <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
                 <div class="col mb-3">
                     <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                        INTERTOP
                     </a>
                     <p class="text-muted">&copy; 2022</p>
                 </div>
@@ -132,42 +131,51 @@
                 </div>
 
                 <div class="col mb-3">
-                    <h5>Section</h5>
+                    <h5>INTERTOP</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Social Status</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">News</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Career</a></li>
                     </ul>
                 </div>
 
                 <div class="col mb-3">
-                    <h5>Section</h5>
+                    <h5>For clients</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Promos</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Credit</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Delivery</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Return</a></li>
                     </ul>
                 </div>
 
                 <div class="col mb-3">
-                    <h5>Section</h5>
+                    <h5>Catalog</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Women</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Men</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Child</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Clothes</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Footwear</a></li>
                     </ul>
                 </div>
             </footer>
-        </div>
     </div>
 </div>
 <script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}">
+    function showAlert(message, isError) {
+        var alertDiv = document.createElement("div");
+        alertDiv.className = isError ? "alert alert-danger col-6 mx-auto position-absolute top-0 start-50 translate-middle-x" : "alert alert-success col-6 mx-auto position-absolute top-0 start-50 translate-middle-x";
+        alertDiv.innerHTML = message;
+        document.body.appendChild(alertDiv);
+
+        setTimeout(function() {
+            alertDiv.remove();
+        }, 3000);
+    }
 </script>
 </body>
 </html>

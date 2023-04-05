@@ -141,6 +141,13 @@
                             <hr>
                         </div>
                     </div>
+                    <div class="row mt-2 text-black-50">
+                        <div class="col-md-5 ms-0">
+                            <p class="d-inline-block">For Child:</p>
+                            <p class="d-inline-block float-end" id="isChild"></p>
+                            <hr>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,7 +178,7 @@
                         document.getElementById("modelName").innerText = modelName;
                         document.getElementById("modelNameDetails").innerText = modelName;
                         document.getElementById("price").innerText = price + ' $';
-                        // document.getElementById("isChild").checked = isChild;
+                        document.getElementById("isChild").innerText = isChild;
                         document.getElementById("subTypeId").innerText = subType.type.name + ' → ' + subType.name;
                         document.getElementById("subType").innerText = subType.type.name;
                         document.getElementById("article").innerText = article;

@@ -14,7 +14,7 @@
                     <div class="col-12 mx-auto d-flex justify-content-between">
 
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Sort
@@ -24,24 +24,24 @@
                                      aria-label="Vertical radio toggle button group">
                                     <input type="radio" class="btn-check" name="sort-radio" id="sortPriceAsc"
                                            autocomplete="off" checked>
-                                    <label class="btn btn-outline-success" for="sortPriceAsc">Price Asc</label>
+                                    <label class="btn btn-outline-dark" for="sortPriceAsc">Price Asc</label>
 
                                     <input type="radio" class="btn-check" name="sort-radio" id="sortPriceDesc"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-success" for="sortPriceDesc">Price Desc</label>
+                                    <label class="btn btn-outline-dark" for="sortPriceDesc">Price Desc</label>
 
                                     <input type="radio" class="btn-check" name="sort-radio" id="sortPopular"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-success" for="sortPopular">Popular</label>
+                                    <label class="btn btn-outline-dark" for="sortPopular">Popular</label>
 
                                     <input type="radio" class="btn-check" name="sort-radio" id="sortDiscount"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-success" for="sortDiscount">Discount</label>
+                                    <label class="btn btn-outline-dark" for="sortDiscount">Discount</label>
                                 </div>
                             </ul>
                         </div>
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Price
@@ -49,11 +49,11 @@
                             <ul class="dropdown-menu" style="width: 400px">
                                 <div class="form-check row d-inline-flex mx-auto">
                                     <div class="col mx-auto">
-                                        <input type="number" id="priceFrom" name="priceFrom" class="form-control"
+                                        <input type="number" id="minPrice" name="minPrice" class="form-control"
                                                placeholder="Price from" min="0">
                                     </div>
                                     <div class="col mx-auto">
-                                        <input type="number" id="priceTo" name="priceTo" class="form-control"
+                                        <input type="number" id="maxPrice" name="maxPrice" class="form-control"
                                                placeholder="Price to"
                                                min="0">
                                     </div>
@@ -61,7 +61,7 @@
                             </ul>
                         </div>
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Brand
@@ -73,7 +73,7 @@
                             </ul>
                         </div>
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Type
@@ -84,21 +84,40 @@
                                 </div>
                             </ul>
                         </div>
+
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Color
                             </button>
                             <ul class="dropdown-menu">
-                                <div class="form-check mx-auto" id="colors">
-
+                                <!--                                <input type="text" id="color-search" placeholder="Search colors...">-->
+                                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
+                                     class="scrollspy-example" tabindex="0">
+                                    <div class="form-check mx-auto" id="colors" style="height: 200px; overflow: auto;">
+                                    </div>
                                 </div>
                             </ul>
                         </div>
 
                         <div class="dropdown-center mx-auto">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                Material
+                            </button>
+                            <ul class="dropdown-menu">
+                                <!--                                <input type="text" id="color-search" placeholder="Search colors...">-->
+                                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
+                                     class="scrollspy-example" tabindex="0">
+                                    <div class="form-check mx-auto" id="materials"
+                                         style="height: 200px; overflow: auto;">
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown-center mx-auto">
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" aria-expanded="false">
                                 Gender
@@ -125,7 +144,18 @@
                         </div>
 
                         <div class="mx-auto">
-                            <button type="submit" class="btn btn-success">Search</button>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="isChild">
+                                <label class="form-check-label" for="isChild">For Child</label>
+                            </div>
+                        </div>
+
+                        <div class="mx-auto">
+                            <input class="form-control me-2 text-black" type="text" style="width: 12rem" id="modelName" name="modelName">
+                        </div>
+
+                        <div class="mx-auto">
+                            <button type="submit" class="btn btn-dark">Search</button>
                         </div>
 
                     </div>
@@ -146,13 +176,9 @@
 
     <script>
         const urlSearchParams = new URLSearchParams(window.location.search);
-        search();
-        getBrands();
-        getTypes();
-        getColors();
 
         function getBrands() {
-            const brandIds = urlSearchParams.getAll('brand');
+            const brandIds = urlSearchParams.getAll('brandId');
             const selectedBrandIds = brandIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/brand/all')
                 .then(response => response.json())
@@ -160,7 +186,7 @@
                     const brandInputs = data.map(brand => `
         <div class="form-check mx-auto">
           <input
-          name="brand"
+          name="brandId"
           class="form-check-input"
           type="checkbox"
           id="${brand.name}"
@@ -178,7 +204,7 @@
         }
 
         function getTypes() {
-            const typeIds = urlSearchParams.getAll('type');
+            const typeIds = urlSearchParams.getAll('typeId');
             const selectedTypeIds = typeIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/type/all')
                 .then(response => response.json())
@@ -186,7 +212,7 @@
                     const typeInputs = data.map(type => `
                 <div class="form-check mx-auto">
                     <input
-                    name="type"
+                    name="typeId"
                     class="form-check-input"
                     type="checkbox"
                     id="${type.name}"
@@ -203,7 +229,7 @@
         }
 
         function getColors() {
-            const colorIds = urlSearchParams.getAll('color');
+            const colorIds = urlSearchParams.getAll('colorId');
             const selectedColorIds = colorIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/color/all')
                 .then(response => response.json())
@@ -211,7 +237,7 @@
                     const colorInputs = data.map(color => `
                 <div class="form-check mx-auto">
                     <input
-                    name="color"
+                    name="colorId"
                     class="form-check-input"
                     type="checkbox"
                     id="${color.name}"
@@ -227,44 +253,120 @@
                 }).catch(error => console.error(error));
         }
 
+        function getMaterials() {
+            const materialIds = urlSearchParams.getAll('materialId');
+            const selectedMaterialIds = materialIds.map(id => parseInt(id));
+            fetch('http://localhost:8000/api/material/all')
+                .then(response => response.json())
+                .then(data => {
+                    const materialInputs = data.map(material => `
+                    <div class="form-check mx-auto">
+                    <input
+                    name="materialId"
+                    class="form-check-input"
+                    type="checkbox"
+                    id="${material.name}"
+                    value="${material.id}"
+                    ${selectedMaterialIds.includes(material.id)
+                        ?
+                        'checked' : ''}
+                    >
+                    <label for="${material.name}" class="form-check-label">${material.name}</label>
+                </div>
+                    `);
+                    document.getElementById("materials").innerHTML = materialInputs.join('');
+                }).catch(error => console.error(error));
+        }
+
 
         function search() {
+            const brandIds = urlSearchParams.getAll('brandId');
+            const selectedBrandIds = brandIds.map(id => parseInt(id))
 
-            const brands = document.getElementsByName('brand');
-            const selectedBrandIds = [];
-            for (let i = 0; i < brands.length; i++) {
-                if (brands[i].checked) {
-                    selectedBrandIds.push(brands[i].value);
-                }
-            }
+            const materialIds = urlSearchParams.getAll('materialId');
+            const selectedMaterialIds = materialIds.map(id => parseInt(id));
 
-            const types = document.getElementsByName('type');
-            const selectedTypeIds = [];
-            for (let i = 0; i < types.length; i++) {
-                if (types[i].checked) {
-                    selectedTypeIds.push(types[i].value);
-                }
-            }
+            const colorIds = urlSearchParams.getAll('colorId');
+            const selectedColorIds = colorIds.map(id => parseInt(id));
 
-            const colors = document.getElementsByName('color');
-            const selectedColorIds = [];
-            for (let i = 0; i < colors.length; i++) {
-                if (colors[i].checked) {
-                    selectedColorIds.push(colors[i].value);
-                }
-            }
+            const typeIds = urlSearchParams.getAll('typeId');
+            const selectedTypeIds = typeIds.map(id => parseInt(id));
 
-            const priceFrom = document.getElementById('priceFrom').value;
-            const priceTo = document.getElementById('priceTo').value;
+            // const brands = document.getElementsByName('brandId');
+            // const selectedBrandIds = [];
+            // for (let i = 0; i < brands.length; i++) {
+            //     if (brands[i].checked) {
+            //         selectedBrandIds.push(parseInt(brands[i].value));
+            //     }
+            // }
+            //
+            // const types = document.getElementsByName('typeId');
+            // const selectedTypeIds = [];
+            // for (let i = 0; i < types.length; i++) {
+            //     if (types[i].checked) {
+            //         selectedTypeIds.push(parseInt(types[i].value));
+            //     }
+            // }
+            //
+            // const colors = document.getElementsByName('colorId');
+            // const selectedColorIds = [];
+            // for (let i = 0; i < colors.length; i++) {
+            //     if (colors[i].checked) {
+            //         selectedColorIds.push(parseInt(colors[i].value));
+            //     }
+            // }
+            //
+            // const materials = document.getElementsByName('materialId');
+            // const selectedMaterialIds = [];
+            // for (let i = 0; i < materials.length; i++) {
+            //     if (materials[i].checked) {
+            //         selectedMaterialIds.push(parseInt(materials[i].value));
+            //     }
+            // }
+
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            const modelName = document.getElementById('modelName').value;
+            const isChild = document.getElementById('isChild').checked;
+            const selectedGender = document.querySelector('input[name="genderId"]:checked');
+            const genderId = selectedGender ? selectedGender.value : null;
+
+            console.log("selectedBrandIds: " + selectedBrandIds);
+            console.log("selectedColorIds: " + selectedColorIds);
+            console.log("selectedTypeIds: " + selectedTypeIds);
+            console.log("selectedMaterialIds: " + selectedMaterialIds);
 
             const url = new URL('http://localhost:8000/api/item/search/');
-            url.searchParams.append('priceFrom', priceFrom);
-            url.searchParams.append('priceTo', priceTo);
-            url.searchParams.append('brand', selectedBrandIds.join(','));
-            url.searchParams.append('color', selectedColorIds.join(','));
-            url.searchParams.append('type', selectedTypeIds.join(','));
+            url.searchParams.append('minPrice', minPrice);
+            url.searchParams.append('maxPrice', maxPrice);
+            url.searchParams.append('brandId', selectedBrandIds.join(','));
+            url.searchParams.append('colorId', selectedColorIds.join(','));
+            url.searchParams.append('typeId', selectedTypeIds.join(','));
+            url.searchParams.append('materialId', selectedMaterialIds.join(','));
+            url.searchParams.append('modelName', modelName);
+            url.searchParams.append('child', isChild ? 'true' : 'false');
+            url.searchParams.append('genderId', genderId);
 
-            fetch('http://localhost:8000/api/item/search/')
+            // const url = new URL('http://localhost:8000/api/item/search/');
+            // url.searchParams.append('minPrice', minPrice);
+            // url.searchParams.append('maxPrice', maxPrice);
+            // if(selectedBrandIds.length > 0) {
+            //     url.searchParams.append('brandId', selectedBrandIds.join('&brandId='));
+            // }
+            // if(selectedColorIds.length > 0) {
+            //     url.searchParams.append('colorId', selectedColorIds.join('&colorId='));
+            // }
+            // if(selectedTypeIds.length > 0) {
+            //     url.searchParams.append('typeId', selectedTypeIds.join('&typeId='));
+            // }
+            // if(selectedMaterialIds.length > 0) {
+            //     url.searchParams.append('materialId', selectedMaterialIds.join('&materialId='));
+            // }
+            // url.searchParams.append('modelName', modelName);
+            // url.searchParams.append('child', isChild ? 'true' : 'false');
+            // url.searchParams.append('genderId', genderId);
+
+            fetch(url.toString())
                 .then(response => response.json())
                 .then(data => {
                     const itemCards = data.map(item => `
@@ -289,6 +391,40 @@
                 .catch(error => console.error(error));
         }
 
+        document.getElementById("maxPrice").value = urlSearchParams.get('maxPrice');
+        document.getElementById("minPrice").value = urlSearchParams.get('minPrice');
+        document.getElementById("modelName").value = urlSearchParams.get('modelName');
+        document.getElementById("isChild").checked = Boolean(urlSearchParams.get('isChild'));
+
+        const genderId = urlSearchParams.get('genderId');
+        const genderInputs = document.getElementsByName(`genderId`);
+
+        for (let i = 0; i < genderInputs.length; i++) {
+            const genderInput = genderInputs[i];
+            if (genderInput.value === genderId) {
+                genderInput.checked = true;
+                break; // Stop looping once the correct input element is found
+            }
+        }
+
+        // async function main() {
+        //     await Promise.all([
+        //         getBrands(),
+        //         getTypes(),
+        //         getColors(),
+        //         getMaterials(),
+        //     ]);
+        //     search();
+        // }
+        //
+        // main();
+
+                getBrands();
+                getTypes();
+                getColors();
+                getMaterials();
+            search();
+
         function showAlert(message, isError) {
             var alertDiv = document.createElement("div");
             isError ?
@@ -303,6 +439,5 @@
             }, 3000);
         }
     </script>
-</div>
 </div>
 </html>

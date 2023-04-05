@@ -37,10 +37,12 @@ public class CollectionService {
     }
 
     public List<CollectionDto> getByBrandId(Long id) {
-        return collectionRepository.findAllByBrandId(id).stream().map(collectionMapper::toDto).collect(Collectors.toList());
+        return collectionRepository.findAllByBrandId(id).stream().map(collectionMapper::toDto)
+                .collect(Collectors.toList());
     }
     public List<CollectionDto> getAll() {
-        return collectionRepository.findAllByOrderByBrand().stream().map(collectionMapper::toDto).collect(Collectors.toList());
+        return collectionRepository.findAllByOrderByBrand().stream().map(collectionMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public CollectionDto update(CollectionDto collectionDto) {

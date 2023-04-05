@@ -34,5 +34,4 @@ public class Item extends BaseEntity {
     private Gender gender;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Picture> pictures;
-
 }

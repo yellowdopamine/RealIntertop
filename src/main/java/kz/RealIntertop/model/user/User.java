@@ -15,10 +15,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity implements UserDetails{
+public class User extends BaseEntity implements UserDetails {
     private String fullName;
     private Long phoneNumber;
-    @Column(updatable = false)
+    @Column(updatable = false, unique = true)
     private String email;
     private String password;
     private boolean nonLocked;
