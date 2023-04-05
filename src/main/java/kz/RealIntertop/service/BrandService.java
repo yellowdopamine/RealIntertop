@@ -66,7 +66,7 @@ public class BrandService {
         brand.setPicture(picture);
         brandRepository.save(brand);
     }
-    public void deletePicture(Long brandId) throws IOException {
+    public void deletePicture(Long brandId){
         Brand brand = brandRepository.findBrandById(brandId);
         fileService.deleteFile(brand.getPicture().getName());
         brand.setPicture(null);

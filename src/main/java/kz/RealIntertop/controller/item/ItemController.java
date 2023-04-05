@@ -16,7 +16,7 @@ public class ItemController {
     }
     @PreAuthorize("hasAnyRole('ROLE_MODER')")
     @GetMapping("/create")
-    public String createItem(Model model){
+    public String createItem(){
         return "/item/item-create";
     }
     @PreAuthorize("hasAnyRole('ROLE_MODER')")

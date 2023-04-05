@@ -46,7 +46,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public void deletePicture(String pictureName, Long id) throws IOException {
+    public void deletePicture(String pictureName, Long id) {
         Item item = itemRepository.findById(id).orElseThrow();
         List<Picture> pictures = item.getPictures();
         pictures.remove(pictureRepository.findPictureByName(pictureName));
