@@ -2,8 +2,8 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.CartDto;
 import kz.RealIntertop.mapper.CartMapper;
-import kz.RealIntertop.model.item.Item;
-import kz.RealIntertop.model.user.User;
+import kz.RealIntertop.models.item.Item;
+import kz.RealIntertop.models.user.User;
 import kz.RealIntertop.repository.ItemRepository;
 import kz.RealIntertop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

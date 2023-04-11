@@ -1,7 +1,7 @@
 package kz.RealIntertop.repository;
 
 import javax.transaction.Transactional;
-import kz.RealIntertop.model.user.User;
+import kz.RealIntertop.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

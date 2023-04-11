@@ -1,9 +1,7 @@
 package kz.RealIntertop.mapper;
 
 import kz.RealIntertop.dto.CartDto;
-import kz.RealIntertop.dto.TypeDto;
-import kz.RealIntertop.model.item.Cart;
-import kz.RealIntertop.model.item.Type;
+import kz.RealIntertop.models.item.Cart;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,9 +1,7 @@
 package kz.RealIntertop.mapper;
 
-import kz.RealIntertop.dto.CollectionDto;
 import kz.RealIntertop.dto.SeasonDto;
-import kz.RealIntertop.model.item.Collection;
-import kz.RealIntertop.model.item.Season;
+import kz.RealIntertop.models.item.Season;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

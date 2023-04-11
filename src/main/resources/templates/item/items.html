@@ -12,7 +12,6 @@
             <div class="row">
                 <form action="">
                     <div class="col-12 mx-auto d-flex justify-content-between">
-
                         <div class="dropdown-center mx-auto">
                             <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown"
@@ -55,7 +54,7 @@
                                     <div class="col mx-auto">
                                         <input type="number" id="maxPrice" name="maxPrice" class="form-control"
                                                placeholder="Price to"
-                                               min="0">
+                                               min="0" max="1000000">
                                     </div>
                                 </div>
                             </ul>
@@ -144,22 +143,37 @@
                         </div>
 
                         <div class="mx-auto">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="isChild">
-                                <label class="form-check-label" for="isChild">For Child</label>
-                            </div>
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-expanded="false">
+                                For child
+                            </button>
+                            <ul class="dropdown-menu">
+                                <div class="form-check mx-2">
+                                    <div class="form-check mx-auto">
+                                        <input class="form-check-input" type="radio" name="isChild" id="isChildYes"
+                                               value="true">
+                                        <label for="isChildYes" class="form-check-label">Yes</label>
+                                    </div>
+                                    <div class="form-check mx-auto">
+                                        <input class="form-check-input" type="radio" name="isChild" id="isChildNo"
+                                               value="false">
+                                        <label for="isChildNo" class="form-check-label">No</label>
+                                    </div>
+                                </div>
+                            </ul>
                         </div>
-
                         <div class="mx-auto">
-                            <input class="form-control me-2 text-black" type="text" style="width: 12rem" id="modelName" name="modelName">
+                            <input class="form-control me-2 text-black" type="text" style="width: 12rem"
+                                   id="modelName" name="modelName">
                         </div>
 
                         <div class="mx-auto">
                             <button type="submit" class="btn btn-dark">Search</button>
                         </div>
-
                     </div>
                 </form>
+
             </div>
         </div>
         <div class="row mt-3">
@@ -176,10 +190,19 @@
 
     <script>
         const urlSearchParams = new URLSearchParams(window.location.search);
+        const brandIds = urlSearchParams.getAll('brandId');
+        const selectedBrandIds = brandIds.map(id => parseInt(id))
+
+        const materialIds = urlSearchParams.getAll('materialId');
+        const selectedMaterialIds = materialIds.map(id => parseInt(id));
+
+        const colorIds = urlSearchParams.getAll('colorId');
+        const selectedColorIds = colorIds.map(id => parseInt(id));
+
+        const typeIds = urlSearchParams.getAll('typeId');
+        const selectedTypeIds = typeIds.map(id => parseInt(id));
 
         function getBrands() {
-            const brandIds = urlSearchParams.getAll('brandId');
-            const selectedBrandIds = brandIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/brand/all')
                 .then(response => response.json())
                 .then(data => {
@@ -204,8 +227,6 @@
         }
 
         function getTypes() {
-            const typeIds = urlSearchParams.getAll('typeId');
-            const selectedTypeIds = typeIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/type/all')
                 .then(response => response.json())
                 .then(data => {
@@ -229,8 +250,6 @@
         }
 
         function getColors() {
-            const colorIds = urlSearchParams.getAll('colorId');
-            const selectedColorIds = colorIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/color/all')
                 .then(response => response.json())
                 .then(data => {
@@ -254,8 +273,6 @@
         }
 
         function getMaterials() {
-            const materialIds = urlSearchParams.getAll('materialId');
-            const selectedMaterialIds = materialIds.map(id => parseInt(id));
             fetch('http://localhost:8000/api/material/all')
                 .then(response => response.json())
                 .then(data => {
@@ -280,61 +297,16 @@
 
 
         function search() {
-            const brandIds = urlSearchParams.getAll('brandId');
-            const selectedBrandIds = brandIds.map(id => parseInt(id))
-
-            const materialIds = urlSearchParams.getAll('materialId');
-            const selectedMaterialIds = materialIds.map(id => parseInt(id));
-
-            const colorIds = urlSearchParams.getAll('colorId');
-            const selectedColorIds = colorIds.map(id => parseInt(id));
-
-            const typeIds = urlSearchParams.getAll('typeId');
-            const selectedTypeIds = typeIds.map(id => parseInt(id));
-
-            // const brands = document.getElementsByName('brandId');
-            // const selectedBrandIds = [];
-            // for (let i = 0; i < brands.length; i++) {
-            //     if (brands[i].checked) {
-            //         selectedBrandIds.push(parseInt(brands[i].value));
-            //     }
-            // }
-            //
-            // const types = document.getElementsByName('typeId');
-            // const selectedTypeIds = [];
-            // for (let i = 0; i < types.length; i++) {
-            //     if (types[i].checked) {
-            //         selectedTypeIds.push(parseInt(types[i].value));
-            //     }
-            // }
-            //
-            // const colors = document.getElementsByName('colorId');
-            // const selectedColorIds = [];
-            // for (let i = 0; i < colors.length; i++) {
-            //     if (colors[i].checked) {
-            //         selectedColorIds.push(parseInt(colors[i].value));
-            //     }
-            // }
-            //
-            // const materials = document.getElementsByName('materialId');
-            // const selectedMaterialIds = [];
-            // for (let i = 0; i < materials.length; i++) {
-            //     if (materials[i].checked) {
-            //         selectedMaterialIds.push(parseInt(materials[i].value));
-            //     }
-            // }
-
             const minPrice = document.getElementById('minPrice').value;
             const maxPrice = document.getElementById('maxPrice').value;
+            // if (maxPrice == null){
+            //     maxPrice = 1_000_000;
+            // }
             const modelName = document.getElementById('modelName').value;
-            const isChild = document.getElementById('isChild').checked;
             const selectedGender = document.querySelector('input[name="genderId"]:checked');
-            const genderId = selectedGender ? selectedGender.value : null;
-
-            console.log("selectedBrandIds: " + selectedBrandIds);
-            console.log("selectedColorIds: " + selectedColorIds);
-            console.log("selectedTypeIds: " + selectedTypeIds);
-            console.log("selectedMaterialIds: " + selectedMaterialIds);
+            const genderId = selectedGender ? selectedGender.value : 1;
+            const selectedChild = document.querySelector('input[name="isChild"]:checked');
+            const isChild = selectedChild ? selectedChild.value : false;
 
             const url = new URL('http://localhost:8000/api/item/search/');
             url.searchParams.append('minPrice', minPrice);
@@ -344,27 +316,8 @@
             url.searchParams.append('typeId', selectedTypeIds.join(','));
             url.searchParams.append('materialId', selectedMaterialIds.join(','));
             url.searchParams.append('modelName', modelName);
-            url.searchParams.append('child', isChild ? 'true' : 'false');
+            url.searchParams.append('child', isChild);
             url.searchParams.append('genderId', genderId);
-
-            // const url = new URL('http://localhost:8000/api/item/search/');
-            // url.searchParams.append('minPrice', minPrice);
-            // url.searchParams.append('maxPrice', maxPrice);
-            // if(selectedBrandIds.length > 0) {
-            //     url.searchParams.append('brandId', selectedBrandIds.join('&brandId='));
-            // }
-            // if(selectedColorIds.length > 0) {
-            //     url.searchParams.append('colorId', selectedColorIds.join('&colorId='));
-            // }
-            // if(selectedTypeIds.length > 0) {
-            //     url.searchParams.append('typeId', selectedTypeIds.join('&typeId='));
-            // }
-            // if(selectedMaterialIds.length > 0) {
-            //     url.searchParams.append('materialId', selectedMaterialIds.join('&materialId='));
-            // }
-            // url.searchParams.append('modelName', modelName);
-            // url.searchParams.append('child', isChild ? 'true' : 'false');
-            // url.searchParams.append('genderId', genderId);
 
             fetch(url.toString())
                 .then(response => response.json())
@@ -394,7 +347,6 @@
         document.getElementById("maxPrice").value = urlSearchParams.get('maxPrice');
         document.getElementById("minPrice").value = urlSearchParams.get('minPrice');
         document.getElementById("modelName").value = urlSearchParams.get('modelName');
-        document.getElementById("isChild").checked = Boolean(urlSearchParams.get('isChild'));
 
         const genderId = urlSearchParams.get('genderId');
         const genderInputs = document.getElementsByName(`genderId`);
@@ -403,27 +355,26 @@
             const genderInput = genderInputs[i];
             if (genderInput.value === genderId) {
                 genderInput.checked = true;
-                break; // Stop looping once the correct input element is found
+                break;
             }
         }
 
-        // async function main() {
-        //     await Promise.all([
-        //         getBrands(),
-        //         getTypes(),
-        //         getColors(),
-        //         getMaterials(),
-        //     ]);
-        //     search();
-        // }
-        //
-        // main();
+        const isChild = urlSearchParams.get('isChild');
+        const isChildInputs = document.getElementsByName('isChild');
 
-                getBrands();
-                getTypes();
-                getColors();
-                getMaterials();
-            search();
+        for (let i = 0; i < isChildInputs.length; i++){
+            const isChildInput = isChildInputs[i];
+            if(isChildInput.value == isChild) {
+                isChildInput.checked = true;
+                break;
+            }
+        }
+
+        getBrands();
+        getTypes();
+        getColors();
+        getMaterials();
+        search();
 
         function showAlert(message, isError) {
             var alertDiv = document.createElement("div");

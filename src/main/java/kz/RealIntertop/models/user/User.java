@@ -1,8 +1,8 @@
-package kz.RealIntertop.model.user;
+package kz.RealIntertop.models.user;
 
-import kz.RealIntertop.model.BaseEntity;
-import kz.RealIntertop.model.item.Cart;
-import kz.RealIntertop.model.user.address.Address;
+import kz.RealIntertop.models.BaseEntity;
+import kz.RealIntertop.models.item.Cart;
+import kz.RealIntertop.models.user.address.Address;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 

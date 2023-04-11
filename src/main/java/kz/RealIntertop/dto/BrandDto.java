@@ -1,6 +1,6 @@
 package kz.RealIntertop.dto;
 
-import kz.RealIntertop.model.item.Picture;
+import kz.RealIntertop.models.item.Picture;
 import lombok.*;
 @Getter
 @Setter

@@ -1,7 +1,7 @@
 package kz.RealIntertop.mapper;
 
 import kz.RealIntertop.dto.PictureDto;
-import kz.RealIntertop.model.item.Picture;
+import kz.RealIntertop.models.item.Picture;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

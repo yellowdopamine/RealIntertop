@@ -2,7 +2,7 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.TypeDto;
 import kz.RealIntertop.mapper.TypeMapper;
-import kz.RealIntertop.model.item.Type;
+import kz.RealIntertop.models.item.Type;
 import kz.RealIntertop.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

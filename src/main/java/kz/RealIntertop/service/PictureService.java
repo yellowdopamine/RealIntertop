@@ -2,7 +2,7 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.PictureDto;
 import kz.RealIntertop.mapper.PictureMapper;
-import kz.RealIntertop.model.item.Picture;
+import kz.RealIntertop.models.item.Picture;
 import kz.RealIntertop.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

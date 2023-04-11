@@ -1,7 +1,6 @@
 package kz.RealIntertop.repository;
 
-import kz.RealIntertop.model.item.SubType;
-import kz.RealIntertop.model.item.Type;
+import kz.RealIntertop.models.item.SubType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

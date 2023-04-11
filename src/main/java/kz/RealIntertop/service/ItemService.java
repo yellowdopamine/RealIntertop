@@ -2,19 +2,20 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.ItemDto;
 import kz.RealIntertop.mapper.ItemMapper;
-import kz.RealIntertop.model.item.*;
+import kz.RealIntertop.models.item.*;
 import kz.RealIntertop.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ItemService {
+    private final BrandRepository brandRepository;
+    private final TypeRepository typeRepository;
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
     private final UserService userService;
@@ -77,9 +78,6 @@ public class ItemService {
 
     public List<ItemDto> search(
             String modelName,
-//            String article,
-//            int minDiscount,
-//            int maxDiscount,
             boolean isChild,
             double minPrice,
             double maxPrice,
@@ -89,31 +87,32 @@ public class ItemService {
             List<Long> colorIds,
             Long genderId
     ) {
-//        List<? extends Serializable> searchParameters = Arrays.asList(
-//                modelName,
-//                article,
-//                minDiscount,
-//                maxDiscount,
-//                isChild,
-//                minPrice,
-//                maxPrice
-//        );
 
         modelName = "%" + modelName + "%";
-//        article = "%" + article + "%";
 
         List<Material> materials = materialRepository.findByIdIn(materialIds);
         List<Color> colors = colorRepository.findByIdIn(colorIds);
+        List<Brand> brands = brandRepository.findByIdIn(brandIds);
+        List<Type> types = typeRepository.findByIdIn(typeIds);
         Gender gender = genderRepository.findGenderById(genderId);
 
-        return itemRepository.findByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
+//        return itemRepository.findByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
+//                Optional.ofNullable(modelName).orElse(""),
+//                Optional.ofNullable(minPrice).orElse(0.0),
+//                Optional.ofNullable(maxPrice).orElse(Double.MAX_VALUE),
+//                Optional.ofNullable(brands).orElse(Collections.emptyList()),
+//                Optional.ofNullable(types).orElse(Collections.emptyList()),
+//                Optional.ofNullable(isChild).orElse(false),
+//                Optional.ofNullable(materials).orElse(Collections.emptyList()),
+//                Optional.ofNullable(colors).orElse(Collections.emptyList()),
+//                Optional.ofNullable(gender).orElse(genderRepository.findGenderById(1L))).stream().map(itemMapper::toDto).collect(Collectors.toList());
+
+        return itemRepository.searchItemsByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
                 modelName,
-//                minDiscount,
-//                maxDiscount,
                 minPrice,
                 maxPrice,
-                brandIds,
-                typeIds,
+                brands,
+                types,
                 isChild,
                 materials,
                 colors,

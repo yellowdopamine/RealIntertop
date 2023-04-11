@@ -2,15 +2,14 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.BrandDto;
 import kz.RealIntertop.mapper.BrandMapper;
-import kz.RealIntertop.model.item.Brand;
-import kz.RealIntertop.model.item.Picture;
+import kz.RealIntertop.models.item.Brand;
+import kz.RealIntertop.models.item.Picture;
 import kz.RealIntertop.repository.BrandRepository;
 import kz.RealIntertop.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 

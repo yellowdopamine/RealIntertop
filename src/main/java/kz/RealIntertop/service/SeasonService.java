@@ -2,7 +2,7 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.SeasonDto;
 import kz.RealIntertop.mapper.SeasonMapper;
-import kz.RealIntertop.model.item.Season;
+import kz.RealIntertop.models.item.Season;
 import kz.RealIntertop.repository.SeasonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

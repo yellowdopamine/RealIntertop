@@ -1,7 +1,7 @@
 package kz.RealIntertop.dto;
 
-import kz.RealIntertop.model.user.Authority;
-import kz.RealIntertop.model.user.address.Address;
+import kz.RealIntertop.models.user.Authority;
+import kz.RealIntertop.models.user.address.Address;
 import lombok.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package kz.RealIntertop.model;
+package kz.RealIntertop.models;
 import lombok.Getter;
 import lombok.Setter;
 

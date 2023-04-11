@@ -2,7 +2,7 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.CollectionDto;
 import kz.RealIntertop.mapper.CollectionMapper;
-import kz.RealIntertop.model.item.Collection;
+import kz.RealIntertop.models.item.Collection;
 import kz.RealIntertop.repository.BrandRepository;
 import kz.RealIntertop.repository.CollectionRepository;
 import kz.RealIntertop.repository.ManufacturerRepository;

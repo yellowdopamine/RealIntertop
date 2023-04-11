@@ -1,7 +1,7 @@
 package kz.RealIntertop.service;
 
-import kz.RealIntertop.model.user.Authority;
-import kz.RealIntertop.model.user.User;
+import kz.RealIntertop.models.user.Authority;
+import kz.RealIntertop.models.user.User;
 import kz.RealIntertop.repository.AuthorityRepository;
 import kz.RealIntertop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

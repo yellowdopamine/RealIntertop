@@ -53,23 +53,18 @@ public class ItemRestController {
     @GetMapping("/search/")
     public List<ItemDto> search(
             @RequestParam(name = "modelName", required = false, defaultValue = "") String modelName,
-//            @RequestParam(name = "article") String article,
             @RequestParam(name = "child", required = false, defaultValue = "false") boolean isChild,
-            @RequestParam(name = "maxPrice", required = false, defaultValue = Double.MAX_VALUE + "0") double maxPrice,
+            @RequestParam(name = "maxPrice", required = false, defaultValue = "1000000") double maxPrice,
             @RequestParam(name = "minPrice", required = false, defaultValue = "0") double minPrice,
-//            @RequestParam(name = "minDiscount") int minDiscount,
-//            @RequestParam(name = "maxDiscount") int maxDiscount,
-            @RequestParam(name = "brandId", required = false) List<Long> brandIds,
-            @RequestParam(name = "materialId", required = false) List<Long> materialIds,
-            @RequestParam(name = "typeId", required = false) List<Long> typeIds,
-            @RequestParam(name = "colorId", required = false) List<Long> colorIds,
-            @RequestParam(name = "genderId", required = false) long genderId
+            @RequestParam(name = "brandId", required = false, defaultValue = "0") List<Long> brandIds,
+            @RequestParam(name = "materialId", required = false, defaultValue = "0") List<Long> materialIds,
+            @RequestParam(name = "typeId", required = false, defaultValue = "0") List<Long> typeIds,
+            @RequestParam(name = "colorId", required = false, defaultValue = "0") List<Long> colorIds,
+            @RequestParam(name = "genderId", required = false, defaultValue = "0") Long genderId
     ) {
+
         return itemService.search(
                 modelName,
-//                article,
-//                minDiscount,
-//                maxDiscount,
                 isChild,
                 minPrice,
                 maxPrice,

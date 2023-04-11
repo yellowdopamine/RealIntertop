@@ -1,9 +1,7 @@
 package kz.RealIntertop.mapper;
 
 import kz.RealIntertop.dto.ColorDto;
-import kz.RealIntertop.dto.MaterialDto;
-import kz.RealIntertop.model.item.Color;
-import kz.RealIntertop.model.item.Material;
+import kz.RealIntertop.models.item.Color;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

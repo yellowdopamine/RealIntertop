@@ -1,6 +1,6 @@
 package kz.RealIntertop.repository;
 
-import kz.RealIntertop.model.item.Color;
+import kz.RealIntertop.models.item.Color;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

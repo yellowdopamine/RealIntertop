@@ -1,8 +1,8 @@
-package kz.RealIntertop.model.user.address;
+package kz.RealIntertop.models.user.address;
 
 import javax.persistence.Entity;
 
-import kz.RealIntertop.model.BaseEntity;
+import kz.RealIntertop.models.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

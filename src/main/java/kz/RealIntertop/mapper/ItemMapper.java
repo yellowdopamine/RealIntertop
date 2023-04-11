@@ -1,7 +1,7 @@
 package kz.RealIntertop.mapper;
 
 import kz.RealIntertop.dto.ItemDto;
-import kz.RealIntertop.model.item.Item;
+import kz.RealIntertop.models.item.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

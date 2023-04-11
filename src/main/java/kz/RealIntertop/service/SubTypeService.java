@@ -2,7 +2,7 @@ package kz.RealIntertop.service;
 
 import kz.RealIntertop.dto.SubTypeDto;
 import kz.RealIntertop.mapper.SubTypeMapper;
-import kz.RealIntertop.model.item.SubType;
+import kz.RealIntertop.models.item.SubType;
 import kz.RealIntertop.repository.SubTypeRepository;
 import kz.RealIntertop.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
