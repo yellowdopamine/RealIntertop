@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -52,26 +53,36 @@ public class ItemRestController {
     }
     @GetMapping("/search/")
     public List<ItemDto> search(
-            @RequestParam(name = "modelName", required = false, defaultValue = "") String modelName,
-            @RequestParam(name = "child", required = false, defaultValue = "false") boolean isChild,
-            @RequestParam(name = "maxPrice", required = false, defaultValue = "1000000") double maxPrice,
-            @RequestParam(name = "minPrice", required = false, defaultValue = "0") double minPrice,
-            @RequestParam(name = "brandId", required = false, defaultValue = "0") List<Long> brandIds,
-            @RequestParam(name = "materialId", required = false, defaultValue = "0") List<Long> materialIds,
-            @RequestParam(name = "typeId", required = false, defaultValue = "0") List<Long> typeIds,
-            @RequestParam(name = "colorId", required = false, defaultValue = "0") List<Long> colorIds,
-            @RequestParam(name = "genderId", required = false, defaultValue = "0") Long genderId
+            @RequestParam(name = "modelName", required = false) String modelName,
+            @RequestParam(name = "child", required = false, defaultValue = "false") Boolean child,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "brandId", required = false) ArrayList<Long> brandIds,
+            @RequestParam(name = "materialId", required = false) List<Long> materialIds,
+            @RequestParam(name = "typeId", required = false) ArrayList<Long> typeIds,
+            @RequestParam(name = "colorId", required = false) List<Long> colorIds,
+            @RequestParam(name = "genderId", required = false) Long genderId
+
+//            @RequestParam(name = "modelName", required = false, defaultValue = "") String modelName,
+//            @RequestParam(name = "child", required = false, defaultValue = "false") Boolean child,
+//            @RequestParam(name = "maxPrice", required = false, defaultValue = "1000000") Double maxPrice,
+//            @RequestParam(name = "minPrice", required = false, defaultValue = "0") Double minPrice,
+//            @RequestParam(name = "brandId", required = false, defaultValue = "0") List<Long> brandIds,
+//            @RequestParam(name = "materialId", required = false, defaultValue = "0") List<Long> materialIds,
+//            @RequestParam(name = "typeId", required = false, defaultValue = "0") List<Long> typeIds,
+//            @RequestParam(name = "colorId", required = false, defaultValue = "0") List<Long> colorIds,
+//            @RequestParam(name = "genderId", required = false, defaultValue = "0") Long genderId
     ) {
 
         return itemService.search(
                 modelName,
-                isChild,
                 minPrice,
                 maxPrice,
                 brandIds,
-                materialIds,
                 typeIds,
+                materialIds,
                 colorIds,
+                child,
                 genderId
         );
     }

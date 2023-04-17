@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,55 +72,51 @@ public class ItemService {
     }
 
     public List<ItemDto> getAllDto() {
-        return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
+        return itemRepository.findAll().stream().map(itemMapper::toDto).toList();
     }
 
     public List<ItemDto> search(
-            String modelName,
-            boolean isChild,
-            double minPrice,
-            double maxPrice,
+            String key,
+            Double minPrice,
+            Double maxPrice,
             List<Long> brandIds,
-            List<Long> materialIds,
             List<Long> typeIds,
+            List<Long> materialIds,
             List<Long> colorIds,
+            Boolean child,
             Long genderId
     ) {
 
-        modelName = "%" + modelName + "%";
+        List<Material> materials = materialRepository.findByIdIsIn(materialIds);
+        List<Color> colors = colorRepository.findByIdIsIn(colorIds);
 
-        List<Material> materials = materialRepository.findByIdIn(materialIds);
-        List<Color> colors = colorRepository.findByIdIn(colorIds);
-        List<Brand> brands = brandRepository.findByIdIn(brandIds);
-        List<Type> types = typeRepository.findByIdIn(typeIds);
+        if (minPrice == null){
+            minPrice = 0.0;
+        }
+        if (maxPrice == null){
+            maxPrice = 1_000_000.0;
+        }
+
+        List<Brand> brands = brandRepository.findByIdIsIn(brandIds);
+        List<Type> types = typeRepository.findByIdIsIn(typeIds);
         Gender gender = genderRepository.findGenderById(genderId);
 
-//        return itemRepository.findByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
-//                Optional.ofNullable(modelName).orElse(""),
-//                Optional.ofNullable(minPrice).orElse(0.0),
-//                Optional.ofNullable(maxPrice).orElse(Double.MAX_VALUE),
-//                Optional.ofNullable(brands).orElse(Collections.emptyList()),
-//                Optional.ofNullable(types).orElse(Collections.emptyList()),
-//                Optional.ofNullable(isChild).orElse(false),
-//                Optional.ofNullable(materials).orElse(Collections.emptyList()),
-//                Optional.ofNullable(colors).orElse(Collections.emptyList()),
-//                Optional.ofNullable(gender).orElse(genderRepository.findGenderById(1L))).stream().map(itemMapper::toDto).collect(Collectors.toList());
-
-        return itemRepository.searchItemsByModelNameContainingAndPriceBetweenAndCollectionBrandIdInAndSubTypeTypeIdInAndIsChildAndMaterialsInAndColorsInAndGender(
-                modelName,
+        return itemRepository.customSearch(
+                key,
+                key,
                 minPrice,
                 maxPrice,
                 brands,
                 types,
-                isChild,
+                gender,
+                child,
                 materials,
-                colors,
-                gender
-        ).stream().map(itemMapper::toDto).collect(Collectors.toList());
+                colors
+        ).stream().map(itemMapper::toDto).toList();
     }
 
     public List<ItemDto> getAllByCollectionIdDto(Long id) {
-        return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).collect(Collectors.toList());
+        return itemRepository.findAllByCollectionId(id).stream().map(itemMapper::toDto).toList();
     }
 
     private void assignElements(ItemDto itemDto, Item item) {
@@ -137,8 +132,9 @@ public class ItemService {
         item.setCollection(collectionRepository.findCollectionById(itemDto.getCollection().getId()));
         item.setSubType(subTypeRepository.findSubTypeById(itemDto.getSubType().getId()));
         item.setGender(genderRepository.findGenderById(itemDto.getGender().getId()));
-        item.setMaterials(new HashSet<>(materials));
-        item.setColors(new HashSet<>(colors));
+        item.setBrand(brandRepository.findBrandById(itemDto.getBrand().getId()));
+        item.setMaterials(materials);
+        item.setColors(colors);
         item.setChild(itemDto.isChild());
         item.setArticle(itemDto.getArticle());
         item.setContent(itemDto.getContent());

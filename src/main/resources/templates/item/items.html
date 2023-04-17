@@ -125,7 +125,7 @@
                                 <div class="form-check mx-2">
                                     <div class="form-check mx-auto">
                                         <input class="form-check-input" type="radio" name="genderId" id="genderMan"
-                                               value="1">
+                                               value="1" checked>
                                         <label for="genderMan" class="form-check-label">MAN</label>
                                     </div>
                                     <div class="form-check mx-auto">
@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="form-check mx-auto">
                                         <input class="form-check-input" type="radio" name="isChild" id="isChildNo"
-                                               value="false">
+                                               value="false" checked>
                                         <label for="isChildNo" class="form-check-label">No</label>
                                     </div>
                                 </div>
@@ -177,10 +177,7 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-2">
-
-            </div>
-            <div class="col-10 ">
+            <div class="col-12">
                 <div class="row d-inline-flex" id="item-cards">
 
                 </div>
@@ -299,14 +296,11 @@
         function search() {
             const minPrice = document.getElementById('minPrice').value;
             const maxPrice = document.getElementById('maxPrice').value;
-            // if (maxPrice == null){
-            //     maxPrice = 1_000_000;
-            // }
             const modelName = document.getElementById('modelName').value;
             const selectedGender = document.querySelector('input[name="genderId"]:checked');
-            const genderId = selectedGender ? selectedGender.value : 1;
+            const genderId = selectedGender.value;
             const selectedChild = document.querySelector('input[name="isChild"]:checked');
-            const isChild = selectedChild ? selectedChild.value : false;
+            const child = selectedChild.value;
 
             const url = new URL('http://localhost:8000/api/item/search/');
             url.searchParams.append('minPrice', minPrice);
@@ -316,25 +310,40 @@
             url.searchParams.append('typeId', selectedTypeIds.join(','));
             url.searchParams.append('materialId', selectedMaterialIds.join(','));
             url.searchParams.append('modelName', modelName);
-            url.searchParams.append('child', isChild);
+            url.searchParams.append('child', child);
             url.searchParams.append('genderId', genderId);
 
             fetch(url.toString())
                 .then(response => response.json())
                 .then(data => {
                     const itemCards = data.map(item => `
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3">
           <div class="card">
-            <img
-            src="${'http://localhost:8000/file/view/' + item.pictures[0].name}"
-            alt="Item profile photo" class="card-img-top"
-            width="400"
-            >
-            <div class="card-body">
-              <p class="card-text">${item.collection.brand.name}</p>
-              <p class="card-text">${item.subType.name}</p>
-              <p class="card-text"><strong>${item.price + '$'}</strong></p>
-              <button class="btn btn-primary">Add to Cart</button>
+          ${item.pictures[0]
+                        ? `<img src="http://localhost:8000/file/view/${item.pictures[0].name}" alt="Item profile photo" class="card-img-top" width="400">`
+                        : '<img alt="Item profile photo" class="card-img-top" width="300" height="400">'}
+          <div class="card-body">
+                <div class="row mx-auto">
+                    <div class="col text-center">
+                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.subType.name}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
+                    </div>
+                </div>
+              <p class="card-text fs-5"><strong>${item.article}</strong></p>
+              <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
+              <!-- Add to Cart button -->
+              <button type="button" class="btn btn-primary">
+                    <i class="bi bi-cart-fill me-2"></i> Add to Cart
+              </button>
+
+              <!-- Add to Favorites button -->
+              <button type="button" class="btn btn-secondary">
+              <i class="bi bi-heart-fill me-2"></i> Add to Favorites
+              </button>
             </div>
           </div>
         </div>

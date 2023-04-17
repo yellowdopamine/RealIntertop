@@ -1,7 +1,10 @@
 package kz.RealIntertop.dto;
 
 import kz.RealIntertop.models.BaseEntity;
+import kz.RealIntertop.models.item.Item;
 import lombok.*;
+
+import java.util.List;
 
 
 @Getter

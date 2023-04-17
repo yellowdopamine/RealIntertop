@@ -12,5 +12,5 @@ import java.util.List;
 public interface TypeRepository extends JpaRepository<Type, Long> {
     Type findTypeById(Long id);
     Type findTypeByName(String name);
-    List<Type> findByIdIn(List<Long> ids);
+    List<Type> findByIdIsIn(List<Long> ids);
 }

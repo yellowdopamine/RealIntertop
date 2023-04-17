@@ -2,9 +2,12 @@ package kz.RealIntertop.models.item;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import kz.RealIntertop.models.BaseEntity;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter

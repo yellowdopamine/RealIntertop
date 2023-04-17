@@ -2,6 +2,7 @@ package kz.RealIntertop.dto;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,12 +16,14 @@ public class ItemDto {
     private int discount;
     private double price;
     private CollectionDto collection;
+    private BrandDto brand;
     private GenderDto gender;
-    private boolean isChild;
+    private boolean child;
     private String article;
     private String content;
     private SubTypeDto subType;
-    private Set<MaterialDto> materials;
-    private Set<ColorDto> colors;
+    private TypeDto type;
+    private List<MaterialDto> materials;
+    private List<ColorDto> colors;
     private Set<PictureDto> pictures;
 }

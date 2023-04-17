@@ -8,8 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
 
-    @Mapping(source = "child", target = "isChild")
     Item toEntity(ItemDto itemDto);
-    @Mapping(source = "child", target = "isChild")
     ItemDto toDto(Item item);
 }

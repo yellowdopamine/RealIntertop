@@ -6,6 +6,7 @@ import kz.RealIntertop.models.item.Cart;
 import kz.RealIntertop.models.user.Authority;
 import kz.RealIntertop.models.user.User;
 import kz.RealIntertop.repository.AuthorityRepository;
+import kz.RealIntertop.repository.CartRepository;
 import kz.RealIntertop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AccountService {
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthorityRepository authorityRepository;
     private final UserService userService;
@@ -35,13 +37,15 @@ public class AccountService {
 
     public UserDto createUser(UserDto userDto) {
         if (!userRepository.existsUserByEmail(userDto.getEmail())) {
+            Cart cart = Cart.builder().build();
             List<Authority> authorities = new ArrayList<>();
             authorities.add(authorityRepository.findAuthorityByAuthorityLike("ROLE_USER"));
             User user = userMapper.toEntity(userDto);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.setNonLocked(true);
             user.setAuthorities(authorities);
-            user.setCart(Cart.builder().build());
+            user.setCart(cartRepository.save(cart));
+
             return userMapper.toDto(userRepository.save(user));
         }
         return null;
