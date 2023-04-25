@@ -10,12 +10,14 @@
     <!--todo Добавить просмотр Item с карточек для главного поиска. И оттуда скопировать и вставить сюда-->
 
     <div class="container">
-        <div class="col-10">
+        <div class="col-12">
             <div class="row" id="item-cards">
 
             </div>
         </div>
     </div>
+
+<!--    todo Добавить кнопку размер и кол-во, перейти к оформлению заказа.    -->
 
     <script>
         // Fetch data from API endpoint
@@ -24,29 +26,30 @@
             .then(data => {
                 const itemCards = data.map(item => `
         <div class="col-md-4 mt-3">
-          <div class="card">
-         <img src="http://localhost:8000/file/view/${item.pictures[0]?item.pictures[0].name:"defaultImage.jpg"}" alt="Item profile photo" width="200" class="card-img-top" height="500">
-          <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
+            <a href="http://localhost:8000/item/view/${item.id}" style="text-decoration: none; color: inherit;">
+                <div class="card shadow-sm position-relative card-hover" style="position: relative;">
+                        <img src="http://localhost:8000/file/view/${item.pictures[0]?item.pictures[0].name:"defaultImage.jpg"}" alt="Item profile photo" width="200" class="card-img-top" height="500">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text flex-grow-1 fs-6 text-black-50">${item.subType.name}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text flex-grow-1 fs-6 text-black-50">${item.article}</p>
+                                </div>
+                            </div>
+                            <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
+                            <i class="bi bi-trash me-2 top-0 end-0" style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem; margin-right: 1rem;" onclick="event.stopPropagation(); addToCart(${item.id});"></i>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.subType.name}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.article}</p>
-                    </div>
-                </div>
-              <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
-
-          <i class="bi bi-cart-fill me-2" style="font-size: 1.5rem; cursor: pointer;" onclick="addToCart(${item.id});"></i>
-            </div>
-          </div>
+              </a>
         </div>
       `);
                 document.getElementById('item-cards').innerHTML = itemCards.join('');

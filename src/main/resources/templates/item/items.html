@@ -5,6 +5,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout.html"
 >
+<head>
+    <style>
+        .card-hover {
+            transition: transform 0.3s;
+        }
+
+        .card-hover:hover {
+            transform: scale(1.05);
+        }
+
+        a.card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a.card-link:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
 
 <div layout:fragment="content">
     <div class="row mt-3">
@@ -169,7 +189,7 @@
                         </div>
 
                         <div class="mx-auto">
-                            <button type="submit" class="btn btn-dark">Search</button>
+                            <button type="submit" class="btn btn-dark" id="searchBtn">Search</button>
                         </div>
                     </div>
                 </form>
@@ -178,7 +198,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <div class="row d-inline-flex" id="item-cards">
+                <div class="row mx-auto" id="item-cards">
 
                 </div>
             </div>
@@ -292,7 +312,6 @@
                 }).catch(error => console.error(error));
         }
 
-
         function search() {
             const minPrice = document.getElementById('minPrice').value;
             const maxPrice = document.getElementById('maxPrice').value;
@@ -318,29 +337,30 @@
                 .then(data => {
                     const itemCards = data.map(item => `
         <div class="col-md-4 mt-3">
-          <div class="card">
-         <img src="http://localhost:8000/file/view/${item.pictures[0]?item.pictures[0].name:"defaultImage.jpg"}" alt="Item profile photo" width="200" class="card-img-top" height="500">
-          <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
-                    </div>
+            <a href="http://localhost:8000/item/view/${item.id}" style="text-decoration: none; color: inherit;">
+                <div class="card shadow-sm position-relative card-hover" style="position: relative;">
+                        <img src="http://localhost:8000/file/view/${item.pictures[0]?item.pictures[0].name:"defaultImage.jpg"}" alt="Item profile photo" width="200" class="card-img-top" height="500">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text flex-grow-1 fs-6 text-black-50">${item.subType.name}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text flex-grow-1 fs-6 text-black-50">${item.article}</p>
+                                </div>
+                            </div>
+                            <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
+                        </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.subType.name}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.article}</p>
-                    </div>
-                </div>
-              <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
-
-          <i class="bi bi-cart-fill me-2" style="font-size: 1.5rem; cursor: pointer;" onclick="addToCart(${item.id});"></i>
-            </div>
-          </div>
+              </a>
+            <i class="bi bi-cart me-2 top-0 end-0" style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem; margin-right: 1rem;" onclick="event.stopPropagation(); addToCart(${item.id});"></i>
         </div>
       `);
                     document.getElementById('item-cards').innerHTML = itemCards.join('');

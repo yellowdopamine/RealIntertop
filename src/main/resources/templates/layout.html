@@ -12,46 +12,39 @@
 <body>
 <div class="container">
     <div class="col-12">
-        <nav class="navbar navbar-expand-lg  bg-body-tertiary" style="background-color: #f8f9fa">
+        <nav class="navbar navbar-expand-lg  bg-body-tertiary mx-auto" style="background-color: #f8f9fa">
             <div class="container-fluid mx-auto">
-                <a class="navbar-brand fs-3 text-success" href="/">INTERTOP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse mx-auto" id="navbarNav">
-                    <ul class="navbar-nav justify-content-center">
-
-                        <li class="nav-item mx-auto py-3 px-2 text-black">
-                            <a class="nav-link active fs-6 text-black" aria-current="page" href="#">OUR ADDRESSES</a>
+                    <a class="navbar-brand fs-1 text-success mx-auto" href="/item">INTERTOP</a>
+                    <ul class="navbar-nav justify-content-center mx-auto align-items-center">
+                        <li class="nav-item flex-grow-1 py-3 px-2 text-black">
+                            <a class="nav-link active fs-6 text-black" aria-current="page" href="#"><i class="bi bi-geo-alt"></i> OUR ADDRESSES</a>
                         </li>
 
-                        <li class="nav-item mx-auto py-3 px-2">
-                            <a href="/account/register" class="nav-link fs-6 text-black">+7 771 704-53-01</a>
+                        <li class="nav-item flex-grow-1 py-3 px-2">
+                            <a class="nav-link fs-6 text-black"><i class="bi bi-whatsapp"></i> +7 771 704-53-01</a>
                         </li>
 
-                        <li class="nav-item mx-auto py-3 px-2">
-                            <a href="/account/register" class="nav-link fs-6 text-black">+7 705 924-11-00</a>
+                        <li class="nav-item flex-grow-1 py-3 px-2">
+                            <a class="nav-link fs-6 text-black"><i class="bi bi-telephone"></i> +7 705 924-11-00</a>
                         </li>
 
-                        <form class="d-flex py-3 px-2" role="search">
-                            <input class="form-control me-2 text-black" type="search" placeholder="Search"
-                                   aria-label="Search" style="width: 12rem">
-                            <button class="btn btn-outline-dark" type="submit">Search</button>
-                        </form>
-
-                        <li class="nav-item mx-auto py-3 px-2" sec:authorize="isAnonymous()">
+                        <li class="nav-item flex-grow-1 py-3 px-2" sec:authorize="isAnonymous()">
                             <a href="/account/register" class="nav-link fs-6 text-black">REGISTER</a>
                         </li>
 
-                        <li class="nav-item mx-auto py-3 px-2 " sec:authorize="isAnonymous()">
+                        <li class="nav-item flex-grow-1 py-3 px-2 " sec:authorize="isAnonymous()">
                             <a href="/account/sign-in" class="nav-link fs-6 text-black">LOGIN</a>
                         </li>
-                        <li class="nav-item mx-auto py-3 px-2 " sec:authorize="hasAnyRole('ROLE_MODER')">
+                        <li class="nav-item flex-grow-1 py-3 px-2 " sec:authorize="hasAnyRole('ROLE_MODER')">
                             <a href="/moderate/" class="nav-link fs-6 text-black">MODER PAGE</a>
                         </li>
 
-                        <li class="nav-item mx-auto py-3 px-2 dropdown" sec:authorize="isAuthenticated()">
+                        <li class="nav-item flex-grow-1 py-3 px-2 dropdown" sec:authorize="isAuthenticated()">
                             <span class="nav-link dropdown-toggle text-black" role="button" data-bs-toggle="dropdown"
                                   aria-expanded="false">
                                 <span class="fs-6 text-black" th:text="${#authentication.principal.fullName}"></span>
@@ -73,11 +66,10 @@
                                 </script>
                             </ul>
                         </li>
-                        <li class="nav-item mx-auto py-3 px-2">
-                            <a href="/account/favourites" class="nav-link text-black fs-6">♡</i></a>
-                        </li>
-                        <li class="nav-item mx-auto py-3 px-2">
-                            <a href="/cart" class="nav-link text-black fs-6">🛒</i></a>
+                        <li class="nav-item flex-grow-1 py-3 px-2">
+                            <a href="/cart" class="nav-link text-black">
+                                <i class="bi bi-cart fs-3" style="cursor: pointer;"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
