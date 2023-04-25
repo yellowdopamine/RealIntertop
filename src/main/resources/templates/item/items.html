@@ -319,31 +319,26 @@
                     const itemCards = data.map(item => `
         <div class="col-md-4 mt-3">
           <div class="card">
-          ${item.pictures[0]
-                        ? `<img src="http://localhost:8000/file/view/${item.pictures[0].name}" alt="Item profile photo" class="card-img-top" width="400">`
-                        : '<img alt="Item profile photo" class="card-img-top" width="300" height="400">'}
+         <img src="http://localhost:8000/file/view/${item.pictures[0]?item.pictures[0].name:"defaultImage.jpg"}" alt="Item profile photo" width="200" class="card-img-top" height="500">
           <div class="card-body">
-                <div class="row mx-auto">
-                    <div class="col text-center">
-                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.subType.name}</p>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col">
                         <p class="card-text text-uppercase flex-grow-1 fs-3">${item.brand.name}</p>
                     </div>
                 </div>
-              <p class="card-text fs-5"><strong>${item.article}</strong></p>
+                <div class="row">
+                    <div class="col">
+                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.subType.name}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="card-text flex-grow-1 fs-5 text-black-50">${item.article}</p>
+                    </div>
+                </div>
               <p class="card-text fs-3" style="color: green"><strong>${item.price + '$'}</strong></p>
-              <!-- Add to Cart button -->
-              <button type="button" class="btn btn-primary">
-                    <i class="bi bi-cart-fill me-2"></i> Add to Cart
-              </button>
 
-              <!-- Add to Favorites button -->
-              <button type="button" class="btn btn-secondary">
-              <i class="bi bi-heart-fill me-2"></i> Add to Favorites
-              </button>
+          <i class="bi bi-cart-fill me-2" style="font-size: 1.5rem; cursor: pointer;" onclick="addToCart(${item.id});"></i>
             </div>
           </div>
         </div>
@@ -385,6 +380,27 @@
         getMaterials();
         search();
 
+        function addToCart(id) {
+            const url = `http://localhost:8000/api/cart/${id}`;
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (response != null) {
+                    showAlert("Added to cart!", false);
+                    } else{
+                        showAlert("Not Working!", true);
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
         function showAlert(message, isError) {
             var alertDiv = document.createElement("div");
             isError ?
