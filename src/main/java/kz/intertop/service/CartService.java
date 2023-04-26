@@ -10,13 +10,9 @@ import kz.intertop.repository.CartRepository;
 import kz.intertop.repository.ItemRepository;
 import kz.intertop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Service

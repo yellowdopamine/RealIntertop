@@ -13,4 +13,5 @@ public class ModerateController {
     public String moderate(){
         return "/moderate/moder-page";
     }
+    //todo Добавить логику использования moderPage
 }

@@ -1,6 +1,5 @@
 package kz.intertop.controller.account.cart;
 
-import kz.intertop.dto.CartDto;
 import kz.intertop.dto.ItemDto;
 import kz.intertop.service.CartService;
 import lombok.RequiredArgsConstructor;
